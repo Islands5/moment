@@ -1,15 +1,15 @@
 import each from './each';
 
-export function setupDeprecationHandler(test, moment, scope) {
+export function setupDeprecationHandler(test,customMoment, scope) {
     test._expectedDeprecations = null;
     test._observedDeprecations = null;
-    test._oldSupress = moment.suppressDeprecationWarnings;
-    moment.suppressDeprecationWarnings = true;
+    test._oldSupress = customMoment.suppressDeprecationWarnings;
+    customMoment.suppressDeprecationWarnings = true;
     test.expectedDeprecations = function () {
         test._expectedDeprecations = arguments;
         test._observedDeprecations = [];
     };
-    moment.deprecationHandler = function (name, msg) {
+    customMoment.deprecationHandler = function (name, msg) {
         var deprecationId = matchedDeprecation(
             name,
             msg,
@@ -24,8 +24,8 @@ export function setupDeprecationHandler(test, moment, scope) {
     };
 }
 
-export function teardownDeprecationHandler(test, moment, scope) {
-    moment.suppressDeprecationWarnings = test._oldSupress;
+export function teardownDeprecationHandler(test,customMoment, scope) {
+    customMoment.suppressDeprecationWarnings = test._oldSupress;
 
     if (test._expectedDeprecations != null) {
         var missedDeprecations = [];

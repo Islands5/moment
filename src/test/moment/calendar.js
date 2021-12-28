@@ -1,14 +1,14 @@
 // These tests are for locale independent features
 // locale dependent tests would be in locale test folder
 import { module, test } from '../qunit';
-import moment from '../../moment';
+import {customMoment} from '../../custom_moment';
 
 module('calendar');
 
 test('passing a function', function (assert) {
-    var a = moment().hours(13).minutes(0).seconds(0);
+    var a = customMoment().hours(13).minutes(0).seconds(0);
     assert.equal(
-        moment(a).calendar(null, {
+        customMoment(a).calendar(null, {
             sameDay: function () {
                 return 'h:mmA';
             },
@@ -19,12 +19,12 @@ test('passing a function', function (assert) {
 });
 
 test('extending calendar options', function (assert) {
-    var calendarFormat = moment.calendarFormat,
+    var calendarFormat = customMoment.calendarFormat,
         a,
         b;
 
-    moment.calendarFormat = function (myMoment, now) {
-        var diff = myMoment.diff(now, 'days', true),
+    customMoment.calendarFormat = function (myMoment, now) {
+        var diff = mycustomMoment.diff(now, 'days', true),
             nextMonth = now.clone().add(1, 'month'),
             retVal =
                 diff < -6
@@ -39,17 +39,17 @@ test('extending calendar options', function (assert) {
                     ? 'nextDay'
                     : diff < 7
                     ? 'nextWeek'
-                    : myMoment.month() === now.month() &&
-                      myMoment.year() === now.year()
+                    : mycustomMoment.month() === now.month() &&
+                      mycustomMoment.year() === now.year()
                     ? 'thisMonth'
-                    : nextMonth.month() === myMoment.month() &&
-                      nextMonth.year() === myMoment.year()
+                    : nextMonth.month() === mycustomMoment.month() &&
+                      nextMonth.year() === mycustomMoment.year()
                     ? 'nextMonth'
                     : 'sameElse';
         return retVal;
     };
 
-    moment.updateLocale('en', {
+    customMoment.updateLocale('en', {
         calendar: {
             sameDay: '[Today at] LT',
             nextDay: '[Tomorrow at] LT',
@@ -62,8 +62,8 @@ test('extending calendar options', function (assert) {
         },
     });
 
-    a = moment('2016-01-01').add(28, 'days');
-    b = moment('2016-01-01').add(1, 'month');
+    a = customMoment('2016-01-01').add(28, 'days');
+    b = customMoment('2016-01-01').add(1, 'month');
 
     try {
         assert.equal(
@@ -82,35 +82,35 @@ test('extending calendar options', function (assert) {
             'French falls back to default because thisMonth is not defined in that locale'
         );
     } finally {
-        moment.calendarFormat = calendarFormat;
-        moment.updateLocale('en', null);
+        customMoment.calendarFormat = calendarFormat;
+        customMoment.updateLocale('en', null);
     }
 });
 
 test('calendar overload time - passing one parameter - a Moment', function (assert) {
-    var a = moment().hours(13).minutes(23).seconds(45),
-        b = moment().add(1, 'd');
+    var a = customMoment().hours(13).minutes(23).seconds(45),
+        b = customMoment().add(1, 'd');
     assert.equal(a.calendar(b), 'Yesterday at 1:23 PM', 'should equate');
 });
 
 test('calendar overload time - passing one parameter - a Date', function (assert) {
-    var a = moment().hours(13).minutes(23).seconds(45).subtract(1, 'd'),
+    var a = customMoment().hours(13).minutes(23).seconds(45).subtract(1, 'd'),
         d = new Date();
     assert.equal(a.calendar(d), 'Yesterday at 1:23 PM', 'should equate');
 });
 
 test('calendar overload time - passing one parameter - a string', function (assert) {
-    var a = moment([2808, 11, 1]);
+    var a = customMoment([2808, 11, 1]);
     assert.equal(a.calendar('1999-12-31'), '12/01/2808', 'should equate');
 });
 
 test('calendar overload time - passing one parameter - a number', function (assert) {
-    var a = moment([2808, 11, 1]);
+    var a = customMoment([2808, 11, 1]);
     assert.equal(a.calendar(Date.now()), '12/01/2808', 'should equate');
 });
 
 test('calendar overload time - passing one parameter - an array of numbers', function (assert) {
-    var a = moment()
+    var a = customMoment()
         .year(2808)
         .month(11)
         .date(1)
@@ -125,7 +125,7 @@ test('calendar overload time - passing one parameter - an array of numbers', fun
 });
 
 test('calendar overload time - passing one parameter - an array of strings', function (assert) {
-    var a = moment()
+    var a = customMoment()
         .year(2808)
         .month(11)
         .date(1)
@@ -140,7 +140,7 @@ test('calendar overload time - passing one parameter - an array of strings', fun
 });
 
 test('calendar overload time - passing one parameter - a moment input object', function (assert) {
-    var a = moment(),
+    var a = customMoment(),
         todayTime = new Date(),
         month = todayTime.getMonth() + 1,
         day = todayTime.getDate(),
@@ -164,7 +164,7 @@ test('calendar overload time - passing one parameter - a moment input object', f
 });
 
 test('calendar overload format - passing one parameter - object w/ sameDay as a string', function (assert) {
-    var a = moment().hours(13).minutes(23).seconds(45);
+    var a = customMoment().hours(13).minutes(23).seconds(45);
     assert.equal(
         a.calendar({ sameDay: 'h:mm:ssA' }),
         '1:23:45PM',
@@ -173,7 +173,7 @@ test('calendar overload format - passing one parameter - object w/ sameDay as a 
 });
 
 test('calendar overload format - passing one parameter - object w/ sameDay as function returning a string', function (assert) {
-    var a = moment().hours(13).minutes(23).seconds(45);
+    var a = customMoment().hours(13).minutes(23).seconds(45);
     assert.equal(
         a.calendar({
             sameDay: function () {
@@ -186,12 +186,12 @@ test('calendar overload format - passing one parameter - object w/ sameDay as fu
 });
 
 test('defaulting to current date', function (assert) {
-    var a = moment().hours(13).minutes(23).seconds(45);
-    assert.equal(moment(a).calendar(), 'Today at 1:23 PM', 'should equate');
+    var a = customMoment().hours(13).minutes(23).seconds(45);
+    assert.equal(customMoment(a).calendar(), 'Today at 1:23 PM', 'should equate');
 });
 
 test('calendar overload time - passing one parameter - a falsy value', function (assert) {
-    var a = moment().hours(13).minutes(23).seconds(45),
+    var a = customMoment().hours(13).minutes(23).seconds(45),
         tests = [
             '',
             0,
@@ -206,7 +206,7 @@ test('calendar overload time - passing one parameter - a falsy value', function 
 
     for (i = 0; i < tests.length; ++i) {
         assert.equal(
-            moment(a).calendar(tests[i]),
+            customMoment(a).calendar(tests[i]),
             'Today at 1:23 PM',
             'should equate'
         );

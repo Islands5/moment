@@ -1,5 +1,5 @@
 import { module, test } from '../qunit';
-import moment from '../../moment';
+import {customMoment} from '../../custom_moment';
 
 module('normalize units');
 
@@ -55,27 +55,27 @@ test('normalize units', function (assert) {
         fullKeyCapsPlural = fullKeyCaps + 's';
         alias = aliases[index];
         assert.equal(
-            moment.normalizeUnits(fullKey),
+            customMoment.normalizeUnits(fullKey),
             fullKey,
             'Testing full key ' + fullKey
         );
         assert.equal(
-            moment.normalizeUnits(fullKeyCaps),
+            customMoment.normalizeUnits(fullKeyCaps),
             fullKey,
             'Testing full key capitalised ' + fullKey
         );
         assert.equal(
-            moment.normalizeUnits(fullKeyPlural),
+            customMoment.normalizeUnits(fullKeyPlural),
             fullKey,
             'Testing full key plural ' + fullKey
         );
         assert.equal(
-            moment.normalizeUnits(fullKeyCapsPlural),
+            customMoment.normalizeUnits(fullKeyCapsPlural),
             fullKey,
             'Testing full key capitalised and plural ' + fullKey
         );
         assert.equal(
-            moment.normalizeUnits(alias),
+            customMoment.normalizeUnits(alias),
             fullKey,
             'Testing alias ' + fullKey
         );

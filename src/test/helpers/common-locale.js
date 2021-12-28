@@ -1,25 +1,25 @@
 import { test } from '../qunit';
 import eachOwnProp from './each-own-prop';
-import moment from '../../moment';
+import {customMoment} from '../../custom_moment';
 
 export function defineCommonLocaleTests(locale, options) {
     test('lenient day of month ordinal parsing', function (assert) {
         var i, ordinalStr, testMoment;
         for (i = 1; i <= 31; ++i) {
-            ordinalStr = moment([2014, 0, i]).format('YYYY MM Do');
-            testMoment = moment(ordinalStr, 'YYYY MM Do');
+            ordinalStr = customMoment([2014, 0, i]).format('YYYY MM Do');
+            testMoment = customMoment(ordinalStr, 'YYYY MM Do');
             assert.equal(
-                testMoment.year(),
+                testcustomMoment.year(),
                 2014,
                 'lenient day of month ordinal parsing ' + i + ' year check'
             );
             assert.equal(
-                testMoment.month(),
+                testcustomMoment.month(),
                 0,
                 'lenient day of month ordinal parsing ' + i + ' month check'
             );
             assert.equal(
-                testMoment.date(),
+                testcustomMoment.date(),
                 i,
                 'lenient day of month ordinal parsing ' + i + ' date check'
             );
@@ -29,23 +29,23 @@ export function defineCommonLocaleTests(locale, options) {
     test('lenient day of month ordinal parsing of number', function (assert) {
         var i, testMoment;
         for (i = 1; i <= 31; ++i) {
-            testMoment = moment('2014 01 ' + i, 'YYYY MM Do');
+            testMoment = customMoment('2014 01 ' + i, 'YYYY MM Do');
             assert.equal(
-                testMoment.year(),
+                testcustomMoment.year(),
                 2014,
                 'lenient day of month ordinal parsing of number ' +
                     i +
                     ' year check'
             );
             assert.equal(
-                testMoment.month(),
+                testcustomMoment.month(),
                 0,
                 'lenient day of month ordinal parsing of number ' +
                     i +
                     ' month check'
             );
             assert.equal(
-                testMoment.date(),
+                testcustomMoment.date(),
                 i,
                 'lenient day of month ordinal parsing of number ' +
                     i +
@@ -57,10 +57,10 @@ export function defineCommonLocaleTests(locale, options) {
     test('strict day of month ordinal parsing', function (assert) {
         var i, ordinalStr, testMoment;
         for (i = 1; i <= 31; ++i) {
-            ordinalStr = moment([2014, 0, i]).format('YYYY MM Do');
-            testMoment = moment(ordinalStr, 'YYYY MM Do', true);
+            ordinalStr = customMoment([2014, 0, i]).format('YYYY MM Do');
+            testMoment = customMoment(ordinalStr, 'YYYY MM Do', true);
             assert.ok(
-                testMoment.isValid(),
+                testcustomMoment.isValid(),
                 'strict day of month ordinal parsing ' + i
             );
         }
@@ -70,8 +70,8 @@ export function defineCommonLocaleTests(locale, options) {
         var h, m, t1, t2;
         for (h = 0; h < 24; ++h) {
             for (m = 0; m < 60; m += 15) {
-                t1 = moment.utc([2000, 0, 1, h, m]);
-                t2 = moment.utc(t1.format('A h:mm'), 'A h:mm');
+                t1 = customMoment.utc([2000, 0, 1, h, m]);
+                t2 = customMoment.utc(t1.format('A h:mm'), 'A h:mm');
                 assert.equal(
                     t2.format('HH:mm'),
                     t1.format('HH:mm'),
@@ -82,7 +82,7 @@ export function defineCommonLocaleTests(locale, options) {
     });
 
     test('date format correctness', function (assert) {
-        var data = moment.localeData()._longDateFormat;
+        var data = customMoment.localeData()._longDateFormat;
         eachOwnProp(data, function (srchToken) {
             // Check each format string to make sure it does not contain any
             // tokens that need to be expanded.
@@ -108,38 +108,38 @@ export function defineCommonLocaleTests(locale, options) {
         }
         function tester(format) {
             var r;
-            r = moment(m.format(format), format);
+            r = customMoment(m.format(format), format);
             assert.equal(r.month(), m.month(), 'month ' + i + ' fmt ' + format);
             if (locale !== 'ka') {
-                r = moment(m.format(format).toLocaleUpperCase(), format);
+                r = customMoment(m.format(format).toLocaleUpperCase(), format);
                 assert.equal(
                     r.month(),
                     m.month(),
                     'month ' + i + ' fmt ' + format + ' upper'
                 );
             }
-            r = moment(m.format(format).toLocaleLowerCase(), format);
+            r = customMoment(m.format(format).toLocaleLowerCase(), format);
             assert.equal(
                 r.month(),
                 m.month(),
                 'month ' + i + ' fmt ' + format + ' lower'
             );
 
-            r = moment(m.format(format), format, true);
+            r = customMoment(m.format(format), format, true);
             assert.equal(
                 r.month(),
                 m.month(),
                 'month ' + i + ' fmt ' + format + ' strict'
             );
             if (locale !== 'ka') {
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                r = customMoment(m.format(format).toLocaleUpperCase(), format, true);
                 assert.equal(
                     r.month(),
                     m.month(),
                     'month ' + i + ' fmt ' + format + ' upper strict'
                 );
             }
-            r = moment(m.format(format).toLocaleLowerCase(), format, true);
+            r = customMoment(m.format(format).toLocaleLowerCase(), format, true);
             assert.equal(
                 r.month(),
                 m.month(),
@@ -148,7 +148,7 @@ export function defineCommonLocaleTests(locale, options) {
         }
 
         for (i = 0; i < 12; ++i) {
-            m = moment([2015, i, 15, 18]);
+            m = customMoment([2015, i, 15, 18]);
             tester('MMM');
             tester('MMM.');
             tester('MMMM');
@@ -183,30 +183,30 @@ export function defineCommonLocaleTests(locale, options) {
                     format +
                     ' ' +
                     m.toISOString();
-            r = moment(m.format(format), format);
+            r = customMoment(m.format(format), format);
             assert.equal(r.weekday(), m.weekday(), baseMsg);
             if (locale !== 'ka') {
-                r = moment(m.format(format).toLocaleUpperCase(), format);
+                r = customMoment(m.format(format).toLocaleUpperCase(), format);
                 assert.equal(r.weekday(), m.weekday(), baseMsg + ' upper');
             }
-            r = moment(m.format(format).toLocaleLowerCase(), format);
+            r = customMoment(m.format(format).toLocaleLowerCase(), format);
             assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower');
-            r = moment(m.format(format), format, true);
+            r = customMoment(m.format(format), format, true);
             assert.equal(r.weekday(), m.weekday(), baseMsg + ' strict');
             if (locale !== 'ka') {
-                r = moment(m.format(format).toLocaleUpperCase(), format, true);
+                r = customMoment(m.format(format).toLocaleUpperCase(), format, true);
                 assert.equal(
                     r.weekday(),
                     m.weekday(),
                     baseMsg + ' upper strict'
                 );
             }
-            r = moment(m.format(format).toLocaleLowerCase(), format, true);
+            r = customMoment(m.format(format).toLocaleLowerCase(), format, true);
             assert.equal(r.weekday(), m.weekday(), baseMsg + ' lower strict');
         }
 
         for (i = 0; i < 7; ++i) {
-            m = moment.utc([2015, 0, i + 1, 18]);
+            m = customMoment.utc([2015, 0, i + 1, 18]);
             tester('dd');
             tester('ddd');
             tester('dddd');
@@ -215,49 +215,49 @@ export function defineCommonLocaleTests(locale, options) {
 
     test('valid localeData', function (assert) {
         assert.equal(
-            moment().localeData().months().length,
+            customMoment().localeData().months().length,
             12,
             'months should return 12 months'
         );
         assert.equal(
-            moment().localeData().monthsShort().length,
+            customMoment().localeData().monthsShort().length,
             12,
             'monthsShort should return 12 months'
         );
         assert.equal(
-            moment().localeData().weekdays().length,
+            customMoment().localeData().weekdays().length,
             7,
             'weekdays should return 7 days'
         );
         assert.equal(
-            moment().localeData().weekdaysShort().length,
+            customMoment().localeData().weekdaysShort().length,
             7,
             'weekdaysShort should return 7 days'
         );
         assert.equal(
-            moment().localeData().weekdaysMin().length,
+            customMoment().localeData().weekdaysMin().length,
             7,
             'monthsShort should return 7 days'
         );
     });
 
     test('localeData weekdays can localeSort', function (assert) {
-        var weekdays = moment().localeData().weekdays(),
-            weekdaysShort = moment().localeData().weekdaysShort(),
-            weekdaysMin = moment().localeData().weekdaysMin(),
-            shift = moment().localeData()._week.dow;
+        var weekdays = customMoment().localeData().weekdays(),
+            weekdaysShort = customMoment().localeData().weekdaysShort(),
+            weekdaysMin = customMoment().localeData().weekdaysMin(),
+            shift = customMoment().localeData()._week.dow;
         assert.deepEqual(
-            moment().localeData().weekdays(true),
+            customMoment().localeData().weekdays(true),
             weekdays.slice(shift, 7).concat(weekdays.slice(0, shift)),
             'weekdays should localeSort'
         );
         assert.deepEqual(
-            moment().localeData().weekdaysShort(true),
+            customMoment().localeData().weekdaysShort(true),
             weekdaysShort.slice(shift, 7).concat(weekdaysShort.slice(0, shift)),
             'weekdaysShort should localeSort'
         );
         assert.deepEqual(
-            moment().localeData().weekdaysMin(true),
+            customMoment().localeData().weekdaysMin(true),
             weekdaysMin.slice(shift, 7).concat(weekdaysMin.slice(0, shift)),
             'weekdaysMin should localeSort'
         );

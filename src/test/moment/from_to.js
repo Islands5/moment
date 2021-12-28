@@ -1,11 +1,11 @@
 import { module, test } from '../qunit';
-import moment from '../../moment';
+import {customMoment} from '../../custom_moment';
 
 module('from_to');
 
 test('from', function (assert) {
-    var start = moment();
-    moment.locale('en');
+    var start = customMoment();
+    customMoment.locale('en');
     assert.equal(
         start.from(start.clone().add(5, 'seconds')),
         'a few seconds ago',
@@ -40,8 +40,8 @@ test('from', function (assert) {
 });
 
 test('from with absolute duration', function (assert) {
-    var start = moment();
-    moment.locale('en');
+    var start = customMoment();
+    customMoment.locale('en');
     assert.equal(
         start.from(start.clone().add(5, 'seconds'), true),
         'a few seconds',
@@ -76,8 +76,8 @@ test('from with absolute duration', function (assert) {
 });
 
 test('to', function (assert) {
-    var start = moment();
-    moment.locale('en');
+    var start = customMoment();
+    customMoment.locale('en');
     assert.equal(
         start.to(start.clone().subtract(5, 'seconds')),
         'a few seconds ago',
@@ -112,8 +112,8 @@ test('to', function (assert) {
 });
 
 test('to with absolute duration', function (assert) {
-    var start = moment();
-    moment.locale('en');
+    var start = customMoment();
+    customMoment.locale('en');
     assert.equal(
         start.to(start.clone().add(5, 'seconds'), true),
         'a few seconds',

@@ -1,10 +1,10 @@
 import { module, test } from '../qunit';
-import moment from '../../moment';
+import {customMoment} from '../../custom_moment';
 
 module('relative time');
 
 test('default thresholds fromNow', function (assert) {
-    var a = moment();
+    var a = customMoment();
 
     // Seconds to minutes threshold
     a.subtract(44, 'seconds');
@@ -21,7 +21,7 @@ test('default thresholds fromNow', function (assert) {
     );
 
     // Minutes to hours threshold
-    a = moment();
+    a = customMoment();
     a.subtract(44, 'minutes');
     assert.equal(
         a.fromNow(),
@@ -36,7 +36,7 @@ test('default thresholds fromNow', function (assert) {
     );
 
     // Hours to days threshold
-    a = moment();
+    a = customMoment();
     a.subtract(21, 'hours');
     assert.equal(
         a.fromNow(),
@@ -51,7 +51,7 @@ test('default thresholds fromNow', function (assert) {
     );
 
     // Days to month threshold
-    a = moment();
+    a = customMoment();
     a.subtract(25, 'days');
     assert.equal(
         a.fromNow(),
@@ -66,7 +66,7 @@ test('default thresholds fromNow', function (assert) {
     );
 
     // months to year threshold
-    a = moment();
+    a = customMoment();
     a.subtract(10, 'months');
     assert.equal(
         a.fromNow(),
@@ -82,7 +82,7 @@ test('default thresholds fromNow', function (assert) {
 });
 
 test('default thresholds toNow', function (assert) {
-    var a = moment();
+    var a = customMoment();
 
     // Seconds to minutes threshold
     a.subtract(44, 'seconds');
@@ -99,7 +99,7 @@ test('default thresholds toNow', function (assert) {
     );
 
     // Minutes to hours threshold
-    a = moment();
+    a = customMoment();
     a.subtract(44, 'minutes');
     assert.equal(
         a.toNow(),
@@ -114,7 +114,7 @@ test('default thresholds toNow', function (assert) {
     );
 
     // Hours to days threshold
-    a = moment();
+    a = customMoment();
     a.subtract(21, 'hours');
     assert.equal(
         a.toNow(),
@@ -125,7 +125,7 @@ test('default thresholds toNow', function (assert) {
     assert.equal(a.toNow(), 'in a day', 'Above default hours to day threshold');
 
     // Days to month threshold
-    a = moment();
+    a = customMoment();
     a.subtract(25, 'days');
     assert.equal(
         a.toNow(),
@@ -140,7 +140,7 @@ test('default thresholds toNow', function (assert) {
     );
 
     // months to year threshold
-    a = moment();
+    a = customMoment();
     a.subtract(10, 'months');
     assert.equal(
         a.toNow(),
@@ -159,18 +159,18 @@ test('custom thresholds', function (assert) {
     var a, dd;
 
     // including weeks
-    moment.relativeTimeThreshold('w', 4);
-    dd = moment.relativeTimeThreshold('d');
-    moment.relativeTimeThreshold('d', 7);
+    customMoment.relativeTimeThreshold('w', 4);
+    dd = customMoment.relativeTimeThreshold('d');
+    customMoment.relativeTimeThreshold('d', 7);
     // threshold for days to weeks with including weeks
-    a = moment();
+    a = customMoment();
     a.subtract(6, 'days');
     assert.equal(a.fromNow(), '6 days ago', 'Below threshold days for weeks');
     a.subtract(1, 'days');
     assert.equal(a.fromNow(), 'a week ago', 'Above threshold days for weeks');
 
     // threshold for days to weeks with including weeks
-    a = moment();
+    a = customMoment();
     a.subtract(3, 'weeks');
     assert.equal(
         a.fromNow(),
@@ -183,13 +183,13 @@ test('custom thresholds', function (assert) {
         'a month ago',
         'Above threshold weeks for months'
     );
-    // moment.relativeTimeIncludeWeeks(false);
-    moment.relativeTimeThreshold('w', null);
-    moment.relativeTimeThreshold('d', dd);
+    // customMoment.relativeTimeIncludeWeeks(false);
+    customMoment.relativeTimeThreshold('w', null);
+    customMoment.relativeTimeThreshold('d', dd);
     // Seconds to minute threshold, under 30
-    moment.relativeTimeThreshold('s', 25);
+    customMoment.relativeTimeThreshold('s', 25);
 
-    a = moment();
+    a = customMoment();
     a.subtract(24, 'seconds');
     assert.equal(
         a.fromNow(),
@@ -204,9 +204,9 @@ test('custom thresholds', function (assert) {
     );
 
     // Seconds to minutes threshold
-    moment.relativeTimeThreshold('s', 55);
+    customMoment.relativeTimeThreshold('s', 55);
 
-    a = moment();
+    a = customMoment();
     a.subtract(54, 'seconds');
     assert.equal(
         a.fromNow(),
@@ -220,12 +220,12 @@ test('custom thresholds', function (assert) {
         'Above custom seconds to minutes threshold'
     );
 
-    moment.relativeTimeThreshold('s', 45);
+    customMoment.relativeTimeThreshold('s', 45);
 
     // A few seconds to seconds threshold
-    moment.relativeTimeThreshold('ss', 3);
+    customMoment.relativeTimeThreshold('ss', 3);
 
-    a = moment();
+    a = customMoment();
     a.subtract(3, 'seconds');
     assert.equal(
         a.fromNow(),
@@ -239,11 +239,11 @@ test('custom thresholds', function (assert) {
         'Above custom a few seconds to seconds threshold'
     );
 
-    moment.relativeTimeThreshold('ss', 44);
+    customMoment.relativeTimeThreshold('ss', 44);
 
     // Minutes to hours threshold
-    moment.relativeTimeThreshold('m', 55);
-    a = moment();
+    customMoment.relativeTimeThreshold('m', 55);
+    a = customMoment();
     a.subtract(54, 'minutes');
     assert.equal(
         a.fromNow(),
@@ -256,11 +256,11 @@ test('custom thresholds', function (assert) {
         'an hour ago',
         'Above custom minutes to hours threshold'
     );
-    moment.relativeTimeThreshold('m', 45);
+    customMoment.relativeTimeThreshold('m', 45);
 
     // Hours to days threshold
-    moment.relativeTimeThreshold('h', 24);
-    a = moment();
+    customMoment.relativeTimeThreshold('h', 24);
+    a = customMoment();
     a.subtract(23, 'hours');
     assert.equal(
         a.fromNow(),
@@ -273,11 +273,11 @@ test('custom thresholds', function (assert) {
         'a day ago',
         'Above custom hours to days threshold'
     );
-    moment.relativeTimeThreshold('h', 22);
+    customMoment.relativeTimeThreshold('h', 22);
 
     // Days to month threshold
-    moment.relativeTimeThreshold('d', 28);
-    a = moment();
+    customMoment.relativeTimeThreshold('d', 28);
+    a = customMoment();
     a.subtract(27, 'days');
     assert.equal(
         a.fromNow(),
@@ -290,11 +290,11 @@ test('custom thresholds', function (assert) {
         'a month ago',
         'Above custom days to month (singular) threshold'
     );
-    moment.relativeTimeThreshold('d', 26);
+    customMoment.relativeTimeThreshold('d', 26);
 
     // months to years threshold
-    moment.relativeTimeThreshold('M', 9);
-    a = moment();
+    customMoment.relativeTimeThreshold('M', 9);
+    a = customMoment();
     a.subtract(8, 'months');
     assert.equal(
         a.fromNow(),
@@ -307,42 +307,42 @@ test('custom thresholds', function (assert) {
         'a year ago',
         'Above custom days to years threshold'
     );
-    moment.relativeTimeThreshold('M', 11);
+    customMoment.relativeTimeThreshold('M', 11);
 
     // multiple thresholds
-    moment.relativeTimeThreshold('ss', 3);
-    a = moment();
+    customMoment.relativeTimeThreshold('ss', 3);
+    a = customMoment();
     a.subtract(4, 'seconds');
     assert.equal(
         a.fromNow(),
         '4 seconds ago',
         'Before setting s relative time threshold'
     );
-    moment.relativeTimeThreshold('s', 59);
+    customMoment.relativeTimeThreshold('s', 59);
     assert.equal(
         a.fromNow(),
         'a few seconds ago',
         'After setting s relative time threshold'
     );
-    moment.relativeTimeThreshold('ss', 44);
-    moment.relativeTimeThreshold('s', 45);
+    customMoment.relativeTimeThreshold('ss', 44);
+    customMoment.relativeTimeThreshold('s', 45);
 });
 
 test('custom rounding', function (assert) {
-    var roundingDefault = moment.relativeTimeRounding(),
+    var roundingDefault = customMoment.relativeTimeRounding(),
         a,
         retainValue;
 
     // Round relative time evaluation down
-    moment.relativeTimeRounding(Math.floor);
+    customMoment.relativeTimeRounding(Math.floor);
 
-    moment.relativeTimeThreshold('s', 60);
-    moment.relativeTimeThreshold('m', 60);
-    moment.relativeTimeThreshold('h', 24);
-    moment.relativeTimeThreshold('d', 27);
-    moment.relativeTimeThreshold('M', 12);
+    customMoment.relativeTimeThreshold('s', 60);
+    customMoment.relativeTimeThreshold('m', 60);
+    customMoment.relativeTimeThreshold('h', 24);
+    customMoment.relativeTimeThreshold('d', 27);
+    customMoment.relativeTimeThreshold('M', 12);
 
-    a = moment.utc();
+    a = customMoment.utc();
     a.subtract({ minutes: 59, seconds: 59 });
     assert.equal(
         a.toNow(),
@@ -350,7 +350,7 @@ test('custom rounding', function (assert) {
         'Round down towards the nearest minute'
     );
 
-    a = moment.utc();
+    a = customMoment.utc();
     a.subtract({ hours: 23, minutes: 59, seconds: 59 });
     assert.equal(
         a.toNow(),
@@ -358,7 +358,7 @@ test('custom rounding', function (assert) {
         'Round down towards the nearest hour'
     );
 
-    a = moment.utc();
+    a = customMoment.utc();
     a.subtract({ days: 26, hours: 23, minutes: 59 });
     assert.equal(
         a.toNow(),
@@ -366,7 +366,7 @@ test('custom rounding', function (assert) {
         'Round down towards the nearest day (just under)'
     );
 
-    a = moment.utc();
+    a = customMoment.utc();
     a.subtract({ days: 27 });
     assert.equal(
         a.toNow(),
@@ -374,7 +374,7 @@ test('custom rounding', function (assert) {
         'Round down towards the nearest day (just over)'
     );
 
-    a = moment.utc();
+    a = customMoment.utc();
     a.subtract({ days: 364 });
     assert.equal(
         a.toNow(),
@@ -382,7 +382,7 @@ test('custom rounding', function (assert) {
         'Round down towards the nearest month'
     );
 
-    a = moment.utc();
+    a = customMoment.utc();
     a.subtract({ years: 1, days: 364 });
     assert.equal(a.toNow(), 'in a year', 'Round down towards the nearest year');
 
@@ -390,9 +390,9 @@ test('custom rounding', function (assert) {
     retainValue = function (value) {
         return value.toFixed(3);
     };
-    moment.relativeTimeRounding(retainValue);
+    customMoment.relativeTimeRounding(retainValue);
 
-    a = moment.utc();
+    a = customMoment.utc();
     a.subtract({ hours: 39 });
     assert.equal(
         a.toNow(),
@@ -401,24 +401,24 @@ test('custom rounding', function (assert) {
     );
 
     // Restore defaults
-    moment.relativeTimeThreshold('s', 45);
-    moment.relativeTimeThreshold('m', 45);
-    moment.relativeTimeThreshold('h', 22);
-    moment.relativeTimeThreshold('d', 26);
-    moment.relativeTimeThreshold('M', 11);
-    moment.relativeTimeRounding(roundingDefault);
+    customMoment.relativeTimeThreshold('s', 45);
+    customMoment.relativeTimeThreshold('m', 45);
+    customMoment.relativeTimeThreshold('h', 22);
+    customMoment.relativeTimeThreshold('d', 26);
+    customMoment.relativeTimeThreshold('M', 11);
+    customMoment.relativeTimeRounding(roundingDefault);
 });
 
 test('retrieve rounding settings', function (assert) {
-    moment.relativeTimeRounding(Math.round);
-    var roundingFunction = moment.relativeTimeRounding();
+    customMoment.relativeTimeRounding(Math.round);
+    var roundingFunction = customMoment.relativeTimeRounding();
 
     assert.equal(roundingFunction, Math.round, 'Can retrieve rounding setting');
 });
 
 test('retrieve threshold settings', function (assert) {
-    moment.relativeTimeThreshold('m', 45);
-    var minuteThreshold = moment.relativeTimeThreshold('m');
+    customMoment.relativeTimeThreshold('m', 45);
+    var minuteThreshold = customMoment.relativeTimeThreshold('m');
 
     assert.equal(minuteThreshold, 45, 'Can retrieve minute setting');
 });

@@ -1,12 +1,12 @@
 import { module, test } from '../qunit';
-import moment from '../../moment';
+import {customMoment} from '../../custom_moment';
 
 module('start and end of units');
 
 test('start of year', function (assert) {
-    var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('year'),
-        ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('years'),
-        ma = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('y');
+    var m = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('year'),
+        ms = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('years'),
+        ma = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('y');
     assert.equal(+m, +ms, 'Plural or singular should work');
     assert.equal(+m, +ma, 'Full or abbreviated should work');
     assert.equal(m.year(), 2011, 'keep the year');
@@ -19,9 +19,9 @@ test('start of year', function (assert) {
 });
 
 test('end of year', function (assert) {
-    var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('year'),
-        ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('years'),
-        ma = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('y');
+    var m = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('year'),
+        ms = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('years'),
+        ma = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('y');
     assert.equal(+m, +ms, 'Plural or singular should work');
     assert.equal(+m, +ma, 'Full or abbreviated should work');
     assert.equal(m.year(), 2011, 'keep the year');
@@ -34,9 +34,9 @@ test('end of year', function (assert) {
 });
 
 test('start of quarter', function (assert) {
-    var m = moment(new Date(2011, 4, 2, 3, 4, 5, 6)).startOf('quarter'),
-        ms = moment(new Date(2011, 4, 2, 3, 4, 5, 6)).startOf('quarters'),
-        ma = moment(new Date(2011, 4, 2, 3, 4, 5, 6)).startOf('Q');
+    var m = customMoment(new Date(2011, 4, 2, 3, 4, 5, 6)).startOf('quarter'),
+        ms = customMoment(new Date(2011, 4, 2, 3, 4, 5, 6)).startOf('quarters'),
+        ma = customMoment(new Date(2011, 4, 2, 3, 4, 5, 6)).startOf('Q');
     assert.equal(+m, +ms, 'Plural or singular should work');
     assert.equal(+m, +ma, 'Full or abbreviated should work');
     assert.equal(m.year(), 2011, 'keep the year');
@@ -50,9 +50,9 @@ test('start of quarter', function (assert) {
 });
 
 test('end of quarter', function (assert) {
-    var m = moment(new Date(2011, 4, 2, 3, 4, 5, 6)).endOf('quarter'),
-        ms = moment(new Date(2011, 4, 2, 3, 4, 5, 6)).endOf('quarters'),
-        ma = moment(new Date(2011, 4, 2, 3, 4, 5, 6)).endOf('Q');
+    var m = customMoment(new Date(2011, 4, 2, 3, 4, 5, 6)).endOf('quarter'),
+        ms = customMoment(new Date(2011, 4, 2, 3, 4, 5, 6)).endOf('quarters'),
+        ma = customMoment(new Date(2011, 4, 2, 3, 4, 5, 6)).endOf('Q');
     assert.equal(+m, +ms, 'Plural or singular should work');
     assert.equal(+m, +ma, 'Full or abbreviated should work');
     assert.equal(m.year(), 2011, 'keep the year');
@@ -66,9 +66,9 @@ test('end of quarter', function (assert) {
 });
 
 test('start of month', function (assert) {
-    var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('month'),
-        ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('months'),
-        ma = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('M');
+    var m = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('month'),
+        ms = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('months'),
+        ma = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('M');
     assert.equal(+m, +ms, 'Plural or singular should work');
     assert.equal(+m, +ma, 'Full or abbreviated should work');
     assert.equal(m.year(), 2011, 'keep the year');
@@ -81,9 +81,9 @@ test('start of month', function (assert) {
 });
 
 test('end of month', function (assert) {
-    var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('month'),
-        ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('months'),
-        ma = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('M');
+    var m = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('month'),
+        ms = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('months'),
+        ma = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('M');
     assert.equal(+m, +ms, 'Plural or singular should work');
     assert.equal(+m, +ma, 'Full or abbreviated should work');
     assert.equal(m.year(), 2011, 'keep the year');
@@ -96,9 +96,9 @@ test('end of month', function (assert) {
 });
 
 test('start of week', function (assert) {
-    var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('week'),
-        ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('weeks'),
-        ma = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('w');
+    var m = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('week'),
+        ms = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('weeks'),
+        ma = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('w');
     assert.equal(+m, +ms, 'Plural or singular should work');
     assert.equal(+m, +ma, 'Full or abbreviated should work');
     assert.equal(m.year(), 2011, 'keep the year');
@@ -112,9 +112,9 @@ test('start of week', function (assert) {
 });
 
 test('end of week', function (assert) {
-    var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('week'),
-        ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('weeks'),
-        ma = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('weeks');
+    var m = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('week'),
+        ms = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('weeks'),
+        ma = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('weeks');
     assert.equal(+m, +ms, 'Plural or singular should work');
     assert.equal(+m, +ma, 'Full or abbreviated should work');
     assert.equal(m.year(), 2011, 'keep the year');
@@ -128,9 +128,9 @@ test('end of week', function (assert) {
 });
 
 test('start of iso-week', function (assert) {
-    var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('isoWeek'),
-        ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('isoWeeks'),
-        ma = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('W');
+    var m = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('isoWeek'),
+        ms = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('isoWeeks'),
+        ma = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('W');
     assert.equal(+m, +ms, 'Plural or singular should work');
     assert.equal(+m, +ma, 'Full or abbreviated should work');
     assert.equal(m.year(), 2011, 'keep the year');
@@ -144,9 +144,9 @@ test('start of iso-week', function (assert) {
 });
 
 test('end of iso-week', function (assert) {
-    var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('isoWeek'),
-        ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('isoWeeks'),
-        ma = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('W');
+    var m = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('isoWeek'),
+        ms = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('isoWeeks'),
+        ma = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('W');
     assert.equal(+m, +ms, 'Plural or singular should work');
     assert.equal(+m, +ma, 'Full or abbreviated should work');
     assert.equal(m.year(), 2011, 'keep the year');
@@ -160,9 +160,9 @@ test('end of iso-week', function (assert) {
 });
 
 test('start of day', function (assert) {
-    var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('day'),
-        ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('days'),
-        ma = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('d');
+    var m = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('day'),
+        ms = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('days'),
+        ma = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('d');
     assert.equal(+m, +ms, 'Plural or singular should work');
     assert.equal(+m, +ma, 'Full or abbreviated should work');
     assert.equal(m.year(), 2011, 'keep the year');
@@ -175,9 +175,9 @@ test('start of day', function (assert) {
 });
 
 test('end of day', function (assert) {
-    var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('day'),
-        ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('days'),
-        ma = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('d');
+    var m = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('day'),
+        ms = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('days'),
+        ma = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('d');
     assert.equal(+m, +ms, 'Plural or singular should work');
     assert.equal(+m, +ma, 'Full or abbreviated should work');
     assert.equal(m.year(), 2011, 'keep the year');
@@ -190,8 +190,8 @@ test('end of day', function (assert) {
 });
 
 test('start of date', function (assert) {
-    var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('date'),
-        ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('dates');
+    var m = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('date'),
+        ms = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('dates');
 
     assert.equal(+m, +ms, 'Plural or singular should work');
     assert.equal(m.year(), 2011, 'keep the year');
@@ -204,8 +204,8 @@ test('start of date', function (assert) {
 });
 
 test('end of date', function (assert) {
-    var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('date'),
-        ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('dates');
+    var m = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('date'),
+        ms = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('dates');
 
     assert.equal(+m, +ms, 'Plural or singular should work');
     assert.equal(m.year(), 2011, 'keep the year');
@@ -218,9 +218,9 @@ test('end of date', function (assert) {
 });
 
 test('start of hour', function (assert) {
-    var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('hour'),
-        ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('hours'),
-        ma = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('h');
+    var m = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('hour'),
+        ms = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('hours'),
+        ma = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('h');
     assert.equal(+m, +ms, 'Plural or singular should work');
     assert.equal(+m, +ma, 'Full or abbreviated should work');
     assert.equal(m.year(), 2011, 'keep the year');
@@ -233,9 +233,9 @@ test('start of hour', function (assert) {
 });
 
 test('end of hour', function (assert) {
-    var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('hour'),
-        ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('hours'),
-        ma = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('h');
+    var m = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('hour'),
+        ms = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('hours'),
+        ma = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('h');
     assert.equal(+m, +ms, 'Plural or singular should work');
     assert.equal(+m, +ma, 'Full or abbreviated should work');
     assert.equal(m.year(), 2011, 'keep the year');
@@ -248,9 +248,9 @@ test('end of hour', function (assert) {
 });
 
 test('start of minute', function (assert) {
-    var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('minute'),
-        ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('minutes'),
-        ma = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('m');
+    var m = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('minute'),
+        ms = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('minutes'),
+        ma = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('m');
     assert.equal(+m, +ms, 'Plural or singular should work');
     assert.equal(+m, +ma, 'Full or abbreviated should work');
     assert.equal(m.year(), 2011, 'keep the year');
@@ -263,9 +263,9 @@ test('start of minute', function (assert) {
 });
 
 test('end of minute', function (assert) {
-    var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('minute'),
-        ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('minutes'),
-        ma = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('m');
+    var m = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('minute'),
+        ms = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('minutes'),
+        ma = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('m');
     assert.equal(+m, +ms, 'Plural or singular should work');
     assert.equal(+m, +ma, 'Full or abbreviated should work');
     assert.equal(m.year(), 2011, 'keep the year');
@@ -278,9 +278,9 @@ test('end of minute', function (assert) {
 });
 
 test('start of second', function (assert) {
-    var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('second'),
-        ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('seconds'),
-        ma = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('s');
+    var m = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('second'),
+        ms = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('seconds'),
+        ma = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).startOf('s');
     assert.equal(+m, +ms, 'Plural or singular should work');
     assert.equal(+m, +ma, 'Full or abbreviated should work');
     assert.equal(m.year(), 2011, 'keep the year');
@@ -293,9 +293,9 @@ test('start of second', function (assert) {
 });
 
 test('end of second', function (assert) {
-    var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('second'),
-        ms = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('seconds'),
-        ma = moment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('s');
+    var m = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('second'),
+        ms = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('seconds'),
+        ma = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)).endOf('s');
     assert.equal(+m, +ms, 'Plural or singular should work');
     assert.equal(+m, +ma, 'Full or abbreviated should work');
     assert.equal(m.year(), 2011, 'keep the year');
@@ -308,12 +308,12 @@ test('end of second', function (assert) {
 });
 
 test('startOf across DST +1', function (assert) {
-    var oldUpdateOffset = moment.updateOffset,
+    var oldUpdateOffset = customMoment.updateOffset,
         // Based on a real story somewhere in America/Los_Angeles
-        dstAt = moment('2014-03-09T02:00:00-08:00').parseZone(),
+        dstAt = customMoment('2014-03-09T02:00:00-08:00').parseZone(),
         m;
 
-    moment.updateOffset = function (mom, keepTime) {
+    customMoment.updateOffset = function (mom, keepTime) {
         if (mom.isBefore(dstAt)) {
             mom.utcOffset(-8, keepTime);
         } else {
@@ -321,7 +321,7 @@ test('startOf across DST +1', function (assert) {
         }
     };
 
-    m = moment('2014-03-15T00:00:00-07:00').parseZone();
+    m = customMoment('2014-03-15T00:00:00-07:00').parseZone();
     m.startOf('y');
     assert.equal(
         m.format(),
@@ -329,7 +329,7 @@ test('startOf across DST +1', function (assert) {
         "startOf('year') across +1"
     );
 
-    m = moment('2014-03-15T00:00:00-07:00').parseZone();
+    m = customMoment('2014-03-15T00:00:00-07:00').parseZone();
     m.startOf('M');
     assert.equal(
         m.format(),
@@ -337,7 +337,7 @@ test('startOf across DST +1', function (assert) {
         "startOf('month') across +1"
     );
 
-    m = moment('2014-03-09T09:00:00-07:00').parseZone();
+    m = customMoment('2014-03-09T09:00:00-07:00').parseZone();
     m.startOf('d');
     assert.equal(
         m.format(),
@@ -345,7 +345,7 @@ test('startOf across DST +1', function (assert) {
         "startOf('day') across +1"
     );
 
-    m = moment('2014-03-09T03:05:00-07:00').parseZone();
+    m = customMoment('2014-03-09T03:05:00-07:00').parseZone();
     m.startOf('h');
     assert.equal(
         m.format(),
@@ -353,7 +353,7 @@ test('startOf across DST +1', function (assert) {
         "startOf('hour') after +1"
     );
 
-    m = moment('2014-03-09T01:35:00-08:00').parseZone();
+    m = customMoment('2014-03-09T01:35:00-08:00').parseZone();
     m.startOf('h');
     assert.equal(
         m.format(),
@@ -363,16 +363,16 @@ test('startOf across DST +1', function (assert) {
 
     // There is no such time as 2:30-7 to try startOf('hour') across that
 
-    moment.updateOffset = oldUpdateOffset;
+    customMoment.updateOffset = oldUpdateOffset;
 });
 
 test('startOf across DST -1', function (assert) {
-    var oldUpdateOffset = moment.updateOffset,
+    var oldUpdateOffset = customMoment.updateOffset,
         // Based on a real story somewhere in America/Los_Angeles
-        dstAt = moment('2014-11-02T02:00:00-07:00').parseZone(),
+        dstAt = customMoment('2014-11-02T02:00:00-07:00').parseZone(),
         m;
 
-    moment.updateOffset = function (mom, keepTime) {
+    customMoment.updateOffset = function (mom, keepTime) {
         if (mom.isBefore(dstAt)) {
             mom.utcOffset(-7, keepTime);
         } else {
@@ -380,7 +380,7 @@ test('startOf across DST -1', function (assert) {
         }
     };
 
-    m = moment('2014-11-15T00:00:00-08:00').parseZone();
+    m = customMoment('2014-11-15T00:00:00-08:00').parseZone();
     m.startOf('y');
     assert.equal(
         m.format(),
@@ -388,7 +388,7 @@ test('startOf across DST -1', function (assert) {
         "startOf('year') across -1"
     );
 
-    m = moment('2014-11-15T00:00:00-08:00').parseZone();
+    m = customMoment('2014-11-15T00:00:00-08:00').parseZone();
     m.startOf('M');
     assert.equal(
         m.format(),
@@ -396,7 +396,7 @@ test('startOf across DST -1', function (assert) {
         "startOf('month') across -1"
     );
 
-    m = moment('2014-11-02T09:00:00-08:00').parseZone();
+    m = customMoment('2014-11-02T09:00:00-08:00').parseZone();
     m.startOf('d');
     assert.equal(
         m.format(),
@@ -405,7 +405,7 @@ test('startOf across DST -1', function (assert) {
     );
 
     // note that utc offset is -8
-    m = moment('2014-11-02T01:30:00-08:00').parseZone();
+    m = customMoment('2014-11-02T01:30:00-08:00').parseZone();
     m.startOf('h');
     assert.equal(
         m.format(),
@@ -414,7 +414,7 @@ test('startOf across DST -1', function (assert) {
     );
 
     // note that utc offset is -7
-    m = moment('2014-11-02T01:30:00-07:00').parseZone();
+    m = customMoment('2014-11-02T01:30:00-07:00').parseZone();
     m.startOf('h');
     assert.equal(
         m.format(),
@@ -422,11 +422,11 @@ test('startOf across DST -1', function (assert) {
         "startOf('hour') before +1"
     );
 
-    moment.updateOffset = oldUpdateOffset;
+    customMoment.updateOffset = oldUpdateOffset;
 });
 
 test('endOf millisecond and no-arg', function (assert) {
-    var m = moment();
+    var m = customMoment();
     assert.equal(
         +m,
         +m.clone().endOf(),
@@ -450,7 +450,7 @@ test('endOf millisecond and no-arg', function (assert) {
 });
 
 test('startOf for year zero', function (assert) {
-    var m = moment('0000-02-29T12:34:56.789Z').parseZone();
+    var m = customMoment('0000-02-29T12:34:56.789Z').parseZone();
     assert.equal(
         m.clone().startOf('ms').toISOString(),
         '0000-02-29T12:34:56.789Z',
@@ -494,7 +494,7 @@ test('startOf for year zero', function (assert) {
 });
 
 test('endOf for year zero', function (assert) {
-    var m = moment('0000-02-29T12:34:56.789Z').parseZone();
+    var m = customMoment('0000-02-29T12:34:56.789Z').parseZone();
     assert.equal(
         m.clone().endOf('ms').toISOString(),
         '0000-02-29T12:34:56.789Z',

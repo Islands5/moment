@@ -1,4 +1,5 @@
 import { module, test } from '../qunit';
+import {customMoment} from '../../custom_moment';
 import moment from '../../moment';
 
 module('is moment');
@@ -16,26 +17,26 @@ test('is moment object', function (assert) {
         return new Date();
     };
 
-    assert.ok(moment.isMoment(moment()), 'simple moment object');
-    assert.ok(moment.isMoment(moment(null)), 'invalid moment object');
+    assert.ok(customMoment.isMoment(customMoment()), 'simple moment object');
+    assert.ok(customMoment.isMoment(customMoment(null)), 'invalid moment object');
     assert.ok(
-        moment.isMoment(extend({}, moment())),
+        customMoment.isMoment(extend({}, customMoment())),
         'externally cloned moments are moments'
     );
     assert.ok(
-        moment.isMoment(extend({}, moment.utc())),
+        customMoment.isMoment(extend({}, customMoment.utc())),
         'externally cloned utc moments are moments'
     );
 
-    assert.ok(!moment.isMoment(new MyObj()), 'myObj is not moment object');
-    assert.ok(!moment.isMoment(moment), 'moment function is not moment object');
-    assert.ok(!moment.isMoment(new Date()), 'date object is not moment object');
-    assert.ok(!moment.isMoment(Object), 'Object is not moment object');
-    assert.ok(!moment.isMoment('foo'), 'string is not moment object');
-    assert.ok(!moment.isMoment(1), 'number is not moment object');
-    assert.ok(!moment.isMoment(NaN), 'NaN is not moment object');
-    assert.ok(!moment.isMoment(null), 'null is not moment object');
-    assert.ok(!moment.isMoment(undefined), 'undefined is not moment object');
+    assert.ok(!customMoment.isMoment(new MyObj()), 'myObj is not moment object');
+    assert.ok(!customMoment.isMoment(moment), 'moment function is not moment object');
+    assert.ok(!customMoment.isMoment(new Date()), 'date object is not moment object');
+    assert.ok(!customMoment.isMoment(Object), 'Object is not moment object');
+    assert.ok(!customMoment.isMoment('foo'), 'string is not moment object');
+    assert.ok(!customMoment.isMoment(1), 'number is not moment object');
+    assert.ok(!customMoment.isMoment(NaN), 'NaN is not moment object');
+    assert.ok(!customMoment.isMoment(null), 'null is not moment object');
+    assert.ok(!customMoment.isMoment(undefined), 'undefined is not moment object');
 });
 
 test('is moment with hacked hasOwnProperty', function (assert) {
@@ -46,7 +47,7 @@ test('is moment with hacked hasOwnProperty', function (assert) {
     };
 
     assert.ok(
-        !moment.isMoment(obj),
+        !customMoment.isMoment(obj),
         'isMoment works even if passed object has a wrong hasOwnProperty implementation (ie8)'
     );
 });

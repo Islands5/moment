@@ -1,8 +1,8 @@
-import moment from '../../moment';
+import {customMoment} from '../../custom_moment';
 
 export function isNearSpringDST() {
     return (
-        moment().subtract(1, 'day').utcOffset() !==
-        moment().add(1, 'day').utcOffset()
+        customMoment().subtract(1, 'day').utcOffset() !==
+        customMoment().add(1, 'day').utcOffset()
     );
 }

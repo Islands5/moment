@@ -1,48 +1,48 @@
 import { module, test } from '../qunit';
 import eachOwnProp from '../helpers/each-own-prop';
 import hasOwnProp from '../helpers/has-own-prop';
-import moment from '../../moment';
+import {customMoment} from '../../custom_moment';
 
 module('create');
 
 test('array', function (assert) {
-    assert.ok(moment([2010]).toDate() instanceof Date, '[2010]');
-    assert.ok(moment([2010, 1]).toDate() instanceof Date, '[2010, 1]');
-    assert.ok(moment([2010, 1, 12]).toDate() instanceof Date, '[2010, 1, 12]');
+    assert.ok(customMoment([2010]).toDate() instanceof Date, '[2010]');
+    assert.ok(customMoment([2010, 1]).toDate() instanceof Date, '[2010, 1]');
+    assert.ok(customMoment([2010, 1, 12]).toDate() instanceof Date, '[2010, 1, 12]');
     assert.ok(
-        moment([2010, 1, 12, 1]).toDate() instanceof Date,
+        customMoment([2010, 1, 12, 1]).toDate() instanceof Date,
         '[2010, 1, 12, 1]'
     );
     assert.ok(
-        moment([2010, 1, 12, 1, 1]).toDate() instanceof Date,
+        customMoment([2010, 1, 12, 1, 1]).toDate() instanceof Date,
         '[2010, 1, 12, 1, 1]'
     );
     assert.ok(
-        moment([2010, 1, 12, 1, 1, 1]).toDate() instanceof Date,
+        customMoment([2010, 1, 12, 1, 1, 1]).toDate() instanceof Date,
         '[2010, 1, 12, 1, 1, 1]'
     );
     assert.ok(
-        moment([2010, 1, 12, 1, 1, 1, 1]).toDate() instanceof Date,
+        customMoment([2010, 1, 12, 1, 1, 1, 1]).toDate() instanceof Date,
         '[2010, 1, 12, 1, 1, 1, 1]'
     );
     assert.equal(
-        +moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
-        +moment([2010, 1, 14, 15, 25, 50, 125]),
+        +customMoment(new Date(2010, 1, 14, 15, 25, 50, 125)),
+        +customMoment([2010, 1, 14, 15, 25, 50, 125]),
         'constructing with array === constructing with new Date()'
     );
 });
 
 test('array with invalid arguments', function (assert) {
-    assert.ok(!moment([2010, null, null]).isValid(), '[2010, null, null]');
+    assert.ok(!customMoment([2010, null, null]).isValid(), '[2010, null, null]');
     assert.ok(
-        !moment([1945, null, null]).isValid(),
+        !customMoment([1945, null, null]).isValid(),
         '[1945, null, null] (pre-1970)'
     );
 });
 
 test('array copying', function (assert) {
     var importantArray = [2009, 11];
-    moment(importantArray);
+    customMoment(importantArray);
     assert.deepEqual(
         importantArray,
         [2009, 11],
@@ -127,20 +127,20 @@ test('object', function (assert) {
         ],
         i;
     for (i = 0; i < tests.length; ++i) {
-        assert.equal(moment(tests[i][0]).format(fmt), tests[i][1]);
+        assert.equal(customMoment(tests[i][0]).format(fmt), tests[i][1]);
     }
 });
 
 test('invalid date for object with zero value date or day keys', function (assert) {
-    assert.equal(moment({ date: '0' }).format(), 'Invalid date');
-    assert.equal(moment({ date: 0 }).format(), 'Invalid date');
-    assert.equal(moment({ day: '0' }).format(), 'Invalid date');
-    assert.equal(moment({ day: 0 }).format(), 'Invalid date');
+    assert.equal(customMoment({ date: '0' }).format(), 'Invalid date');
+    assert.equal(customMoment({ date: 0 }).format(), 'Invalid date');
+    assert.equal(customMoment({ day: '0' }).format(), 'Invalid date');
+    assert.equal(customMoment({ day: 0 }).format(), 'Invalid date');
 });
 
 test('multi format array copying', function (assert) {
     var importantArray = ['MM/DD/YYYY', 'YYYY-MM-DD', 'MM-DD-YYYY'];
-    moment('1999-02-13', importantArray);
+    customMoment('1999-02-13', importantArray);
     assert.deepEqual(
         importantArray,
         ['MM/DD/YYYY', 'YYYY-MM-DD', 'MM-DD-YYYY'],
@@ -149,58 +149,58 @@ test('multi format array copying', function (assert) {
 });
 
 test('number', function (assert) {
-    assert.ok(moment(1000).toDate() instanceof Date, '1000');
-    assert.equal(moment(1000).valueOf(), 1000, 'asserting valueOf');
-    assert.equal(moment.utc(1000).valueOf(), 1000, 'asserting valueOf');
+    assert.ok(customMoment(1000).toDate() instanceof Date, '1000');
+    assert.equal(customMoment(1000).valueOf(), 1000, 'asserting valueOf');
+    assert.equal(customMoment.utc(1000).valueOf(), 1000, 'asserting valueOf');
 });
 
 test('unix', function (assert) {
     assert.equal(
-        moment.unix(1).valueOf(),
+        customMoment.unix(1).valueOf(),
         1000,
         '1 unix timestamp == 1000 Date.valueOf'
     );
     assert.equal(
-        moment(1000).unix(),
+        customMoment(1000).unix(),
         1,
         '1000 Date.valueOf == 1 unix timestamp'
     );
     assert.equal(
-        moment.unix(1000).valueOf(),
+        customMoment.unix(1000).valueOf(),
         1000000,
         '1000 unix timestamp == 1000000 Date.valueOf'
     );
     assert.equal(
-        moment(1500).unix(),
+        customMoment(1500).unix(),
         1,
         '1500 Date.valueOf == 1 unix timestamp'
     );
     assert.equal(
-        moment(1900).unix(),
+        customMoment(1900).unix(),
         1,
         '1900 Date.valueOf == 1 unix timestamp'
     );
     assert.equal(
-        moment(2100).unix(),
+        customMoment(2100).unix(),
         2,
         '2100 Date.valueOf == 2 unix timestamp'
     );
     assert.equal(
-        moment(1333129333524).unix(),
+        customMoment(1333129333524).unix(),
         1333129333,
         '1333129333524 Date.valueOf == 1333129333 unix timestamp'
     );
     assert.equal(
-        moment(1333129333524000).unix(),
+        customMoment(1333129333524000).unix(),
         1333129333524,
         '1333129333524000 Date.valueOf == 1333129333524 unix timestamp'
     );
 });
 
 test('date', function (assert) {
-    assert.ok(moment(new Date()).toDate() instanceof Date, 'new Date()');
+    assert.ok(customMoment(new Date()).toDate() instanceof Date, 'new Date()');
     assert.equal(
-        moment(new Date(2016, 0, 1), 'YYYY-MM-DD').format('YYYY-MM-DD'),
+        customMoment(new Date(2016, 0, 1), 'YYYY-MM-DD').format('YYYY-MM-DD'),
         '2016-01-01',
         'If date is provided, format string is ignored'
     );
@@ -218,8 +218,8 @@ test('date with a format as an array', function (assert) {
 
     for (i = 0; i < tests.length; i++) {
         assert.equal(
-            moment(tests[i]).format(),
-            moment(tests[i], ['MM/DD/YYYY'], false).format(),
+            customMoment(tests[i]).format(),
+            customMoment(tests[i], ['MM/DD/YYYY'], false).format(),
             'Passing date with a format array should still return the correct date'
         );
     }
@@ -228,22 +228,22 @@ test('date with a format as an array', function (assert) {
 test('date mutation', function (assert) {
     var a = new Date();
     assert.ok(
-        moment(a).toDate() !== a,
+        customMoment(a).toDate() !== a,
         'the date moment uses should not be the date passed in'
     );
 });
 
 test('moment', function (assert) {
-    assert.ok(moment(moment()).toDate() instanceof Date, 'moment(moment())');
+    assert.ok(customMoment(customMoment()).toDate() instanceof Date, 'customMoment(customMoment())');
     assert.ok(
-        moment(moment(moment())).toDate() instanceof Date,
-        'moment(moment(moment()))'
+        customMoment(customMoment(customMoment())).toDate() instanceof Date,
+        'customMoment(customMoment(customMoment()))'
     );
 });
 
 test('cloning moment should only copy own properties', function (assert) {
     assert.ok(
-        !hasOwnProp(moment().clone(), 'month'),
+        !hasOwnProp(customMoment().clone(), 'month'),
         'Should not clone prototype methods'
     );
 });
@@ -256,8 +256,8 @@ test('cloning moment works with weird clones', function (assert) {
             }
             return a;
         },
-        now = moment(),
-        nowu = moment.utc();
+        now = customMoment(),
+        nowu = customMoment.utc();
 
     assert.equal(
         +extend({}, now).clone(),
@@ -271,8 +271,8 @@ test('cloning moment works with weird clones', function (assert) {
     );
 });
 
-test('cloning respects moment.momentProperties', function (assert) {
-    var m = moment();
+test('cloning respects customMoment.momentProperties', function (assert) {
+    var m = customMoment();
 
     assert.equal(
         m.clone()._special,
@@ -280,33 +280,33 @@ test('cloning respects moment.momentProperties', function (assert) {
         'cloning ignores extra properties'
     );
     m._special = 'bacon';
-    moment.momentProperties.push('_special');
+    customMoment.momentProperties.push('_special');
     assert.equal(
         m.clone()._special,
         'bacon',
         'cloning respects momentProperties'
     );
-    moment.momentProperties.pop();
+    customMoment.momentProperties.pop();
 });
 
 test('undefined', function (assert) {
-    assert.ok(moment().toDate() instanceof Date, 'undefined');
+    assert.ok(customMoment().toDate() instanceof Date, 'undefined');
 });
 
 test('iso with bad input', function (assert) {
     assert.ok(
-        !moment('a', moment.ISO_8601).isValid(),
+        !customMoment('a', customMoment.ISO_8601).isValid(),
         'iso parsing with invalid string'
     );
     assert.ok(
-        !moment('a', moment.ISO_8601, true).isValid(),
+        !customMoment('a', customMoment.ISO_8601, true).isValid(),
         'iso parsing with invalid string, strict'
     );
 });
 
 test('iso format 24hrs', function (assert) {
     assert.equal(
-        moment('2014-01-01T24:00:00.000').format('YYYY-MM-DD[T]HH:mm:ss.SSS'),
+        customMoment('2014-01-01T24:00:00.000').format('YYYY-MM-DD[T]HH:mm:ss.SSS'),
         '2014-01-02T00:00:00.000',
         'iso format with 24:00 localtime'
     );
@@ -321,27 +321,27 @@ test('iso format 24hrs', function (assert) {
 
 test('string without format - json', function (assert) {
     assert.equal(
-        moment('Date(1325132654000)').valueOf(),
+        customMoment('Date(1325132654000)').valueOf(),
         1325132654000,
         'Date(1325132654000)'
     );
     assert.equal(
-        moment('Date(-1325132654000)').valueOf(),
+        customMoment('Date(-1325132654000)').valueOf(),
         -1325132654000,
         'Date(-1325132654000)'
     );
     assert.equal(
-        moment('/Date(1325132654000)/').valueOf(),
+        customMoment('/Date(1325132654000)/').valueOf(),
         1325132654000,
         '/Date(1325132654000)/'
     );
     assert.equal(
-        moment('/Date(1325132654000+0700)/').valueOf(),
+        customMoment('/Date(1325132654000+0700)/').valueOf(),
         1325132654000,
         '/Date(1325132654000+0700)/'
     );
     assert.equal(
-        moment('/Date(1325132654000-0700)/').valueOf(),
+        customMoment('/Date(1325132654000-0700)/').valueOf(),
         1325132654000,
         '/Date(1325132654000-0700)/'
     );
@@ -349,100 +349,100 @@ test('string without format - json', function (assert) {
 
 test('string without format - strict parsing', function (assert) {
     assert.equal(
-        moment('Date(1325132654000)', false).valueOf(),
+        customMoment('Date(1325132654000)', false).valueOf(),
         1325132654000,
         'Date(1325132654000)'
     );
     assert.equal(
-        moment('Date(1325132654000)', true).valueOf(),
+        customMoment('Date(1325132654000)', true).valueOf(),
         1325132654000,
         'Date(1325132654000)'
     );
     assert.equal(
-        moment('/Date(1325132654000)/', true).valueOf(),
+        customMoment('/Date(1325132654000)/', true).valueOf(),
         1325132654000,
         '/Date(1325132654000)/'
     );
-    assert.equal(moment('1/1/2001', true).isValid(), false, '1/1/2001');
-    assert.equal(moment.utc('1/1/2001', true).isValid(), false, '1/1/2001 utc');
+    assert.equal(customMoment('1/1/2001', true).isValid(), false, '1/1/2001');
+    assert.equal(customMoment.utc('1/1/2001', true).isValid(), false, '1/1/2001 utc');
 });
 
 test('string with format dropped am/pm bug', function (assert) {
-    moment.locale('en');
+    customMoment.locale('en');
 
     assert.equal(
-        moment('05/1/2012 12:25:00', 'MM/DD/YYYY h:m:s a').format('MM/DD/YYYY'),
+        customMoment('05/1/2012 12:25:00', 'MM/DD/YYYY h:m:s a').format('MM/DD/YYYY'),
         '05/01/2012',
         'should not break if am/pm is left off from the parsing tokens'
     );
     assert.equal(
-        moment('05/1/2012 12:25:00 am', 'MM/DD/YYYY h:m:s a').format(
+        customMoment('05/1/2012 12:25:00 am', 'MM/DD/YYYY h:m:s a').format(
             'MM/DD/YYYY'
         ),
         '05/01/2012',
         'should not break if am/pm is left off from the parsing tokens'
     );
     assert.equal(
-        moment('05/1/2012 12:25:00 pm', 'MM/DD/YYYY h:m:s a').format(
+        customMoment('05/1/2012 12:25:00 pm', 'MM/DD/YYYY h:m:s a').format(
             'MM/DD/YYYY'
         ),
         '05/01/2012',
         'should not break if am/pm is left off from the parsing tokens'
     );
 
-    assert.ok(moment('05/1/2012 12:25:00', 'MM/DD/YYYY h:m:s a').isValid());
-    assert.ok(moment('05/1/2012 12:25:00 am', 'MM/DD/YYYY h:m:s a').isValid());
-    assert.ok(moment('05/1/2012 12:25:00 pm', 'MM/DD/YYYY h:m:s a').isValid());
+    assert.ok(customMoment('05/1/2012 12:25:00', 'MM/DD/YYYY h:m:s a').isValid());
+    assert.ok(customMoment('05/1/2012 12:25:00 am', 'MM/DD/YYYY h:m:s a').isValid());
+    assert.ok(customMoment('05/1/2012 12:25:00 pm', 'MM/DD/YYYY h:m:s a').isValid());
 });
 
 test('empty string with formats', function (assert) {
     assert.equal(
-        moment('', 'MM').format('YYYY-MM-DD HH:mm:ss'),
+        customMoment('', 'MM').format('YYYY-MM-DD HH:mm:ss'),
         'Invalid date'
     );
     assert.equal(
-        moment(' ', 'MM').format('YYYY-MM-DD HH:mm:ss'),
+        customMoment(' ', 'MM').format('YYYY-MM-DD HH:mm:ss'),
         'Invalid date'
     );
     assert.equal(
-        moment(' ', 'DD').format('YYYY-MM-DD HH:mm:ss'),
+        customMoment(' ', 'DD').format('YYYY-MM-DD HH:mm:ss'),
         'Invalid date'
     );
     assert.equal(
-        moment(' ', ['MM', 'DD']).format('YYYY-MM-DD HH:mm:ss'),
+        customMoment(' ', ['MM', 'DD']).format('YYYY-MM-DD HH:mm:ss'),
         'Invalid date'
     );
 
-    assert.ok(!moment('', 'MM').isValid());
-    assert.ok(!moment(' ', 'MM').isValid());
-    assert.ok(!moment(' ', 'DD').isValid());
-    assert.ok(!moment(' ', ['MM', 'DD']).isValid());
+    assert.ok(!customMoment('', 'MM').isValid());
+    assert.ok(!customMoment(' ', 'MM').isValid());
+    assert.ok(!customMoment(' ', 'DD').isValid());
+    assert.ok(!customMoment(' ', ['MM', 'DD']).isValid());
 });
 
 test('undefined argument with formats', function (assert) {
     assert.equal(
-        moment(undefined, 'MM').format('YYYY-MM-DD HH:mm:ss'),
+        customMoment(undefined, 'MM').format('YYYY-MM-DD HH:mm:ss'),
         'Invalid date'
     );
     assert.equal(
-        moment(undefined, 'DD').format('YYYY-MM-DD HH:mm:ss'),
+        customMoment(undefined, 'DD').format('YYYY-MM-DD HH:mm:ss'),
         'Invalid date'
     );
     assert.equal(
-        moment(undefined, ['MM', 'DD']).format('YYYY-MM-DD HH:mm:ss'),
+        customMoment(undefined, ['MM', 'DD']).format('YYYY-MM-DD HH:mm:ss'),
         'Invalid date'
     );
 
-    assert.ok(!moment(undefined, 'MM').isValid());
-    assert.ok(!moment(undefined, 'MM').isValid());
-    assert.ok(!moment(undefined, 'DD').isValid());
-    assert.ok(!moment(undefined, ['MM', 'DD']).isValid());
+    assert.ok(!customMoment(undefined, 'MM').isValid());
+    assert.ok(!customMoment(undefined, 'MM').isValid());
+    assert.ok(!customMoment(undefined, 'DD').isValid());
+    assert.ok(!customMoment(undefined, ['MM', 'DD']).isValid());
 });
 
 test('defaulting to current date', function (assert) {
-    var now = moment();
+    var now = customMoment();
     assert.equal(
-        moment('12:13:14', 'hh:mm:ss').format('YYYY-MM-DD hh:mm:ss'),
+        customMoment('12:13:14', 'hh:mm:ss').format('YYYY-MM-DD hh:mm:ss'),
         now
             .clone()
             .hour(12)
@@ -452,17 +452,17 @@ test('defaulting to current date', function (assert) {
         'given only time default to current date'
     );
     assert.equal(
-        moment('05', 'DD').format('YYYY-MM-DD'),
+        customMoment('05', 'DD').format('YYYY-MM-DD'),
         now.clone().date(5).format('YYYY-MM-DD'),
         'given day of month default to current month, year'
     );
     assert.equal(
-        moment('05', 'MM').format('YYYY-MM-DD'),
+        customMoment('05', 'MM').format('YYYY-MM-DD'),
         now.clone().month(4).date(1).format('YYYY-MM-DD'),
         'given month default to current year'
     );
     assert.equal(
-        moment('1996', 'YYYY').format('YYYY-MM-DD'),
+        customMoment('1996', 'YYYY').format('YYYY-MM-DD'),
         now.clone().year(1996).month(0).date(1).format('YYYY-MM-DD'),
         'given year do not default'
     );
@@ -470,42 +470,42 @@ test('defaulting to current date', function (assert) {
 
 test('matching am/pm', function (assert) {
     assert.equal(
-        moment('2012-09-03T03:00PM', 'YYYY-MM-DDThh:mmA').format(
+        customMoment('2012-09-03T03:00PM', 'YYYY-MM-DDThh:mmA').format(
             'YYYY-MM-DDThh:mmA'
         ),
         '2012-09-03T03:00PM',
         'am/pm should parse correctly for PM'
     );
     assert.equal(
-        moment('2012-09-03T03:00P.M.', 'YYYY-MM-DDThh:mmA').format(
+        customMoment('2012-09-03T03:00P.M.', 'YYYY-MM-DDThh:mmA').format(
             'YYYY-MM-DDThh:mmA'
         ),
         '2012-09-03T03:00PM',
         'am/pm should parse correctly for P.M.'
     );
     assert.equal(
-        moment('2012-09-03T03:00P', 'YYYY-MM-DDThh:mmA').format(
+        customMoment('2012-09-03T03:00P', 'YYYY-MM-DDThh:mmA').format(
             'YYYY-MM-DDThh:mmA'
         ),
         '2012-09-03T03:00PM',
         'am/pm should parse correctly for P'
     );
     assert.equal(
-        moment('2012-09-03T03:00pm', 'YYYY-MM-DDThh:mmA').format(
+        customMoment('2012-09-03T03:00pm', 'YYYY-MM-DDThh:mmA').format(
             'YYYY-MM-DDThh:mmA'
         ),
         '2012-09-03T03:00PM',
         'am/pm should parse correctly for pm'
     );
     assert.equal(
-        moment('2012-09-03T03:00p.m.', 'YYYY-MM-DDThh:mmA').format(
+        customMoment('2012-09-03T03:00p.m.', 'YYYY-MM-DDThh:mmA').format(
             'YYYY-MM-DDThh:mmA'
         ),
         '2012-09-03T03:00PM',
         'am/pm should parse correctly for p.m.'
     );
     assert.equal(
-        moment('2012-09-03T03:00p', 'YYYY-MM-DDThh:mmA').format(
+        customMoment('2012-09-03T03:00p', 'YYYY-MM-DDThh:mmA').format(
             'YYYY-MM-DDThh:mmA'
         ),
         '2012-09-03T03:00PM',
@@ -513,42 +513,42 @@ test('matching am/pm', function (assert) {
     );
 
     assert.equal(
-        moment('2012-09-03T03:00AM', 'YYYY-MM-DDThh:mmA').format(
+        customMoment('2012-09-03T03:00AM', 'YYYY-MM-DDThh:mmA').format(
             'YYYY-MM-DDThh:mmA'
         ),
         '2012-09-03T03:00AM',
         'am/pm should parse correctly for AM'
     );
     assert.equal(
-        moment('2012-09-03T03:00A.M.', 'YYYY-MM-DDThh:mmA').format(
+        customMoment('2012-09-03T03:00A.M.', 'YYYY-MM-DDThh:mmA').format(
             'YYYY-MM-DDThh:mmA'
         ),
         '2012-09-03T03:00AM',
         'am/pm should parse correctly for A.M.'
     );
     assert.equal(
-        moment('2012-09-03T03:00A', 'YYYY-MM-DDThh:mmA').format(
+        customMoment('2012-09-03T03:00A', 'YYYY-MM-DDThh:mmA').format(
             'YYYY-MM-DDThh:mmA'
         ),
         '2012-09-03T03:00AM',
         'am/pm should parse correctly for A'
     );
     assert.equal(
-        moment('2012-09-03T03:00am', 'YYYY-MM-DDThh:mmA').format(
+        customMoment('2012-09-03T03:00am', 'YYYY-MM-DDThh:mmA').format(
             'YYYY-MM-DDThh:mmA'
         ),
         '2012-09-03T03:00AM',
         'am/pm should parse correctly for am'
     );
     assert.equal(
-        moment('2012-09-03T03:00a.m.', 'YYYY-MM-DDThh:mmA').format(
+        customMoment('2012-09-03T03:00a.m.', 'YYYY-MM-DDThh:mmA').format(
             'YYYY-MM-DDThh:mmA'
         ),
         '2012-09-03T03:00AM',
         'am/pm should parse correctly for a.m.'
     );
     assert.equal(
-        moment('2012-09-03T03:00a', 'YYYY-MM-DDThh:mmA').format(
+        customMoment('2012-09-03T03:00a', 'YYYY-MM-DDThh:mmA').format(
             'YYYY-MM-DDThh:mmA'
         ),
         '2012-09-03T03:00AM',
@@ -556,7 +556,7 @@ test('matching am/pm', function (assert) {
     );
 
     assert.equal(
-        moment('5:00p.m.March 4 2012', 'h:mmAMMMM D YYYY').format(
+        customMoment('5:00p.m.March 4 2012', 'h:mmAMMMM D YYYY').format(
             'YYYY-MM-DDThh:mmA'
         ),
         '2012-03-04T05:00PM',
@@ -565,7 +565,7 @@ test('matching am/pm', function (assert) {
 });
 
 test('string with format', function (assert) {
-    moment.locale('en');
+    customMoment.locale('en');
     var a = [
             ['YYYY-Q', '2014-4'],
             ['MM-DD-YYYY', '12-02-1999'],
@@ -623,7 +623,7 @@ test('string with format', function (assert) {
         i;
 
     for (i = 0; i < a.length; i++) {
-        m = moment(a[i][1], a[i][0]);
+        m = customMoment(a[i][1], a[i][0]);
         assert.ok(m.isValid());
         assert.equal(m.format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
     }
@@ -631,22 +631,22 @@ test('string with format', function (assert) {
 
 test('2 digit year with YYYY format', function (assert) {
     assert.equal(
-        moment('9/2/99', 'D/M/YYYY').format('DD/MM/YYYY'),
+        customMoment('9/2/99', 'D/M/YYYY').format('DD/MM/YYYY'),
         '09/02/1999',
         'D/M/YYYY ---> 9/2/99'
     );
     assert.equal(
-        moment('9/2/1999', 'D/M/YYYY').format('DD/MM/YYYY'),
+        customMoment('9/2/1999', 'D/M/YYYY').format('DD/MM/YYYY'),
         '09/02/1999',
         'D/M/YYYY ---> 9/2/1999'
     );
     assert.equal(
-        moment('9/2/68', 'D/M/YYYY').format('DD/MM/YYYY'),
+        customMoment('9/2/68', 'D/M/YYYY').format('DD/MM/YYYY'),
         '09/02/2068',
         'D/M/YYYY ---> 9/2/68'
     );
     assert.equal(
-        moment('9/2/69', 'D/M/YYYY').format('DD/MM/YYYY'),
+        customMoment('9/2/69', 'D/M/YYYY').format('DD/MM/YYYY'),
         '09/02/1969',
         'D/M/YYYY ---> 9/2/69'
     );
@@ -660,22 +660,22 @@ test('unix timestamp format', function (assert) {
     for (i = 0; i < formats.length; i++) {
         format = formats[i];
         assert.equal(
-            moment('1234567890', format).valueOf(),
+            customMoment('1234567890', format).valueOf(),
             1234567890 * 1000,
             format + ' matches timestamp without milliseconds'
         );
         assert.equal(
-            moment('1234567890.1', format).valueOf(),
+            customMoment('1234567890.1', format).valueOf(),
             1234567890 * 1000 + 100,
             format + ' matches timestamp with deciseconds'
         );
         assert.equal(
-            moment('1234567890.12', format).valueOf(),
+            customMoment('1234567890.12', format).valueOf(),
             1234567890 * 1000 + 120,
             format + ' matches timestamp with centiseconds'
         );
         assert.equal(
-            moment('1234567890.123', format).valueOf(),
+            customMoment('1234567890.123', format).valueOf(),
             1234567890 * 1000 + 123,
             format + ' matches timestamp with milliseconds'
         );
@@ -684,33 +684,33 @@ test('unix timestamp format', function (assert) {
 
 test('unix offset milliseconds', function (assert) {
     assert.equal(
-        moment('1234567890123', 'x').valueOf(),
+        customMoment('1234567890123', 'x').valueOf(),
         1234567890123,
         'x matches unix offset in milliseconds'
     );
 });
 
 test('milliseconds format', function (assert) {
-    assert.equal(moment('1', 'S').get('ms'), 100, 'deciseconds');
-    // assert.equal(moment('10', 'S', true).isValid(), false, 'deciseconds with two digits');
-    // assert.equal(moment('1', 'SS', true).isValid(), false, 'centiseconds with one digits');
-    assert.equal(moment('12', 'SS').get('ms'), 120, 'centiseconds');
-    // assert.equal(moment('123', 'SS', true).isValid(), false, 'centiseconds with three digits');
-    assert.equal(moment('123', 'SSS').get('ms'), 123, 'milliseconds');
+    assert.equal(customMoment('1', 'S').get('ms'), 100, 'deciseconds');
+    // assert.equal(customMoment('10', 'S', true).isValid(), false, 'deciseconds with two digits');
+    // assert.equal(customMoment('1', 'SS', true).isValid(), false, 'centiseconds with one digits');
+    assert.equal(customMoment('12', 'SS').get('ms'), 120, 'centiseconds');
+    // assert.equal(customMoment('123', 'SS', true).isValid(), false, 'centiseconds with three digits');
+    assert.equal(customMoment('123', 'SSS').get('ms'), 123, 'milliseconds');
     assert.equal(
-        moment('1234', 'SSSS').get('ms'),
+        customMoment('1234', 'SSSS').get('ms'),
         123,
         'milliseconds with SSSS'
     );
     assert.equal(
-        moment('123456789101112', 'SSSS').get('ms'),
+        customMoment('123456789101112', 'SSSS').get('ms'),
         123,
         'milliseconds with SSSS'
     );
 });
 
 test('string with format no separators', function (assert) {
-    moment.locale('en');
+    customMoment.locale('en');
     var a = [
             ['MMDDYYYY', '12021999'],
             ['DDMMYYYY', '12021999'],
@@ -721,7 +721,7 @@ test('string with format no separators', function (assert) {
 
     for (i = 0; i < a.length; i++) {
         assert.equal(
-            moment(a[i][1], a[i][0]).format(a[i][0]),
+            customMoment(a[i][1], a[i][0]).format(a[i][0]),
             a[i][1],
             a[i][0] + ' ---> ' + a[i][1]
         );
@@ -730,42 +730,42 @@ test('string with format no separators', function (assert) {
 
 test('string with format (timezone)', function (assert) {
     assert.equal(
-        moment('5 -0700', 'H ZZ').toDate().getUTCHours(),
+        customMoment('5 -0700', 'H ZZ').toDate().getUTCHours(),
         12,
         "parse hours '5 -0700' ---> 'H ZZ'"
     );
     assert.equal(
-        moment('5 -07:00', 'H Z').toDate().getUTCHours(),
+        customMoment('5 -07:00', 'H Z').toDate().getUTCHours(),
         12,
         "parse hours '5 -07:00' ---> 'H Z'"
     );
     assert.equal(
-        moment('5 -0730', 'H ZZ').toDate().getUTCMinutes(),
+        customMoment('5 -0730', 'H ZZ').toDate().getUTCMinutes(),
         30,
         "parse hours '5 -0730' ---> 'H ZZ'"
     );
     assert.equal(
-        moment('5 -07:30', 'H Z').toDate().getUTCMinutes(),
+        customMoment('5 -07:30', 'H Z').toDate().getUTCMinutes(),
         30,
         "parse hours '5 -07:0' ---> 'H Z'"
     );
     assert.equal(
-        moment('5 +0100', 'H ZZ').toDate().getUTCHours(),
+        customMoment('5 +0100', 'H ZZ').toDate().getUTCHours(),
         4,
         "parse hours '5 +0100' ---> 'H ZZ'"
     );
     assert.equal(
-        moment('5 +01:00', 'H Z').toDate().getUTCHours(),
+        customMoment('5 +01:00', 'H Z').toDate().getUTCHours(),
         4,
         "parse hours '5 +01:00' ---> 'H Z'"
     );
     assert.equal(
-        moment('5 +0130', 'H ZZ').toDate().getUTCMinutes(),
+        customMoment('5 +0130', 'H ZZ').toDate().getUTCMinutes(),
         30,
         "parse hours '5 +0130' ---> 'H ZZ'"
     );
     assert.equal(
-        moment('5 +01:30', 'H Z').toDate().getUTCMinutes(),
+        customMoment('5 +01:30', 'H Z').toDate().getUTCMinutes(),
         30,
         "parse hours '5 +01:30' ---> 'H Z'"
     );
@@ -774,7 +774,7 @@ test('string with format (timezone)', function (assert) {
 test('string with format (timezone offset)', function (assert) {
     var a, b, c, d, e, f;
     a = new Date(Date.UTC(2011, 0, 1, 1));
-    b = moment('2011 1 1 0 -01:00', 'YYYY MM DD HH Z');
+    b = customMoment('2011 1 1 0 -01:00', 'YYYY MM DD HH Z');
     assert.equal(
         a.getHours(),
         b.hours(),
@@ -785,68 +785,68 @@ test('string with format (timezone offset)', function (assert) {
         +b,
         'date created with utc == parsed string with timezone offset'
     );
-    c = moment('2011 2 1 10 -05:00', 'YYYY MM DD HH Z');
-    d = moment('2011 2 1 8 -07:00', 'YYYY MM DD HH Z');
+    c = customMoment('2011 2 1 10 -05:00', 'YYYY MM DD HH Z');
+    d = customMoment('2011 2 1 8 -07:00', 'YYYY MM DD HH Z');
     assert.equal(
         c.hours(),
         d.hours(),
         '10 am central time == 8 am pacific time'
     );
-    e = moment.utc('20 07 2012 17:15:00', 'DD MM YYYY HH:mm:ss');
-    f = moment.utc('20 07 2012 10:15:00 -0700', 'DD MM YYYY HH:mm:ss ZZ');
+    e = customMoment.utc('20 07 2012 17:15:00', 'DD MM YYYY HH:mm:ss');
+    f = customMoment.utc('20 07 2012 10:15:00 -0700', 'DD MM YYYY HH:mm:ss ZZ');
     assert.equal(e.hours(), f.hours(), 'parse timezone offset in utc');
 });
 
 test('string with timezone around start of year', function (assert) {
     assert.equal(
-        moment('2000-01-01T00:00:00.000+01:00').toISOString(),
+        customMoment('2000-01-01T00:00:00.000+01:00').toISOString(),
         '1999-12-31T23:00:00.000Z',
         '+1:00 around 2000'
     );
     assert.equal(
-        moment('2000-01-01T00:00:00.000-01:00').toISOString(),
+        customMoment('2000-01-01T00:00:00.000-01:00').toISOString(),
         '2000-01-01T01:00:00.000Z',
         '-1:00 around 2000'
     );
     assert.equal(
-        moment('1970-01-01T00:00:00.000+01:00').toISOString(),
+        customMoment('1970-01-01T00:00:00.000+01:00').toISOString(),
         '1969-12-31T23:00:00.000Z',
         '+1:00 around 1970'
     );
     assert.equal(
-        moment('1970-01-01T00:00:00.000-01:00').toISOString(),
+        customMoment('1970-01-01T00:00:00.000-01:00').toISOString(),
         '1970-01-01T01:00:00.000Z',
         '-1:00 around 1970'
     );
     assert.equal(
-        moment('1200-01-01T00:00:00.000+01:00').toISOString(),
+        customMoment('1200-01-01T00:00:00.000+01:00').toISOString(),
         '1199-12-31T23:00:00.000Z',
         '+1:00 around 1200'
     );
     assert.equal(
-        moment('1200-01-01T00:00:00.000-01:00').toISOString(),
+        customMoment('1200-01-01T00:00:00.000-01:00').toISOString(),
         '1200-01-01T01:00:00.000Z',
         '-1:00 around 1200'
     );
 });
 
 test('string with array of formats', function (assert) {
-    var thursdayForCurrentWeek = moment().day(4).format('YYYY MM DD');
+    var thursdayForCurrentWeek = customMoment().day(4).format('YYYY MM DD');
 
     assert.equal(
-        moment('11-02-1999', ['MM-DD-YYYY', 'DD-MM-YYYY']).format('MM DD YYYY'),
+        customMoment('11-02-1999', ['MM-DD-YYYY', 'DD-MM-YYYY']).format('MM DD YYYY'),
         '11 02 1999',
         'switching month and day'
     );
     assert.equal(
-        moment('02-11-1999', ['MM/DD/YYYY', 'YYYY MM DD', 'MM-DD-YYYY']).format(
+        customMoment('02-11-1999', ['MM/DD/YYYY', 'YYYY MM DD', 'MM-DD-YYYY']).format(
             'MM DD YYYY'
         ),
         '02 11 1999',
         'year last'
     );
     assert.equal(
-        moment('1999-02-11', ['MM/DD/YYYY', 'YYYY MM DD', 'MM-DD-YYYY']).format(
+        customMoment('1999-02-11', ['MM/DD/YYYY', 'YYYY MM DD', 'MM-DD-YYYY']).format(
             'MM DD YYYY'
         ),
         '02 11 1999',
@@ -854,86 +854,86 @@ test('string with array of formats', function (assert) {
     );
 
     assert.equal(
-        moment('02-11-1999', ['MM/DD/YYYY', 'YYYY MM DD']).format('MM DD YYYY'),
+        customMoment('02-11-1999', ['MM/DD/YYYY', 'YYYY MM DD']).format('MM DD YYYY'),
         '02 11 1999',
         'year last'
     );
     assert.equal(
-        moment('1999-02-11', ['MM/DD/YYYY', 'YYYY MM DD']).format('MM DD YYYY'),
+        customMoment('1999-02-11', ['MM/DD/YYYY', 'YYYY MM DD']).format('MM DD YYYY'),
         '02 11 1999',
         'year first'
     );
     assert.equal(
-        moment('02-11-1999', ['YYYY MM DD', 'MM/DD/YYYY']).format('MM DD YYYY'),
+        customMoment('02-11-1999', ['YYYY MM DD', 'MM/DD/YYYY']).format('MM DD YYYY'),
         '02 11 1999',
         'year last'
     );
     assert.equal(
-        moment('1999-02-11', ['YYYY MM DD', 'MM/DD/YYYY']).format('MM DD YYYY'),
+        customMoment('1999-02-11', ['YYYY MM DD', 'MM/DD/YYYY']).format('MM DD YYYY'),
         '02 11 1999',
         'year first'
     );
 
     assert.equal(
-        moment('13-11-1999', ['MM/DD/YYYY', 'DD/MM/YYYY']).format('MM DD YYYY'),
+        customMoment('13-11-1999', ['MM/DD/YYYY', 'DD/MM/YYYY']).format('MM DD YYYY'),
         '11 13 1999',
         'second must be month'
     );
     assert.equal(
-        moment('11-13-1999', ['MM/DD/YYYY', 'DD/MM/YYYY']).format('MM DD YYYY'),
+        customMoment('11-13-1999', ['MM/DD/YYYY', 'DD/MM/YYYY']).format('MM DD YYYY'),
         '11 13 1999',
         'first must be month'
     );
     assert.equal(
-        moment('01-02-2000', ['MM/DD/YYYY', 'DD/MM/YYYY']).format('MM DD YYYY'),
+        customMoment('01-02-2000', ['MM/DD/YYYY', 'DD/MM/YYYY']).format('MM DD YYYY'),
         '01 02 2000',
         'either can be a month, month first format'
     );
     assert.equal(
-        moment('02-01-2000', ['DD/MM/YYYY', 'MM/DD/YYYY']).format('MM DD YYYY'),
+        customMoment('02-01-2000', ['DD/MM/YYYY', 'MM/DD/YYYY']).format('MM DD YYYY'),
         '01 02 2000',
         'either can be a month, day first format'
     );
 
     assert.equal(
-        moment('11-02-10', ['MM/DD/YY', 'YY MM DD', 'DD-MM-YY']).format(
+        customMoment('11-02-10', ['MM/DD/YY', 'YY MM DD', 'DD-MM-YY']).format(
             'MM DD YYYY'
         ),
         '02 11 2010',
         'all unparsed substrings have influence on format penalty'
     );
     assert.equal(
-        moment('11-02-10', ['MM-DD-YY HH:mm', 'YY MM DD']).format('MM DD YYYY'),
+        customMoment('11-02-10', ['MM-DD-YY HH:mm', 'YY MM DD']).format('MM DD YYYY'),
         '02 10 2011',
         'prefer formats without extra tokens'
     );
     assert.equal(
-        moment('11-02-10 junk', ['MM-DD-YY', 'YY.MM.DD [junk]']).format(
+        customMoment('11-02-10 junk', ['MM-DD-YY', 'YY.MM.DD [junk]']).format(
             'MM DD YYYY'
         ),
         '02 10 2011',
         'prefer formats that dont result in extra characters'
     );
     assert.equal(
-        moment('11-22-10', ['YY-MM-DD', 'YY-DD-MM']).format('MM DD YYYY'),
+        customMoment('11-22-10', ['YY-MM-DD', 'YY-DD-MM']).format('MM DD YYYY'),
         '10 22 2011',
         'prefer valid results'
     );
 
     assert.equal(
-        moment('gibberish', ['YY-MM-DD', 'YY-DD-MM']).format('MM DD YYYY'),
+        customMoment('gibberish', ['YY-MM-DD', 'YY-DD-MM']).format('MM DD YYYY'),
         'Invalid date',
         'doest throw for invalid strings'
     );
     assert.equal(
-        moment('gibberish', []).format('MM DD YYYY'),
+        customMoment('gibberish', []).format('MM DD YYYY'),
         'Invalid date',
         'doest throw for an empty array'
     );
 
-    // https://github.com/moment/moment/issues/1143
+    // https://github.com/custom_moment/custom_moment/issues/1143
     assert.equal(
-        moment(
+        customMoment(
             'System Administrator and Database Assistant (7/1/2011), System Administrator and Database Assistant (7/1/2011), Database Coordinator (7/1/2011), Vice President (7/1/2011), System Administrator and Database Assistant (5/31/2012), Database Coordinator (7/1/2012), System Administrator and Database Assistant (7/1/2013)',
             ['MM/DD/YYYY', 'MM-DD-YYYY', 'YYYY-MM-DD', 'YYYY-MM-DDTHH:mm:ssZ']
         ).format('YYYY-MM-DD'),
@@ -942,30 +942,30 @@ test('string with array of formats', function (assert) {
     );
 
     assert.equal(
-        moment('11-02-10', ['MM.DD.YY', 'DD-MM-YY']).format('MM DD YYYY'),
+        customMoment('11-02-10', ['MM.DD.YY', 'DD-MM-YY']).format('MM DD YYYY'),
         '02 11 2010',
         'escape RegExp special characters on comparing'
     );
 
     assert.equal(
-        moment('13-10-98', ['DD MM YY', 'DD MM YYYY'])._f,
+        customMoment('13-10-98', ['DD MM YY', 'DD MM YYYY'])._f,
         'DD MM YY',
         'use two digit year'
     );
     assert.equal(
-        moment('13-10-1998', ['DD MM YY', 'DD MM YYYY'])._f,
+        customMoment('13-10-1998', ['DD MM YY', 'DD MM YYYY'])._f,
         'DD MM YYYY',
         'use four digit year'
     );
 
     assert.equal(
-        moment('01', ['MM', 'DD'])._f,
+        customMoment('01', ['MM', 'DD'])._f,
         'MM',
         'Should use first valid format'
     );
 
     assert.equal(
-        moment('Thursday 8:30pm', ['dddd h:mma']).format(
+        customMoment('Thursday 8:30pm', ['dddd h:mma']).format(
             'YYYY MM DD dddd h:mma'
         ),
         thursdayForCurrentWeek + ' Thursday 8:30pm',
@@ -975,33 +975,33 @@ test('string with array of formats', function (assert) {
 
 test('string with array of formats + ISO', function (assert) {
     assert.equal(
-        moment('1994', [moment.ISO_8601, 'MM', 'HH:mm', 'YYYY']).year(),
+        customMoment('1994', [customMoment.ISO_8601, 'MM', 'HH:mm', 'YYYY']).year(),
         1994,
         'iso: assert parse YYYY'
     );
     assert.equal(
-        moment('17:15', [moment.ISO_8601, 'MM', 'HH:mm', 'YYYY']).hour(),
+        customMoment('17:15', [customMoment.ISO_8601, 'MM', 'HH:mm', 'YYYY']).hour(),
         17,
         'iso: assert parse HH:mm (1)'
     );
     assert.equal(
-        moment('24:15', [moment.ISO_8601, 'MM', 'kk:mm', 'YYYY']).hour(),
+        customMoment('24:15', [customMoment.ISO_8601, 'MM', 'kk:mm', 'YYYY']).hour(),
         0,
         'iso: assert parse kk:mm'
     );
     assert.equal(
-        moment('17:15', [moment.ISO_8601, 'MM', 'HH:mm', 'YYYY']).minutes(),
+        customMoment('17:15', [customMoment.ISO_8601, 'MM', 'HH:mm', 'YYYY']).minutes(),
         15,
         'iso: assert parse HH:mm (2)'
     );
     assert.equal(
-        moment('06', [moment.ISO_8601, 'MM', 'HH:mm', 'YYYY']).month(),
+        customMoment('06', [customMoment.ISO_8601, 'MM', 'HH:mm', 'YYYY']).month(),
         6 - 1,
         'iso: assert parse MM'
     );
     assert.equal(
-        moment('2012-06-01', [
-            moment.ISO_8601,
+        customMoment('2012-06-01', [
+            customMoment.ISO_8601,
             'MM',
             'HH:mm',
             'YYYY',
@@ -1010,13 +1010,13 @@ test('string with array of formats + ISO', function (assert) {
         'iso: assert parse iso'
     );
     assert.equal(
-        moment('2014-05-05', [moment.ISO_8601, 'YYYY-MM-DD']).parsingFlags()
+        customMoment('2014-05-05', [customMoment.ISO_8601, 'YYYY-MM-DD']).parsingFlags()
             .iso,
         true,
         'iso: edge case array precedence iso'
     );
     assert.equal(
-        moment('2014-05-05', ['YYYY-MM-DD', moment.ISO_8601]).parsingFlags()
+        customMoment('2014-05-05', ['YYYY-MM-DD', customMoment.ISO_8601]).parsingFlags()
             .iso,
         false,
         'iso: edge case array precedence not iso'
@@ -1024,7 +1024,7 @@ test('string with array of formats + ISO', function (assert) {
 });
 
 test('strict parsing invalid date against array of formats', function (assert) {
-    var b = moment(
+    var b = customMoment(
         '2/30/2019 7:00pm',
         [
             'M/DD/YYYY h:mma", "MM/DD/YYYY h:mma", "M-D-YYYY h:mma", "MM-D-YYYY h:mma',
@@ -1039,25 +1039,25 @@ test('strict parsing invalid date against array of formats', function (assert) {
 });
 
 test('string with format - years', function (assert) {
-    assert.equal(moment('67', 'YY').format('YYYY'), '2067', '67 > 2067');
-    assert.equal(moment('68', 'YY').format('YYYY'), '2068', '68 > 2068');
-    assert.equal(moment('69', 'YY').format('YYYY'), '1969', '69 > 1969');
-    assert.equal(moment('70', 'YY').format('YYYY'), '1970', '70 > 1970');
+    assert.equal(customMoment('67', 'YY').format('YYYY'), '2067', '67 > 2067');
+    assert.equal(customMoment('68', 'YY').format('YYYY'), '2068', '68 > 2068');
+    assert.equal(customMoment('69', 'YY').format('YYYY'), '1969', '69 > 1969');
+    assert.equal(customMoment('70', 'YY').format('YYYY'), '1970', '70 > 1970');
 });
 
 test('implicit cloning', function (assert) {
-    var momentA = moment([2011, 10, 10]),
-        momentB = moment(momentA);
+    var momentA = customMoment([2011, 10, 10]),
+        momentB = customMoment(momentA);
     momentA.month(5);
     assert.notEqual(
         momentA.month(),
         momentB.month(),
-        'Calling moment() on a moment will create a clone'
+        'Calling customMoment() on a moment will create a clone'
     );
 });
 
 test('explicit cloning', function (assert) {
-    var momentA = moment([2011, 10, 10]),
+    var momentA = customMoment([2011, 10, 10]),
         momentB = momentA.clone();
     momentA.month(5);
     assert.notEqual(
@@ -1069,42 +1069,42 @@ test('explicit cloning', function (assert) {
 
 test('cloning carrying over utc mode', function (assert) {
     assert.equal(
-        moment().local().clone()._isUTC,
+        customMoment().local().clone()._isUTC,
         false,
         'An explicit cloned local moment should have _isUTC == false'
     );
     assert.equal(
-        moment().utc().clone()._isUTC,
+        customMoment().utc().clone()._isUTC,
         true,
         'An cloned utc moment should have _isUTC == true'
     );
     assert.equal(
-        moment().clone()._isUTC,
+        customMoment().clone()._isUTC,
         false,
         'An explicit cloned local moment should have _isUTC == false'
     );
     assert.equal(
-        moment.utc().clone()._isUTC,
+        customMoment.utc().clone()._isUTC,
         true,
         'An explicit cloned utc moment should have _isUTC == true'
     );
     assert.equal(
-        moment(moment().local())._isUTC,
+        customMoment(customMoment().local())._isUTC,
         false,
         'An implicit cloned local moment should have _isUTC == false'
     );
     assert.equal(
-        moment(moment().utc())._isUTC,
+        customMoment(customMoment().utc())._isUTC,
         true,
         'An implicit cloned utc moment should have _isUTC == true'
     );
     assert.equal(
-        moment(moment())._isUTC,
+        customMoment(customMoment())._isUTC,
         false,
         'An implicit cloned local moment should have _isUTC == false'
     );
     assert.equal(
-        moment(moment.utc())._isUTC,
+        customMoment(customMoment.utc())._isUTC,
         true,
         'An implicit cloned utc moment should have _isUTC == true'
     );
@@ -1158,7 +1158,7 @@ test('parsing RFC 2822', function (assert) {
 
     eachOwnProp(testCases, function (inp) {
         var tokens = testCases[inp],
-            parseResult = moment(inp, moment.RFC_2822, true).parseZone(),
+            parseResult = customMoment(inp, customMoment.RFC_2822, true).parseZone(),
             expResult = moment
                 .utc(tokens.slice(0, 6))
                 .utcOffset(tokens[6], true);
@@ -1189,7 +1189,7 @@ test('non RFC 2822 strings', function (assert) {
     };
 
     eachOwnProp(testCases, function (testCase) {
-        var testResult = moment(testCases[testCase], moment.RFC_2822, true);
+        var testResult = customMoment(testCases[testCase], customMoment.RFC_2822, true);
         assert.ok(
             !testResult.isValid(),
             testCase + ': ' + testResult + ' - is invalid rfc2822'
@@ -1217,9 +1217,9 @@ test('parsing RFC 2822 in a different locale', function (assert) {
     };
 
     try {
-        moment.locale('ru');
+        customMoment.locale('ru');
         eachOwnProp(testCases, function (testCase) {
-            var testResult = moment(testCases[testCase], moment.RFC_2822, true);
+            var testResult = customMoment(testCases[testCase], customMoment.RFC_2822, true);
             assert.ok(testResult.isValid(), testResult);
             assert.ok(
                 testResult.parsingFlags().rfc2822,
@@ -1227,7 +1227,7 @@ test('parsing RFC 2822 in a different locale', function (assert) {
             );
         });
     } finally {
-        moment.locale('en');
+        customMoment.locale('en');
     }
 });
 
@@ -1240,9 +1240,9 @@ test('non RFC 2822 strings in a different locale', function (assert) {
     };
 
     try {
-        moment.locale('ru');
+        customMoment.locale('ru');
         eachOwnProp(testCases, function (testCase) {
-            var testResult = moment(testCases[testCase], moment.RFC_2822, true);
+            var testResult = customMoment(testCases[testCase], customMoment.RFC_2822, true);
             assert.ok(!testResult.isValid(), testResult);
             assert.ok(
                 !testResult.parsingFlags().rfc2822,
@@ -1250,12 +1250,12 @@ test('non RFC 2822 strings in a different locale', function (assert) {
             );
         });
     } finally {
-        moment.locale('en');
+        customMoment.locale('en');
     }
 });
 
 test('parsing iso', function (assert) {
-    var offset = moment([2011, 9, 8]).utcOffset(),
+    var offset = customMoment([2011, 9, 8]).utcOffset(),
         pad = function (input) {
             if (input < 10) {
                 return '0' + input;
@@ -1273,7 +1273,7 @@ test('parsing iso', function (assert) {
                 : '-' + pad(-hourOffset) + ':' + pad(-minOffset);
         },
         tz = offStr(offset),
-        tz0 = offStr(moment([2011, 0, 1]).utcOffset()),
+        tz0 = offStr(customMoment([2011, 0, 1]).utcOffset()),
         tz2 = tz.replace(':', ''),
         tz3 = tz2.slice(0, 3),
         //Tz3 removes minutes digit so will break the tests when parsed if they all use the same minutes digit
@@ -1513,19 +1513,19 @@ test('parsing iso', function (assert) {
         i;
     for (i = 0; i < formats.length; i++) {
         assert.equal(
-            moment(formats[i][0]).format('YYYY-MM-DDTHH:mm:ss.SSSZ'),
+            customMoment(formats[i][0]).format('YYYY-MM-DDTHH:mm:ss.SSSZ'),
             formats[i][1],
             'moment should be able to parse ISO ' + formats[i][0]
         );
         assert.equal(
-            moment(formats[i][0], moment.ISO_8601).format(
+            customMoment(formats[i][0], customMoment.ISO_8601).format(
                 'YYYY-MM-DDTHH:mm:ss.SSSZ'
             ),
             formats[i][1],
             'moment should be able to parse specified ISO ' + formats[i][0]
         );
         assert.equal(
-            moment(formats[i][0], moment.ISO_8601, true).format(
+            customMoment(formats[i][0], customMoment.ISO_8601, true).format(
                 'YYYY-MM-DDTHH:mm:ss.SSSZ'
             ),
             formats[i][1],
@@ -1537,64 +1537,64 @@ test('parsing iso', function (assert) {
 
 test('non iso 8601 strings', function (assert) {
     assert.ok(
-        !moment('2015-10T10:15', moment.ISO_8601, true).isValid(),
+        !customMoment('2015-10T10:15', customMoment.ISO_8601, true).isValid(),
         'incomplete date with time'
     );
     assert.ok(
-        !moment('2015-W10T10:15', moment.ISO_8601, true).isValid(),
+        !customMoment('2015-W10T10:15', customMoment.ISO_8601, true).isValid(),
         'incomplete week date with time'
     );
     assert.ok(
-        !moment('2015W10T1015', moment.ISO_8601, true).isValid(),
+        !customMoment('2015W10T1015', customMoment.ISO_8601, true).isValid(),
         'incomplete week date with time (basic)'
     );
     assert.ok(
-        !moment('2015-10-08T1015', moment.ISO_8601, true).isValid(),
+        !customMoment('2015-10-08T1015', customMoment.ISO_8601, true).isValid(),
         'mixing extended and basic format'
     );
     assert.ok(
-        !moment('20151008T10:15', moment.ISO_8601, true).isValid(),
+        !customMoment('20151008T10:15', customMoment.ISO_8601, true).isValid(),
         'mixing basic and extended format'
     );
     assert.ok(
-        !moment('2015-10-1', moment.ISO_8601, true).isValid(),
+        !customMoment('2015-10-1', customMoment.ISO_8601, true).isValid(),
         'missing zero padding for day'
     );
 });
 
 test('parsing iso week year/week/weekday', function (assert) {
     assert.equal(
-        moment.utc('2007-W01').format(),
+        customMoment.utc('2007-W01').format(),
         '2007-01-01T00:00:00Z',
         '2008 week 1 (1st Jan Mon)'
     );
     assert.equal(
-        moment.utc('2008-W01').format(),
+        customMoment.utc('2008-W01').format(),
         '2007-12-31T00:00:00Z',
         '2008 week 1 (1st Jan Tue)'
     );
     assert.equal(
-        moment.utc('2003-W01').format(),
+        customMoment.utc('2003-W01').format(),
         '2002-12-30T00:00:00Z',
         '2008 week 1 (1st Jan Wed)'
     );
     assert.equal(
-        moment.utc('2009-W01').format(),
+        customMoment.utc('2009-W01').format(),
         '2008-12-29T00:00:00Z',
         '2009 week 1 (1st Jan Thu)'
     );
     assert.equal(
-        moment.utc('2010-W01').format(),
+        customMoment.utc('2010-W01').format(),
         '2010-01-04T00:00:00Z',
         '2010 week 1 (1st Jan Fri)'
     );
     assert.equal(
-        moment.utc('2011-W01').format(),
+        customMoment.utc('2011-W01').format(),
         '2011-01-03T00:00:00Z',
         '2011 week 1 (1st Jan Sat)'
     );
     assert.equal(
-        moment.utc('2012-W01').format(),
+        customMoment.utc('2012-W01').format(),
         '2012-01-02T00:00:00Z',
         '2012 week 1 (1st Jan Sun)'
     );
@@ -1603,27 +1603,27 @@ test('parsing iso week year/week/weekday', function (assert) {
 test('parsing weekdays verifies the day', function (assert) {
     // string with format
     assert.ok(
-        !moment('Wed 08-10-2017', 'ddd MM-DD-YYYY').isValid(),
+        !customMoment('Wed 08-10-2017', 'ddd MM-DD-YYYY').isValid(),
         'because day of week is incorrect for the date'
     );
     assert.ok(
-        moment('Thu 08-10-2017', 'ddd MM-DD-YYYY').isValid(),
+        customMoment('Thu 08-10-2017', 'ddd MM-DD-YYYY').isValid(),
         'because day of week is correct for the date'
     );
 });
 
 test('parsing weekday on utc dates verifies day according to utc time', function (assert) {
-    assert.ok(moment.utc('Mon 03:59', 'ddd HH:mm').isValid(), 'Monday 03:59');
+    assert.ok(customMoment.utc('Mon 03:59', 'ddd HH:mm').isValid(), 'Monday 03:59');
 });
 
 test('parsing weekday on local dates verifies day according to local time', function (assert) {
     // this doesn't do much useful if you're not in the US or at least close to it
-    assert.ok(moment('Mon 03:59', 'ddd HH:mm').isValid(), 'Monday 03:59');
+    assert.ok(customMoment('Mon 03:59', 'ddd HH:mm').isValid(), 'Monday 03:59');
 });
 
 test('parsing weekday on utc dates with specified offsets verifies day according to that offset', function (assert) {
     assert.ok(
-        moment.utc('Mon 03:59 +12:00', 'ddd HH:mm Z', true).isValid(),
+        customMoment.utc('Mon 03:59 +12:00', 'ddd HH:mm Z', true).isValid(),
         'Monday 03:59'
     );
 });
@@ -1631,174 +1631,174 @@ test('parsing weekday on utc dates with specified offsets verifies day according
 test('parsing weekday on local dates with specified offsets verifies day according to that offset', function (assert) {
     // if you're in the US, these times will all be sometime Sunday, but they should parse as Monday
     assert.ok(
-        moment('Mon 03:59 +12:00', 'ddd HH:mm Z', true).isValid(),
+        customMoment('Mon 03:59 +12:00', 'ddd HH:mm Z', true).isValid(),
         'Monday 03:59'
     );
 });
 
 test('parsing week year/week/weekday (dow 1, doy 4)', function (assert) {
-    moment.locale('dow:1,doy:4', { week: { dow: 1, doy: 4 } });
+    customMoment.locale('dow:1,doy:4', { week: { dow: 1, doy: 4 } });
 
     assert.equal(
-        moment.utc('2007-01', 'gggg-ww').format(),
+        customMoment.utc('2007-01', 'gggg-ww').format(),
         '2007-01-01T00:00:00Z',
         '2007 week 1 (1st Jan Mon)'
     );
     assert.equal(
-        moment.utc('2008-01', 'gggg-ww').format(),
+        customMoment.utc('2008-01', 'gggg-ww').format(),
         '2007-12-31T00:00:00Z',
         '2008 week 1 (1st Jan Tue)'
     );
     assert.equal(
-        moment.utc('2003-01', 'gggg-ww').format(),
+        customMoment.utc('2003-01', 'gggg-ww').format(),
         '2002-12-30T00:00:00Z',
         '2003 week 1 (1st Jan Wed)'
     );
     assert.equal(
-        moment.utc('2009-01', 'gggg-ww').format(),
+        customMoment.utc('2009-01', 'gggg-ww').format(),
         '2008-12-29T00:00:00Z',
         '2009 week 1 (1st Jan Thu)'
     );
     assert.equal(
-        moment.utc('2010-01', 'gggg-ww').format(),
+        customMoment.utc('2010-01', 'gggg-ww').format(),
         '2010-01-04T00:00:00Z',
         '2010 week 1 (1st Jan Fri)'
     );
     assert.equal(
-        moment.utc('2011-01', 'gggg-ww').format(),
+        customMoment.utc('2011-01', 'gggg-ww').format(),
         '2011-01-03T00:00:00Z',
         '2011 week 1 (1st Jan Sat)'
     );
     assert.equal(
-        moment.utc('2012-01', 'gggg-ww').format(),
+        customMoment.utc('2012-01', 'gggg-ww').format(),
         '2012-01-02T00:00:00Z',
         '2012 week 1 (1st Jan Sun)'
     );
 
-    moment.defineLocale('dow:1,doy:4', null);
+    customMoment.defineLocale('dow:1,doy:4', null);
 });
 
 test('parsing week year/week/weekday (dow 1, doy 7)', function (assert) {
-    moment.locale('dow:1,doy:7', { week: { dow: 1, doy: 7 } });
+    customMoment.locale('dow:1,doy:7', { week: { dow: 1, doy: 7 } });
 
     assert.equal(
-        moment.utc('2007-01', 'gggg-ww').format(),
+        customMoment.utc('2007-01', 'gggg-ww').format(),
         '2007-01-01T00:00:00Z',
         '2007 week 1 (1st Jan Mon)'
     );
     assert.equal(
-        moment.utc('2008-01', 'gggg-ww').format(),
+        customMoment.utc('2008-01', 'gggg-ww').format(),
         '2007-12-31T00:00:00Z',
         '2008 week 1 (1st Jan Tue)'
     );
     assert.equal(
-        moment.utc('2003-01', 'gggg-ww').format(),
+        customMoment.utc('2003-01', 'gggg-ww').format(),
         '2002-12-30T00:00:00Z',
         '2003 week 1 (1st Jan Wed)'
     );
     assert.equal(
-        moment.utc('2009-01', 'gggg-ww').format(),
+        customMoment.utc('2009-01', 'gggg-ww').format(),
         '2008-12-29T00:00:00Z',
         '2009 week 1 (1st Jan Thu)'
     );
     assert.equal(
-        moment.utc('2010-01', 'gggg-ww').format(),
+        customMoment.utc('2010-01', 'gggg-ww').format(),
         '2009-12-28T00:00:00Z',
         '2010 week 1 (1st Jan Fri)'
     );
     assert.equal(
-        moment.utc('2011-01', 'gggg-ww').format(),
+        customMoment.utc('2011-01', 'gggg-ww').format(),
         '2010-12-27T00:00:00Z',
         '2011 week 1 (1st Jan Sat)'
     );
     assert.equal(
-        moment.utc('2012-01', 'gggg-ww').format(),
+        customMoment.utc('2012-01', 'gggg-ww').format(),
         '2011-12-26T00:00:00Z',
         '2012 week 1 (1st Jan Sun)'
     );
-    moment.defineLocale('dow:1,doy:7', null);
+    customMoment.defineLocale('dow:1,doy:7', null);
 });
 
 test('parsing week year/week/weekday (dow 0, doy 6)', function (assert) {
-    moment.locale('dow:0,doy:6', { week: { dow: 0, doy: 6 } });
+    customMoment.locale('dow:0,doy:6', { week: { dow: 0, doy: 6 } });
 
     assert.equal(
-        moment.utc('2007-01', 'gggg-ww').format(),
+        customMoment.utc('2007-01', 'gggg-ww').format(),
         '2006-12-31T00:00:00Z',
         '2007 week 1 (1st Jan Mon)'
     );
     assert.equal(
-        moment.utc('2008-01', 'gggg-ww').format(),
+        customMoment.utc('2008-01', 'gggg-ww').format(),
         '2007-12-30T00:00:00Z',
         '2008 week 1 (1st Jan Tue)'
     );
     assert.equal(
-        moment.utc('2003-01', 'gggg-ww').format(),
+        customMoment.utc('2003-01', 'gggg-ww').format(),
         '2002-12-29T00:00:00Z',
         '2003 week 1 (1st Jan Wed)'
     );
     assert.equal(
-        moment.utc('2009-01', 'gggg-ww').format(),
+        customMoment.utc('2009-01', 'gggg-ww').format(),
         '2008-12-28T00:00:00Z',
         '2009 week 1 (1st Jan Thu)'
     );
     assert.equal(
-        moment.utc('2010-01', 'gggg-ww').format(),
+        customMoment.utc('2010-01', 'gggg-ww').format(),
         '2009-12-27T00:00:00Z',
         '2010 week 1 (1st Jan Fri)'
     );
     assert.equal(
-        moment.utc('2011-01', 'gggg-ww').format(),
+        customMoment.utc('2011-01', 'gggg-ww').format(),
         '2010-12-26T00:00:00Z',
         '2011 week 1 (1st Jan Sat)'
     );
     assert.equal(
-        moment.utc('2012-01', 'gggg-ww').format(),
+        customMoment.utc('2012-01', 'gggg-ww').format(),
         '2012-01-01T00:00:00Z',
         '2012 week 1 (1st Jan Sun)'
     );
-    moment.defineLocale('dow:0,doy:6', null);
+    customMoment.defineLocale('dow:0,doy:6', null);
 });
 
 test('parsing week year/week/weekday (dow 6, doy 12)', function (assert) {
-    moment.locale('dow:6,doy:12', { week: { dow: 6, doy: 12 } });
+    customMoment.locale('dow:6,doy:12', { week: { dow: 6, doy: 12 } });
 
     assert.equal(
-        moment.utc('2007-01', 'gggg-ww').format(),
+        customMoment.utc('2007-01', 'gggg-ww').format(),
         '2006-12-30T00:00:00Z',
         '2007 week 1 (1st Jan Mon)'
     );
     assert.equal(
-        moment.utc('2008-01', 'gggg-ww').format(),
+        customMoment.utc('2008-01', 'gggg-ww').format(),
         '2007-12-29T00:00:00Z',
         '2008 week 1 (1st Jan Tue)'
     );
     assert.equal(
-        moment.utc('2003-01', 'gggg-ww').format(),
+        customMoment.utc('2003-01', 'gggg-ww').format(),
         '2002-12-28T00:00:00Z',
         '2003 week 1 (1st Jan Wed)'
     );
     assert.equal(
-        moment.utc('2009-01', 'gggg-ww').format(),
+        customMoment.utc('2009-01', 'gggg-ww').format(),
         '2008-12-27T00:00:00Z',
         '2009 week 1 (1st Jan Thu)'
     );
     assert.equal(
-        moment.utc('2010-01', 'gggg-ww').format(),
+        customMoment.utc('2010-01', 'gggg-ww').format(),
         '2009-12-26T00:00:00Z',
         '2010 week 1 (1st Jan Fri)'
     );
     assert.equal(
-        moment.utc('2011-01', 'gggg-ww').format(),
+        customMoment.utc('2011-01', 'gggg-ww').format(),
         '2011-01-01T00:00:00Z',
         '2011 week 1 (1st Jan Sat)'
     );
     assert.equal(
-        moment.utc('2012-01', 'gggg-ww').format(),
+        customMoment.utc('2012-01', 'gggg-ww').format(),
         '2011-12-31T00:00:00Z',
         '2012 week 1 (1st Jan Sun)'
     );
-    moment.defineLocale('dow:6,doy:12', null);
+    customMoment.defineLocale('dow:6,doy:12', null);
 });
 
 test('parsing ISO with Z', function (assert) {
@@ -1826,14 +1826,14 @@ test('parsing ISO with Z', function (assert) {
         ];
 
     for (i = 0; i < formats.length; i++) {
-        mom = moment(formats[i][0] + 'Z').utc();
+        mom = customMoment(formats[i][0] + 'Z').utc();
         assert.equal(
             mom.format('YYYY-MM-DDTHH:mm:ss.SSS'),
             formats[i][1],
             'moment should be able to parse ISO in UTC ' + formats[i][0] + 'Z'
         );
 
-        mom = moment(formats[i][0] + ' Z').utc();
+        mom = customMoment(formats[i][0] + ' Z').utc();
         assert.equal(
             mom.format('YYYY-MM-DDTHH:mm:ss.SSS'),
             formats[i][1],
@@ -1844,43 +1844,43 @@ test('parsing ISO with Z', function (assert) {
 
 test('parsing iso with T', function (assert) {
     assert.equal(
-        moment('2011-10-08T18')._f,
+        customMoment('2011-10-08T18')._f,
         'YYYY-MM-DDTHH',
         "should include 'T' in the format"
     );
     assert.equal(
-        moment('2011-10-08T18:20')._f,
+        customMoment('2011-10-08T18:20')._f,
         'YYYY-MM-DDTHH:mm',
         "should include 'T' in the format"
     );
     assert.equal(
-        moment('2011-10-08T18:20:13')._f,
+        customMoment('2011-10-08T18:20:13')._f,
         'YYYY-MM-DDTHH:mm:ss',
         "should include 'T' in the format"
     );
     assert.equal(
-        moment('2011-10-08T18:20:13.321')._f,
+        customMoment('2011-10-08T18:20:13.321')._f,
         'YYYY-MM-DDTHH:mm:ss.SSSS',
         "should include 'T' in the format"
     );
 
     assert.equal(
-        moment('2011-10-08 18')._f,
+        customMoment('2011-10-08 18')._f,
         'YYYY-MM-DD HH',
         "should not include 'T' in the format"
     );
     assert.equal(
-        moment('2011-10-08 18:20')._f,
+        customMoment('2011-10-08 18:20')._f,
         'YYYY-MM-DD HH:mm',
         "should not include 'T' in the format"
     );
     assert.equal(
-        moment('2011-10-08 18:20:13')._f,
+        customMoment('2011-10-08 18:20:13')._f,
         'YYYY-MM-DD HH:mm:ss',
         "should not include 'T' in the format"
     );
     assert.equal(
-        moment('2011-10-08 18:20:13.321')._f,
+        customMoment('2011-10-08 18:20:13.321')._f,
         'YYYY-MM-DD HH:mm:ss.SSSS',
         "should not include 'T' in the format"
     );
@@ -1895,7 +1895,7 @@ test('parsing iso Z timezone', function (assert) {
         ];
     for (i = 0; i < formats.length; i++) {
         assert.equal(
-            moment.utc(formats[i][0]).format('YYYY-MM-DDTHH:mm:ss.SSSZ'),
+            customMoment.utc(formats[i][0]).format('YYYY-MM-DDTHH:mm:ss.SSSZ'),
             formats[i][1],
             'moment should be able to parse ISO ' + formats[i][0]
         );
@@ -1903,7 +1903,7 @@ test('parsing iso Z timezone', function (assert) {
 });
 
 test('parsing iso Z timezone into local', function (assert) {
-    var m = moment('2011-10-08T18:04:20.111Z');
+    var m = customMoment('2011-10-08T18:04:20.111Z');
 
     assert.equal(
         m.utc().format('YYYY-MM-DDTHH:mm:ss.SSS'),
@@ -1914,85 +1914,85 @@ test('parsing iso Z timezone into local', function (assert) {
 
 test('parsing iso with more subsecond precision digits', function (assert) {
     assert.equal(
-        moment.utc('2013-07-31T22:00:00.0000000Z').format(),
+        customMoment.utc('2013-07-31T22:00:00.0000000Z').format(),
         '2013-07-31T22:00:00Z',
         'more than 3 subsecond digits'
     );
 });
 
 test('null or empty', function (assert) {
-    assert.equal(moment('').isValid(), false, "moment('') is not valid");
-    assert.equal(moment(null).isValid(), false, 'moment(null) is not valid');
+    assert.equal(customMoment('').isValid(), false, "customMoment('') is not valid");
+    assert.equal(customMoment(null).isValid(), false, 'customMoment(null) is not valid');
     assert.equal(
-        moment(null, 'YYYY-MM-DD').isValid(),
+        customMoment(null, 'YYYY-MM-DD').isValid(),
         false,
-        "moment('', 'format') is not valid"
+        "customMoment('', 'format') is not valid"
     );
     assert.equal(
-        moment('', 'YYYY-MM-DD').isValid(),
+        customMoment('', 'YYYY-MM-DD').isValid(),
         false,
-        "moment('', 'format') is not valid"
+        "customMoment('', 'format') is not valid"
     );
     assert.equal(
-        moment.utc('').isValid(),
+        customMoment.utc('').isValid(),
         false,
-        "moment.utc('') is not valid"
+        "customMoment.utc('') is not valid"
     );
     assert.equal(
-        moment.utc(null).isValid(),
+        customMoment.utc(null).isValid(),
         false,
-        'moment.utc(null) is not valid'
+        'customMoment.utc(null) is not valid'
     );
     assert.equal(
-        moment.utc(null, 'YYYY-MM-DD').isValid(),
+        customMoment.utc(null, 'YYYY-MM-DD').isValid(),
         false,
-        'moment.utc(null) is not valid'
+        'customMoment.utc(null) is not valid'
     );
     assert.equal(
-        moment.utc('', 'YYYY-MM-DD').isValid(),
+        customMoment.utc('', 'YYYY-MM-DD').isValid(),
         false,
-        "moment.utc('', 'YYYY-MM-DD') is not valid"
+        "customMoment.utc('', 'YYYY-MM-DD') is not valid"
     );
 });
 
 test('first century', function (assert) {
     assert.equal(
-        moment([0, 0, 1]).format('YYYY-MM-DD'),
+        customMoment([0, 0, 1]).format('YYYY-MM-DD'),
         '0000-01-01',
         'Year AD 0'
     );
     assert.equal(
-        moment([99, 0, 1]).format('YYYY-MM-DD'),
+        customMoment([99, 0, 1]).format('YYYY-MM-DD'),
         '0099-01-01',
         'Year AD 99'
     );
     assert.equal(
-        moment([999, 0, 1]).format('YYYY-MM-DD'),
+        customMoment([999, 0, 1]).format('YYYY-MM-DD'),
         '0999-01-01',
         'Year AD 999'
     );
     assert.equal(
-        moment('0 1 1', 'YYYY MM DD').format('YYYY-MM-DD'),
+        customMoment('0 1 1', 'YYYY MM DD').format('YYYY-MM-DD'),
         '0000-01-01',
         'Year AD 0'
     );
     assert.equal(
-        moment('999 1 1', 'YYYY MM DD').format('YYYY-MM-DD'),
+        customMoment('999 1 1', 'YYYY MM DD').format('YYYY-MM-DD'),
         '0999-01-01',
         'Year AD 999'
     );
     assert.equal(
-        moment('0 1 1', 'YYYYY MM DD').format('YYYYY-MM-DD'),
+        customMoment('0 1 1', 'YYYYY MM DD').format('YYYYY-MM-DD'),
         '00000-01-01',
         'Year AD 0'
     );
     assert.equal(
-        moment('99 1 1', 'YYYYY MM DD').format('YYYYY-MM-DD'),
+        customMoment('99 1 1', 'YYYYY MM DD').format('YYYYY-MM-DD'),
         '00099-01-01',
         'Year AD 99'
     );
     assert.equal(
-        moment('999 1 1', 'YYYYY MM DD').format('YYYYY-MM-DD'),
+        customMoment('999 1 1', 'YYYYY MM DD').format('YYYYY-MM-DD'),
         '00999-01-01',
         'Year AD 999'
     );
@@ -2000,42 +2000,42 @@ test('first century', function (assert) {
 
 test('six digit years', function (assert) {
     assert.equal(
-        moment([-270000, 0, 1]).format('YYYYY-MM-DD'),
+        customMoment([-270000, 0, 1]).format('YYYYY-MM-DD'),
         '-270000-01-01',
         'format BC 270,001'
     );
     assert.equal(
-        moment([270000, 0, 1]).format('YYYYY-MM-DD'),
+        customMoment([270000, 0, 1]).format('YYYYY-MM-DD'),
         '270000-01-01',
         'format AD 270,000'
     );
     assert.equal(
-        moment('-270000-01-01', 'YYYYY-MM-DD').toDate().getFullYear(),
+        customMoment('-270000-01-01', 'YYYYY-MM-DD').toDate().getFullYear(),
         -270000,
         'parse BC 270,001'
     );
     assert.equal(
-        moment('270000-01-01', 'YYYYY-MM-DD').toDate().getFullYear(),
+        customMoment('270000-01-01', 'YYYYY-MM-DD').toDate().getFullYear(),
         270000,
         'parse AD 270,000'
     );
     assert.equal(
-        moment('+270000-01-01', 'YYYYY-MM-DD').toDate().getFullYear(),
+        customMoment('+270000-01-01', 'YYYYY-MM-DD').toDate().getFullYear(),
         270000,
         'parse AD +270,000'
     );
     assert.equal(
-        moment.utc('-270000-01-01', 'YYYYY-MM-DD').toDate().getUTCFullYear(),
+        customMoment.utc('-270000-01-01', 'YYYYY-MM-DD').toDate().getUTCFullYear(),
         -270000,
         'parse utc BC 270,001'
     );
     assert.equal(
-        moment.utc('270000-01-01', 'YYYYY-MM-DD').toDate().getUTCFullYear(),
+        customMoment.utc('270000-01-01', 'YYYYY-MM-DD').toDate().getUTCFullYear(),
         270000,
         'parse utc AD 270,000'
     );
     assert.equal(
-        moment.utc('+270000-01-01', 'YYYYY-MM-DD').toDate().getUTCFullYear(),
+        customMoment.utc('+270000-01-01', 'YYYYY-MM-DD').toDate().getUTCFullYear(),
         270000,
         'parse utc AD +270,000'
     );
@@ -2043,12 +2043,12 @@ test('six digit years', function (assert) {
 
 test('negative four digit years', function (assert) {
     assert.equal(
-        moment('-1000-01-01', 'YYYYY-MM-DD').toDate().getFullYear(),
+        customMoment('-1000-01-01', 'YYYYY-MM-DD').toDate().getFullYear(),
         -1000,
         'parse BC 1,001'
     );
     assert.equal(
-        moment.utc('-1000-01-01', 'YYYYY-MM-DD').toDate().getUTCFullYear(),
+        customMoment.utc('-1000-01-01', 'YYYYY-MM-DD').toDate().getUTCFullYear(),
         -1000,
         'parse utc BC 1,001'
     );
@@ -2056,51 +2056,51 @@ test('negative four digit years', function (assert) {
 
 test('strict parsing', function (assert) {
     assert.equal(
-        moment('2014-', 'YYYY-Q', true).isValid(),
+        customMoment('2014-', 'YYYY-Q', true).isValid(),
         false,
         'fail missing quarter'
     );
 
     assert.equal(
-        moment('2012-05', 'YYYY-MM', true).format('YYYY-MM'),
+        customMoment('2012-05', 'YYYY-MM', true).format('YYYY-MM'),
         '2012-05',
         'parse correct string'
     );
     assert.equal(
-        moment(' 2012-05', 'YYYY-MM', true).isValid(),
+        customMoment(' 2012-05', 'YYYY-MM', true).isValid(),
         false,
         'fail on extra whitespace'
     );
     assert.equal(
-        moment('foo 2012-05', '[foo] YYYY-MM', true).format('YYYY-MM'),
+        customMoment('foo 2012-05', '[foo] YYYY-MM', true).format('YYYY-MM'),
         '2012-05',
         'handle fixed text'
     );
     assert.equal(
-        moment('2012 05', 'YYYY-MM', true).isValid(),
+        customMoment('2012 05', 'YYYY-MM', true).isValid(),
         false,
         'fail on different separator'
     );
     assert.equal(
-        moment('2012 05', 'YYYY MM DD', true).isValid(),
+        customMoment('2012 05', 'YYYY MM DD', true).isValid(),
         false,
         'fail on too many tokens'
     );
 
     assert.equal(
-        moment('05 30 2010', ['DD MM YYYY', 'MM DD YYYY'], true).format(
+        customMoment('05 30 2010', ['DD MM YYYY', 'MM DD YYYY'], true).format(
             'MM DD YYYY'
         ),
         '05 30 2010',
         'array with bad date'
     );
     assert.equal(
-        moment('05 30 2010', ['', 'MM DD YYYY'], true).format('MM DD YYYY'),
+        customMoment('05 30 2010', ['', 'MM DD YYYY'], true).format('MM DD YYYY'),
         '05 30 2010',
         'array with invalid format'
     );
     assert.equal(
-        moment('05 30 2010', [' DD MM YYYY', 'MM DD YYYY'], true).format(
+        customMoment('05 30 2010', [' DD MM YYYY', 'MM DD YYYY'], true).format(
             'MM DD YYYY'
         ),
         '05 30 2010',
@@ -2108,224 +2108,224 @@ test('strict parsing', function (assert) {
     );
 
     assert.equal(
-        moment('2010.*...', 'YYYY.*', true).isValid(),
+        customMoment('2010.*...', 'YYYY.*', true).isValid(),
         false,
         'invalid format with regex chars'
     );
     assert.equal(
-        moment('2010.*', 'YYYY.*', true).year(),
+        customMoment('2010.*', 'YYYY.*', true).year(),
         2010,
         'valid format with regex chars'
     );
     assert.equal(
-        moment('.*2010.*', '.*YYYY.*', true).year(),
+        customMoment('.*2010.*', '.*YYYY.*', true).year(),
         2010,
         'valid format with regex chars on both sides'
     );
 
     //strict tokens
     assert.equal(
-        moment('-5-05-25', 'YYYY-MM-DD', true).isValid(),
+        customMoment('-5-05-25', 'YYYY-MM-DD', true).isValid(),
         false,
         'invalid negative year'
     );
     assert.equal(
-        moment('2-05-25', 'YYYY-MM-DD', true).isValid(),
+        customMoment('2-05-25', 'YYYY-MM-DD', true).isValid(),
         false,
         'invalid one-digit year'
     );
     assert.equal(
-        moment('20-05-25', 'YYYY-MM-DD', true).isValid(),
+        customMoment('20-05-25', 'YYYY-MM-DD', true).isValid(),
         false,
         'invalid two-digit year'
     );
     assert.equal(
-        moment('201-05-25', 'YYYY-MM-DD', true).isValid(),
+        customMoment('201-05-25', 'YYYY-MM-DD', true).isValid(),
         false,
         'invalid three-digit year'
     );
     assert.equal(
-        moment('2010-05-25', 'YYYY-MM-DD', true).isValid(),
+        customMoment('2010-05-25', 'YYYY-MM-DD', true).isValid(),
         true,
         'valid four-digit year'
     );
     assert.equal(
-        moment('22010-05-25', 'YYYY-MM-DD', true).isValid(),
+        customMoment('22010-05-25', 'YYYY-MM-DD', true).isValid(),
         false,
         'invalid five-digit year'
     );
 
     assert.equal(
-        moment('12-05-25', 'YY-MM-DD', true).isValid(),
+        customMoment('12-05-25', 'YY-MM-DD', true).isValid(),
         true,
         'valid two-digit year'
     );
     assert.equal(
-        moment('2012-05-25', 'YY-MM-DD', true).isValid(),
+        customMoment('2012-05-25', 'YY-MM-DD', true).isValid(),
         false,
         'invalid four-digit year'
     );
 
     assert.equal(
-        moment('-5-05-25', 'Y-MM-DD', true).isValid(),
+        customMoment('-5-05-25', 'Y-MM-DD', true).isValid(),
         true,
         'valid negative year'
     );
     assert.equal(
-        moment('2-05-25', 'Y-MM-DD', true).isValid(),
+        customMoment('2-05-25', 'Y-MM-DD', true).isValid(),
         true,
         'valid one-digit year'
     );
     assert.equal(
-        moment('20-05-25', 'Y-MM-DD', true).isValid(),
+        customMoment('20-05-25', 'Y-MM-DD', true).isValid(),
         true,
         'valid two-digit year'
     );
     assert.equal(
-        moment('201-05-25', 'Y-MM-DD', true).isValid(),
+        customMoment('201-05-25', 'Y-MM-DD', true).isValid(),
         true,
         'valid three-digit year'
     );
 
     assert.equal(
-        moment('2012-5-25', 'YYYY-M-DD', true).isValid(),
+        customMoment('2012-5-25', 'YYYY-M-DD', true).isValid(),
         true,
         'valid one-digit month'
     );
     assert.equal(
-        moment('2012-5-25', 'YYYY-MM-DD', true).isValid(),
+        customMoment('2012-5-25', 'YYYY-MM-DD', true).isValid(),
         false,
         'invalid one-digit month'
     );
     assert.equal(
-        moment('2012-05-25', 'YYYY-M-DD', true).isValid(),
+        customMoment('2012-05-25', 'YYYY-M-DD', true).isValid(),
         true,
         'valid one-digit month'
     );
     assert.equal(
-        moment('2012-05-25', 'YYYY-MM-DD', true).isValid(),
+        customMoment('2012-05-25', 'YYYY-MM-DD', true).isValid(),
         true,
         'valid one-digit month'
     );
 
     assert.equal(
-        moment('2012-05-2', 'YYYY-MM-D', true).isValid(),
+        customMoment('2012-05-2', 'YYYY-MM-D', true).isValid(),
         true,
         'valid one-digit day'
     );
     assert.equal(
-        moment('2012-05-2', 'YYYY-MM-DD', true).isValid(),
+        customMoment('2012-05-2', 'YYYY-MM-DD', true).isValid(),
         false,
         'invalid one-digit day'
     );
     assert.equal(
-        moment('2012-05-02', 'YYYY-MM-D', true).isValid(),
+        customMoment('2012-05-02', 'YYYY-MM-D', true).isValid(),
         true,
         'valid two-digit day'
     );
     assert.equal(
-        moment('2012-05-02', 'YYYY-MM-DD', true).isValid(),
+        customMoment('2012-05-02', 'YYYY-MM-DD', true).isValid(),
         true,
         'valid two-digit day'
     );
 
     assert.equal(
-        moment('+002012-05-25', 'YYYYY-MM-DD', true).isValid(),
+        customMoment('+002012-05-25', 'YYYYY-MM-DD', true).isValid(),
         true,
         'valid six-digit year'
     );
     assert.equal(
-        moment('+2012-05-25', 'YYYYY-MM-DD', true).isValid(),
+        customMoment('+2012-05-25', 'YYYYY-MM-DD', true).isValid(),
         false,
         'invalid four-digit year'
     );
 
     //thse are kinda pointless, but they should work as expected
     assert.equal(
-        moment('1', 'S', true).isValid(),
+        customMoment('1', 'S', true).isValid(),
         true,
         'valid one-digit milisecond'
     );
     assert.equal(
-        moment('12', 'S', true).isValid(),
+        customMoment('12', 'S', true).isValid(),
         false,
         'invalid two-digit milisecond'
     );
     assert.equal(
-        moment('123', 'S', true).isValid(),
+        customMoment('123', 'S', true).isValid(),
         false,
         'invalid three-digit milisecond'
     );
 
     assert.equal(
-        moment('1', 'SS', true).isValid(),
+        customMoment('1', 'SS', true).isValid(),
         false,
         'invalid one-digit milisecond'
     );
     assert.equal(
-        moment('12', 'SS', true).isValid(),
+        customMoment('12', 'SS', true).isValid(),
         true,
         'valid two-digit milisecond'
     );
     assert.equal(
-        moment('123', 'SS', true).isValid(),
+        customMoment('123', 'SS', true).isValid(),
         false,
         'invalid three-digit milisecond'
     );
 
     assert.equal(
-        moment('1', 'SSS', true).isValid(),
+        customMoment('1', 'SSS', true).isValid(),
         false,
         'invalid one-digit milisecond'
     );
     assert.equal(
-        moment('12', 'SSS', true).isValid(),
+        customMoment('12', 'SSS', true).isValid(),
         false,
         'invalid two-digit milisecond'
     );
     assert.equal(
-        moment('123', 'SSS', true).isValid(),
+        customMoment('123', 'SSS', true).isValid(),
         true,
         'valid three-digit milisecond'
     );
 
     // strict parsing respects month length
     assert.ok(
-        moment('1 January 2000', 'D MMMM YYYY', true).isValid(),
+        customMoment('1 January 2000', 'D MMMM YYYY', true).isValid(),
         'capital long-month + MMMM'
     );
     assert.ok(
-        !moment('1 January 2000', 'D MMM YYYY', true).isValid(),
+        !customMoment('1 January 2000', 'D MMM YYYY', true).isValid(),
         'capital long-month + MMM'
     );
     assert.ok(
-        !moment('1 Jan 2000', 'D MMMM YYYY', true).isValid(),
+        !customMoment('1 Jan 2000', 'D MMMM YYYY', true).isValid(),
         'capital short-month + MMMM'
     );
     assert.ok(
-        moment('1 Jan 2000', 'D MMM YYYY', true).isValid(),
+        customMoment('1 Jan 2000', 'D MMM YYYY', true).isValid(),
         'capital short-month + MMM'
     );
     assert.ok(
-        moment('1 january 2000', 'D MMMM YYYY', true).isValid(),
+        customMoment('1 january 2000', 'D MMMM YYYY', true).isValid(),
         'lower long-month + MMMM'
     );
     assert.ok(
-        !moment('1 january 2000', 'D MMM YYYY', true).isValid(),
+        !customMoment('1 january 2000', 'D MMM YYYY', true).isValid(),
         'lower long-month + MMM'
     );
     assert.ok(
-        !moment('1 jan 2000', 'D MMMM YYYY', true).isValid(),
+        !customMoment('1 jan 2000', 'D MMMM YYYY', true).isValid(),
         'lower short-month + MMMM'
     );
     assert.ok(
-        moment('1 jan 2000', 'D MMM YYYY', true).isValid(),
+        customMoment('1 jan 2000', 'D MMM YYYY', true).isValid(),
         'lower short-month + MMM'
     );
 });
 
 test('parsing into a locale', function (assert) {
-    moment.defineLocale('parselocale', {
+    customMoment.defineLocale('parselocale', {
         months: 'one_two_three_four_five_six_seven_eight_nine_ten_eleven_twelve'.split(
             '_'
         ),
@@ -2334,28 +2334,28 @@ test('parsing into a locale', function (assert) {
         ),
     });
 
-    moment.locale('en');
+    customMoment.locale('en');
 
     assert.equal(
-        moment('2012 seven', 'YYYY MMM', 'parselocale').month(),
+        customMoment('2012 seven', 'YYYY MMM', 'parselocale').month(),
         6,
         'should be able to parse in a specific locale'
     );
 
-    moment.locale('parselocale');
+    customMoment.locale('parselocale');
 
     assert.equal(
-        moment('2012 july', 'YYYY MMM', 'en').month(),
+        customMoment('2012 july', 'YYYY MMM', 'en').month(),
         6,
         'should be able to parse in a specific locale'
     );
 
-    moment.defineLocale('parselocale', null);
+    customMoment.defineLocale('parselocale', null);
 });
 
 function getVerifier(test) {
     return function (input, format, expected, description, asymetrical) {
-        var m = moment(input, format);
+        var m = customMoment(input, format);
         test.equal(m.format('YYYY MM DD'), expected, 'compare: ' + description);
 
         //test round trip
@@ -2367,12 +2367,12 @@ function getVerifier(test) {
 
 test('parsing week and weekday information', function (assert) {
     var ver = getVerifier(assert),
-        currentWeekOfYear = moment().weeks(),
-        expectedDate2012 = moment([2012, 0, 1])
+        currentWeekOfYear = customMoment().weeks(),
+        expectedDate2012 = customMoment([2012, 0, 1])
             .day(0)
             .add(currentWeekOfYear - 1, 'weeks')
             .format('YYYY MM DD'),
-        expectedDate1999 = moment([1999, 0, 1])
+        expectedDate1999 = customMoment([1999, 0, 1])
             .day(0)
             .add(currentWeekOfYear - 1, 'weeks')
             .format('YYYY MM DD');
@@ -2418,31 +2418,31 @@ test('parsing week and weekday information', function (assert) {
     ver('1999 37 Thursday', 'gggg ww dddd', '1999 09 09', 'dddd');
 
     // lower-order only
-    assert.equal(moment('22', 'ww').week(), 22, 'week sets the week by itself');
+    assert.equal(customMoment('22', 'ww').week(), 22, 'week sets the week by itself');
     assert.equal(
-        moment('22', 'ww').weekYear(),
-        moment().weekYear(),
+        customMoment('22', 'ww').weekYear(),
+        customMoment().weekYear(),
         'week keeps this year'
     );
     assert.equal(
-        moment('2012 22', 'YYYY ww').weekYear(),
+        customMoment('2012 22', 'YYYY ww').weekYear(),
         2012,
         'week keeps parsed year'
     );
 
     assert.equal(
-        moment('22', 'WW').isoWeek(),
+        customMoment('22', 'WW').isoWeek(),
         22,
         'iso week sets the week by itself'
     );
     assert.equal(
-        moment('2012 22', 'YYYY WW').weekYear(),
+        customMoment('2012 22', 'YYYY WW').weekYear(),
         2012,
         'iso week keeps parsed year'
     );
     assert.equal(
-        moment('22', 'WW').isoWeekYear(),
-        moment().isoWeekYear(),
+        customMoment('22', 'WW').isoWeekYear(),
+        customMoment().isoWeekYear(),
         'iso week keeps this year'
     );
 
@@ -2452,7 +2452,7 @@ test('parsing week and weekday information', function (assert) {
 
     //can parse other stuff too
     assert.equal(
-        moment('1999-W37-4 3:30', 'GGGG-[W]WW-E HH:mm').format(
+        customMoment('1999-W37-4 3:30', 'GGGG-[W]WW-E HH:mm').format(
             'YYYY MM DD HH:mm'
         ),
         '1999 09 16 03:30',
@@ -2470,7 +2470,7 @@ test('parsing week and weekday information', function (assert) {
 test('parsing localized weekdays', function (assert) {
     var ver = getVerifier(assert);
     try {
-        moment.locale('dow:1,doy:4', {
+        customMoment.locale('dow:1,doy:4', {
             weekdays: 'dimanche_lundi_mardi_mercredi_jeudi_vendredi_samedi'.split(
                 '_'
             ),
@@ -2539,31 +2539,31 @@ test('parsing localized weekdays', function (assert) {
             'localized d uses 0-indexed days: 0 = sund'
         );
     } finally {
-        moment.defineLocale('dow:1,doy:4', null);
-        moment.locale('en');
+        customMoment.defineLocale('dow:1,doy:4', null);
+        customMoment.locale('en');
     }
 });
 
 test('parsing with customized two-digit year', function (assert) {
-    var original = moment.parseTwoDigitYear;
+    var original = customMoment.parseTwoDigitYear;
     try {
-        assert.equal(moment('68', 'YY').year(), 2068);
-        assert.equal(moment('69', 'YY').year(), 1969);
-        moment.parseTwoDigitYear = function (input) {
+        assert.equal(customMoment('68', 'YY').year(), 2068);
+        assert.equal(customMoment('69', 'YY').year(), 1969);
+        customMoment.parseTwoDigitYear = function (input) {
             return +input + (+input > 30 ? 1900 : 2000);
         };
-        assert.equal(moment('68', 'YY').year(), 1968);
-        assert.equal(moment('67', 'YY').year(), 1967);
-        assert.equal(moment('31', 'YY').year(), 1931);
-        assert.equal(moment('30', 'YY').year(), 2030);
+        assert.equal(customMoment('68', 'YY').year(), 1968);
+        assert.equal(customMoment('67', 'YY').year(), 1967);
+        assert.equal(customMoment('31', 'YY').year(), 1931);
+        assert.equal(customMoment('30', 'YY').year(), 2030);
     } finally {
-        moment.parseTwoDigitYear = original;
+        customMoment.parseTwoDigitYear = original;
     }
 });
 
 test('array with strings', function (assert) {
     assert.equal(
-        moment(['2014', '7', '31']).isValid(),
+        customMoment(['2014', '7', '31']).isValid(),
         true,
         'string array + isValid'
     );
@@ -2571,7 +2571,7 @@ test('array with strings', function (assert) {
 
 test('object with strings', function (assert) {
     assert.equal(
-        moment({ year: '2014', month: '7', day: '31' }).isValid(),
+        customMoment({ year: '2014', month: '7', day: '31' }).isValid(),
         true,
         'string object + isValid'
     );
@@ -2579,164 +2579,164 @@ test('object with strings', function (assert) {
 
 test('utc with array of formats', function (assert) {
     assert.equal(
-        moment.utc('2014-01-01', ['YYYY-MM-DD', 'YYYY-MM']).format(),
+        customMoment.utc('2014-01-01', ['YYYY-MM-DD', 'YYYY-MM']).format(),
         '2014-01-01T00:00:00Z',
-        'moment.utc works with array of formats'
+        'customMoment.utc works with array of formats'
     );
 });
 
 test('parsing invalid string weekdays', function (assert) {
     assert.equal(
         false,
-        moment('a', 'dd').isValid(),
+        customMoment('a', 'dd').isValid(),
         'dd with invalid weekday, non-strict'
     );
     assert.equal(
         false,
-        moment('a', 'dd', true).isValid(),
+        customMoment('a', 'dd', true).isValid(),
         'dd with invalid weekday, strict'
     );
     assert.equal(
         false,
-        moment('a', 'ddd').isValid(),
+        customMoment('a', 'ddd').isValid(),
         'ddd with invalid weekday, non-strict'
     );
     assert.equal(
         false,
-        moment('a', 'ddd', true).isValid(),
+        customMoment('a', 'ddd', true).isValid(),
         'ddd with invalid weekday, strict'
     );
     assert.equal(
         false,
-        moment('a', 'dddd').isValid(),
+        customMoment('a', 'dddd').isValid(),
         'dddd with invalid weekday, non-strict'
     );
     assert.equal(
         false,
-        moment('a', 'dddd', true).isValid(),
+        customMoment('a', 'dddd', true).isValid(),
         'dddd with invalid weekday, strict'
     );
 });
 
 test('milliseconds', function (assert) {
-    assert.equal(moment('1', 'S').millisecond(), 100);
-    assert.equal(moment('12', 'SS').millisecond(), 120);
-    assert.equal(moment('123', 'SSS').millisecond(), 123);
-    assert.equal(moment('1234', 'SSSS').millisecond(), 123);
-    assert.equal(moment('12345', 'SSSSS').millisecond(), 123);
-    assert.equal(moment('123456', 'SSSSSS').millisecond(), 123);
-    assert.equal(moment('1234567', 'SSSSSSS').millisecond(), 123);
-    assert.equal(moment('12345678', 'SSSSSSSS').millisecond(), 123);
-    assert.equal(moment('123456789', 'SSSSSSSSS').millisecond(), 123);
+    assert.equal(customMoment('1', 'S').millisecond(), 100);
+    assert.equal(customMoment('12', 'SS').millisecond(), 120);
+    assert.equal(customMoment('123', 'SSS').millisecond(), 123);
+    assert.equal(customMoment('1234', 'SSSS').millisecond(), 123);
+    assert.equal(customMoment('12345', 'SSSSS').millisecond(), 123);
+    assert.equal(customMoment('123456', 'SSSSSS').millisecond(), 123);
+    assert.equal(customMoment('1234567', 'SSSSSSS').millisecond(), 123);
+    assert.equal(customMoment('12345678', 'SSSSSSSS').millisecond(), 123);
+    assert.equal(customMoment('123456789', 'SSSSSSSSS').millisecond(), 123);
 });
 
 test('hmm', function (assert) {
     assert.equal(
-        moment('123', 'hmm', true).format('HH:mm:ss'),
+        customMoment('123', 'hmm', true).format('HH:mm:ss'),
         '01:23:00',
         '123 with hmm'
     );
     assert.equal(
-        moment('123a', 'hmmA', true).format('HH:mm:ss'),
+        customMoment('123a', 'hmmA', true).format('HH:mm:ss'),
         '01:23:00',
         '123a with hmmA'
     );
     assert.equal(
-        moment('123p', 'hmmA', true).format('HH:mm:ss'),
+        customMoment('123p', 'hmmA', true).format('HH:mm:ss'),
         '13:23:00',
         '123p with hmmA'
     );
 
     assert.equal(
-        moment('1234', 'hmm', true).format('HH:mm:ss'),
+        customMoment('1234', 'hmm', true).format('HH:mm:ss'),
         '12:34:00',
         '1234 with hmm'
     );
     assert.equal(
-        moment('1234a', 'hmmA', true).format('HH:mm:ss'),
+        customMoment('1234a', 'hmmA', true).format('HH:mm:ss'),
         '00:34:00',
         '1234a with hmmA'
     );
     assert.equal(
-        moment('1234p', 'hmmA', true).format('HH:mm:ss'),
+        customMoment('1234p', 'hmmA', true).format('HH:mm:ss'),
         '12:34:00',
         '1234p with hmmA'
     );
 
     assert.equal(
-        moment('12345', 'hmmss', true).format('HH:mm:ss'),
+        customMoment('12345', 'hmmss', true).format('HH:mm:ss'),
         '01:23:45',
         '12345 with hmmss'
     );
     assert.equal(
-        moment('12345a', 'hmmssA', true).format('HH:mm:ss'),
+        customMoment('12345a', 'hmmssA', true).format('HH:mm:ss'),
         '01:23:45',
         '12345a with hmmssA'
     );
     assert.equal(
-        moment('12345p', 'hmmssA', true).format('HH:mm:ss'),
+        customMoment('12345p', 'hmmssA', true).format('HH:mm:ss'),
         '13:23:45',
         '12345p with hmmssA'
     );
     assert.equal(
-        moment('112345', 'hmmss', true).format('HH:mm:ss'),
+        customMoment('112345', 'hmmss', true).format('HH:mm:ss'),
         '11:23:45',
         '112345 with hmmss'
     );
     assert.equal(
-        moment('112345a', 'hmmssA', true).format('HH:mm:ss'),
+        customMoment('112345a', 'hmmssA', true).format('HH:mm:ss'),
         '11:23:45',
         '112345a with hmmssA'
     );
     assert.equal(
-        moment('112345p', 'hmmssA', true).format('HH:mm:ss'),
+        customMoment('112345p', 'hmmssA', true).format('HH:mm:ss'),
         '23:23:45',
         '112345p with hmmssA'
     );
 
     assert.equal(
-        moment('023', 'Hmm', true).format('HH:mm:ss'),
+        customMoment('023', 'Hmm', true).format('HH:mm:ss'),
         '00:23:00',
         '023 with Hmm'
     );
     assert.equal(
-        moment('123', 'Hmm', true).format('HH:mm:ss'),
+        customMoment('123', 'Hmm', true).format('HH:mm:ss'),
         '01:23:00',
         '123 with Hmm'
     );
     assert.equal(
-        moment('1234', 'Hmm', true).format('HH:mm:ss'),
+        customMoment('1234', 'Hmm', true).format('HH:mm:ss'),
         '12:34:00',
         '1234 with Hmm'
     );
     assert.equal(
-        moment('1534', 'Hmm', true).format('HH:mm:ss'),
+        customMoment('1534', 'Hmm', true).format('HH:mm:ss'),
         '15:34:00',
         '1234 with Hmm'
     );
     assert.equal(
-        moment('12345', 'Hmmss', true).format('HH:mm:ss'),
+        customMoment('12345', 'Hmmss', true).format('HH:mm:ss'),
         '01:23:45',
         '12345 with Hmmss'
     );
     assert.equal(
-        moment('112345', 'Hmmss', true).format('HH:mm:ss'),
+        customMoment('112345', 'Hmmss', true).format('HH:mm:ss'),
         '11:23:45',
         '112345 with Hmmss'
     );
     assert.equal(
-        moment('172345', 'Hmmss', true).format('HH:mm:ss'),
+        customMoment('172345', 'Hmmss', true).format('HH:mm:ss'),
         '17:23:45',
         '112345 with Hmmss'
     );
 });
 
 test('Y token', function (assert) {
-    assert.equal(moment('1-1-2010', 'M-D-Y', true).year(), 2010, 'parsing Y');
+    assert.equal(customMoment('1-1-2010', 'M-D-Y', true).year(), 2010, 'parsing Y');
 });
 
 test('parsing flags retain parsed date parts', function (assert) {
-    var a = moment('10 p', 'hh:mm a'),
+    var a = customMoment('10 p', 'hh:mm a'),
         b;
     assert.equal(
         a.parsingFlags().parsedDateParts[3],
@@ -2749,7 +2749,7 @@ test('parsing flags retain parsed date parts', function (assert) {
         'year was not parsed'
     );
     assert.equal(a.parsingFlags().meridiem, 'p', 'meridiem flag was added');
-    b = moment('10:30', ['MMDDYY', 'HH:mm']);
+    b = customMoment('10:30', ['MMDDYY', 'HH:mm']);
     assert.equal(
         b.parsingFlags().parsedDateParts[3],
         10,
@@ -2764,21 +2764,21 @@ test('parsing flags retain parsed date parts', function (assert) {
 
 test('parsing only meridiem results in invalid date', function (assert) {
     assert.ok(
-        !moment('alkj', 'hh:mm a').isValid(),
+        !customMoment('alkj', 'hh:mm a').isValid(),
         'because an a token is used, a meridiem will be parsed but nothing else was so invalid'
     );
     assert.ok(
-        moment('02:30 p more extra stuff', 'hh:mm a').isValid(),
+        customMoment('02:30 p more extra stuff', 'hh:mm a').isValid(),
         'because other tokens were parsed, date is valid'
     );
     assert.ok(
-        moment('1/1/2016 extra data', ['a', 'M/D/YYYY']).isValid(),
+        customMoment('1/1/2016 extra data', ['a', 'M/D/YYYY']).isValid(),
         'took second format, does not pick up on meridiem parsed from first format (good copy)'
     );
 });
 
 test('invalid dates return invalid for methods that access the _d prop', function (assert) {
-    var momentAsDate = moment(['2015', '12', '1']).toDate();
+    var momentAsDate = customMoment(['2015', '12', '1']).toDate();
     assert.ok(momentAsDate instanceof Date, 'toDate returns a Date object');
     assert.ok(
         isNaN(momentAsDate.getTime()),
@@ -2793,21 +2793,21 @@ test('k, kk', function (assert) {
         kkVal = (i < 10 ? '0' : '') + i + ':15:59';
         if (i !== 24) {
             assert.ok(
-                moment(kVal, 'k:mm:ss').isSame(moment(kVal, 'H:mm:ss')),
+                customMoment(kVal, 'k:mm:ss').isSame(customMoment(kVal, 'H:mm:ss')),
                 kVal + ' k parsing'
             );
             assert.ok(
-                moment(kkVal, 'kk:mm:ss').isSame(moment(kkVal, 'HH:mm:ss')),
+                customMoment(kkVal, 'kk:mm:ss').isSame(customMoment(kkVal, 'HH:mm:ss')),
                 kkVal + ' kk parsing'
             );
         } else {
             assert.equal(
-                moment(kVal, 'k:mm:ss').format('k:mm:ss'),
+                customMoment(kVal, 'k:mm:ss').format('k:mm:ss'),
                 kVal,
                 kVal + ' k parsing'
             );
             assert.equal(
-                moment(kkVal, 'kk:mm:ss').format('kk:mm:ss'),
+                customMoment(kkVal, 'kk:mm:ss').format('kk:mm:ss'),
                 kkVal,
                 kkVal + ' skk parsing'
             );

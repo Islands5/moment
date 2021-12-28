@@ -1,11 +1,11 @@
 import { module, test } from '../qunit';
-import moment from '../../moment';
+import {customMoment} from '../../custom_moment';
 
 module('now');
 
 test('now', function (assert) {
     var startOfTest = new Date().valueOf(),
-        momentNowTime = moment.now(),
+        momentNowTime = customMoment.now(),
         afterMomentCreationTime = new Date().valueOf();
 
     assert.ok(
@@ -20,7 +20,7 @@ test('now', function (assert) {
 
 test('now - Date mocked', function (assert) {
     var RealDate = Date,
-        customTimeMs = moment('2015-01-01T01:30:00.000Z').valueOf();
+        customTimeMs = customMoment('2015-01-01T01:30:00.000Z').valueOf();
 
     function MockDate() {
         return new RealDate(customTimeMs);
@@ -37,7 +37,7 @@ test('now - Date mocked', function (assert) {
 
     try {
         assert.equal(
-            moment().valueOf(),
+            customMoment().valueOf(),
             customTimeMs,
             'moment now() time should use the global Date object'
         );
@@ -49,26 +49,26 @@ test('now - Date mocked', function (assert) {
 
 test('now - custom value', function (assert) {
     var customTimeStr = '2015-01-01T01:30:00.000Z',
-        customTime = moment(customTimeStr, moment.ISO_8601).valueOf(),
-        oldFn = moment.now;
+        customTime = customMoment(customTimeStr, customMoment.ISO_8601).valueOf(),
+        oldFn = customMoment.now;
 
-    moment.now = function () {
+    customMoment.now = function () {
         return customTime;
     };
 
     try {
         assert.equal(
-            moment().toISOString(),
+            customMoment().toISOString(),
             customTimeStr,
-            'moment() constructor should use the function defined by moment.now, but it did not'
+            'customMoment() constructor should use the function defined by customMoment.now, but it did not'
         );
         assert.equal(
-            moment.utc().toISOString(),
+            customMoment.utc().toISOString(),
             customTimeStr,
-            'moment() constructor should use the function defined by moment.now, but it did not'
+            'customMoment() constructor should use the function defined by customMoment.now, but it did not'
         );
     } finally {
-        moment.now = oldFn;
+        customMoment.now = oldFn;
     }
 });
 
@@ -80,21 +80,21 @@ test('empty object, empty array', function (assert) {
         assert.ok(before <= +mid && +mid <= after, 'should be now : ' + msg);
     }
     assertIsNow(function () {
-        return moment();
-    }, 'moment()');
+        return customMoment();
+    }, 'customMoment()');
     assertIsNow(function () {
-        return moment([]);
-    }, 'moment([])');
+        return customMoment([]);
+    }, 'customMoment([])');
     assertIsNow(function () {
-        return moment({});
-    }, 'moment({})');
+        return customMoment({});
+    }, 'customMoment({})');
     assertIsNow(function () {
-        return moment.utc();
-    }, 'moment.utc()');
+        return customMoment.utc();
+    }, 'customMoment.utc()');
     assertIsNow(function () {
-        return moment.utc([]);
-    }, 'moment.utc([])');
+        return customMoment.utc([]);
+    }, 'customMoment.utc([])');
     assertIsNow(function () {
-        return moment.utc({});
-    }, 'moment.utc({})');
+        return customMoment.utc({});
+    }, 'customMoment.utc({})');
 });

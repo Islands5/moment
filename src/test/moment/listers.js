@@ -1,10 +1,10 @@
 import { module, test } from '../qunit';
-import moment from '../../moment';
+import {customMoment} from '../../custom_moment';
 
 module('listers');
 
 test('default', function (assert) {
-    assert.deepEqual(moment.months(), [
+    assert.deepEqual(customMoment.months(), [
         'January',
         'February',
         'March',
@@ -18,7 +18,7 @@ test('default', function (assert) {
         'November',
         'December',
     ]);
-    assert.deepEqual(moment.monthsShort(), [
+    assert.deepEqual(customMoment.monthsShort(), [
         'Jan',
         'Feb',
         'Mar',
@@ -32,7 +32,7 @@ test('default', function (assert) {
         'Nov',
         'Dec',
     ]);
-    assert.deepEqual(moment.weekdays(), [
+    assert.deepEqual(customMoment.weekdays(), [
         'Sunday',
         'Monday',
         'Tuesday',
@@ -41,7 +41,7 @@ test('default', function (assert) {
         'Friday',
         'Saturday',
     ]);
-    assert.deepEqual(moment.weekdaysShort(), [
+    assert.deepEqual(customMoment.weekdaysShort(), [
         'Sun',
         'Mon',
         'Tue',
@@ -50,7 +50,7 @@ test('default', function (assert) {
         'Fri',
         'Sat',
     ]);
-    assert.deepEqual(moment.weekdaysMin(), [
+    assert.deepEqual(customMoment.weekdaysMin(), [
         'Su',
         'Mo',
         'Tu',
@@ -62,16 +62,16 @@ test('default', function (assert) {
 });
 
 test('index', function (assert) {
-    assert.equal(moment.months(0), 'January');
-    assert.equal(moment.months(2), 'March');
-    assert.equal(moment.monthsShort(0), 'Jan');
-    assert.equal(moment.monthsShort(2), 'Mar');
-    assert.equal(moment.weekdays(0), 'Sunday');
-    assert.equal(moment.weekdays(2), 'Tuesday');
-    assert.equal(moment.weekdaysShort(0), 'Sun');
-    assert.equal(moment.weekdaysShort(2), 'Tue');
-    assert.equal(moment.weekdaysMin(0), 'Su');
-    assert.equal(moment.weekdaysMin(2), 'Tu');
+    assert.equal(customMoment.months(0), 'January');
+    assert.equal(customMoment.months(2), 'March');
+    assert.equal(customMoment.monthsShort(0), 'Jan');
+    assert.equal(customMoment.monthsShort(2), 'Mar');
+    assert.equal(customMoment.weekdays(0), 'Sunday');
+    assert.equal(customMoment.weekdays(2), 'Tuesday');
+    assert.equal(customMoment.weekdaysShort(0), 'Sun');
+    assert.equal(customMoment.weekdaysShort(2), 'Tue');
+    assert.equal(customMoment.weekdaysMin(0), 'Su');
+    assert.equal(customMoment.weekdaysMin(2), 'Tu');
 });
 
 test('localized', function (assert) {
@@ -90,7 +90,7 @@ test('localized', function (assert) {
             doy: 6,
         };
 
-    moment.locale('numerologists', {
+    customMoment.locale('numerologists', {
         months: months,
         monthsShort: monthsShort,
         weekdays: weekdays,
@@ -99,35 +99,35 @@ test('localized', function (assert) {
         week: week,
     });
 
-    assert.deepEqual(moment.months(), months);
-    assert.deepEqual(moment.monthsShort(), monthsShort);
-    assert.deepEqual(moment.weekdays(), weekdays);
-    assert.deepEqual(moment.weekdaysShort(), weekdaysShort);
-    assert.deepEqual(moment.weekdaysMin(), weekdaysMin);
+    assert.deepEqual(customMoment.months(), months);
+    assert.deepEqual(customMoment.monthsShort(), monthsShort);
+    assert.deepEqual(customMoment.weekdays(), weekdays);
+    assert.deepEqual(customMoment.weekdaysShort(), weekdaysShort);
+    assert.deepEqual(customMoment.weekdaysMin(), weekdaysMin);
 
-    assert.equal(moment.months(0), 'one');
-    assert.equal(moment.monthsShort(0), 'on');
-    assert.equal(moment.weekdays(0), 'one');
-    assert.equal(moment.weekdaysShort(0), 'on');
-    assert.equal(moment.weekdaysMin(0), '1');
+    assert.equal(customMoment.months(0), 'one');
+    assert.equal(customMoment.monthsShort(0), 'on');
+    assert.equal(customMoment.weekdays(0), 'one');
+    assert.equal(customMoment.weekdaysShort(0), 'on');
+    assert.equal(customMoment.weekdaysMin(0), '1');
 
-    assert.equal(moment.months(2), 'three');
-    assert.equal(moment.monthsShort(2), 'th');
-    assert.equal(moment.weekdays(2), 'three');
-    assert.equal(moment.weekdaysShort(2), 'th');
-    assert.equal(moment.weekdaysMin(2), '3');
+    assert.equal(customMoment.months(2), 'three');
+    assert.equal(customMoment.monthsShort(2), 'th');
+    assert.equal(customMoment.weekdays(2), 'three');
+    assert.equal(customMoment.weekdaysShort(2), 'th');
+    assert.equal(customMoment.weekdaysMin(2), '3');
 
-    assert.deepEqual(moment.weekdays(true), weekdaysLocale);
-    assert.deepEqual(moment.weekdaysShort(true), weekdaysShortLocale);
-    assert.deepEqual(moment.weekdaysMin(true), weekdaysMinLocale);
+    assert.deepEqual(customMoment.weekdays(true), weekdaysLocale);
+    assert.deepEqual(customMoment.weekdaysShort(true), weekdaysShortLocale);
+    assert.deepEqual(customMoment.weekdaysMin(true), weekdaysMinLocale);
 
-    assert.equal(moment.weekdays(true, 0), 'four');
-    assert.equal(moment.weekdaysShort(true, 0), 'fo');
-    assert.equal(moment.weekdaysMin(true, 0), '4');
+    assert.equal(customMoment.weekdays(true, 0), 'four');
+    assert.equal(customMoment.weekdaysShort(true, 0), 'fo');
+    assert.equal(customMoment.weekdaysMin(true, 0), '4');
 
-    assert.equal(moment.weekdays(false, 2), 'three');
-    assert.equal(moment.weekdaysShort(false, 2), 'th');
-    assert.equal(moment.weekdaysMin(false, 2), '3');
+    assert.equal(customMoment.weekdays(false, 2), 'three');
+    assert.equal(customMoment.weekdaysShort(false, 2), 'th');
+    assert.equal(customMoment.weekdaysMin(false, 2), '3');
 });
 
 test('with functions', function (assert) {
@@ -138,20 +138,20 @@ test('with functions', function (assert) {
             '_'
         );
 
-    moment.locale('difficult', {
+    customMoment.locale('difficult', {
         monthsShort: function (m, format) {
             var arr = format.match(/-MMM-/) ? monthsShortWeird : monthsShort;
             return arr[m.month()];
         },
     });
 
-    assert.deepEqual(moment.monthsShort(), monthsShort);
-    assert.deepEqual(moment.monthsShort('MMM'), monthsShort);
-    assert.deepEqual(moment.monthsShort('-MMM-'), monthsShortWeird);
+    assert.deepEqual(customMoment.monthsShort(), monthsShort);
+    assert.deepEqual(customMoment.monthsShort('MMM'), monthsShort);
+    assert.deepEqual(customMoment.monthsShort('-MMM-'), monthsShortWeird);
 
-    assert.deepEqual(moment.monthsShort('MMM', 2), 'three');
-    assert.deepEqual(moment.monthsShort('-MMM-', 2), 'threesy');
-    assert.deepEqual(moment.monthsShort(2), 'three');
+    assert.deepEqual(customMoment.monthsShort('MMM', 2), 'three');
+    assert.deepEqual(customMoment.monthsShort('-MMM-', 2), 'threesy');
+    assert.deepEqual(customMoment.monthsShort(2), 'three');
 });
 
 test('with locale data', function (assert) {
@@ -162,7 +162,7 @@ test('with locale data', function (assert) {
         weekdays = 'one_two_three_four_five_six_seven'.split('_'),
         weekdaysShort = 'on_tw_th_fo_fi_si_se'.split('_'),
         weekdaysMin = '1_2_3_4_5_6_7'.split('_'),
-        customLocale = moment.localeData('numerologists');
+        customLocale = customMoment.localeData('numerologists');
 
     assert.deepEqual(customLocale.months(), months);
     assert.deepEqual(customLocale.monthsShort(), monthsShort);

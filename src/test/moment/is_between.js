@@ -1,175 +1,175 @@
 import { module, test } from '../qunit';
-import moment from '../../moment';
+import {customMoment} from '../../custom_moment';
 
 module('is between');
 
 test('is between without units', function (assert) {
-    var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
-        mCopy = moment(m);
+    var m = customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+        mCopy = customMoment(m);
     assert.equal(
         m.isBetween(
-            moment(new Date(2009, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10))
+            customMoment(new Date(2009, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10))
         ),
         false,
         'year is later'
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2013, 3, 2, 3, 4, 5, 10))
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2013, 3, 2, 3, 4, 5, 10))
         ),
         false,
         'year is earlier'
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2012, 3, 2, 3, 4, 5, 10))
+            customMoment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2012, 3, 2, 3, 4, 5, 10))
         ),
         true,
         'year is between'
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 1, 2, 3, 4, 5, 10)),
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10))
+            customMoment(new Date(2011, 1, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10))
         ),
         false,
         'month is later'
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2011, 5, 2, 3, 4, 5, 10))
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 5, 2, 3, 4, 5, 10))
         ),
         false,
         'month is earlier'
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 2, 2, 3, 4, 5, 10)),
-            moment(new Date(2011, 4, 2, 3, 4, 5, 10))
+            customMoment(new Date(2011, 2, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 4, 2, 3, 4, 5, 10))
         ),
         true,
         'month is between'
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 1, 3, 4, 5, 10)),
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10))
+            customMoment(new Date(2011, 3, 1, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10))
         ),
         false,
         'day is later'
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2011, 3, 4, 3, 4, 5, 10))
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 4, 3, 4, 5, 10))
         ),
         false,
         'day is earlier'
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 1, 3, 4, 5, 10)),
-            moment(new Date(2011, 3, 3, 3, 4, 5, 10))
+            customMoment(new Date(2011, 3, 1, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 3, 3, 4, 5, 10))
         ),
         true,
         'day is between'
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 2, 1, 4, 5, 10)),
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10))
+            customMoment(new Date(2011, 3, 2, 1, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10))
         ),
         false,
         'hour is later'
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2011, 3, 2, 5, 4, 5, 10))
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 5, 4, 5, 10))
         ),
         false,
         'hour is earlier'
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 2, 2, 4, 5, 10)),
-            moment(new Date(2011, 3, 2, 4, 4, 5, 10))
+            customMoment(new Date(2011, 3, 2, 2, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 4, 4, 5, 10))
         ),
         true,
         'hour is between'
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2011, 3, 2, 3, 6, 5, 10))
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 6, 5, 10))
         ),
         false,
         'minute is later'
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 2, 3, 2, 5, 10)),
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10))
+            customMoment(new Date(2011, 3, 2, 3, 2, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10))
         ),
         false,
         'minute is earlier'
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 2, 3, 3, 5, 10)),
-            moment(new Date(2011, 3, 2, 3, 5, 5, 10))
+            customMoment(new Date(2011, 3, 2, 3, 3, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 5, 5, 10))
         ),
         true,
         'minute is between'
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2011, 3, 2, 3, 4, 7, 10))
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 7, 10))
         ),
         false,
         'second is later'
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 2, 3, 4, 3, 10)),
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10))
+            customMoment(new Date(2011, 3, 2, 3, 4, 3, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10))
         ),
         false,
         'second is earlier'
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 2, 3, 4, 4, 10)),
-            moment(new Date(2011, 3, 2, 3, 4, 6, 10))
+            customMoment(new Date(2011, 3, 2, 3, 4, 4, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 6, 10))
         ),
         true,
         'second is between'
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2011, 3, 2, 3, 4, 5, 12))
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 12))
         ),
         false,
         'millisecond is later'
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 2, 3, 4, 5, 8)),
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10))
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 8)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10))
         ),
         false,
         'millisecond is earlier'
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 2, 3, 4, 5, 9)),
-            moment(new Date(2011, 3, 2, 3, 4, 5, 11))
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 9)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 11))
         ),
         true,
         'millisecond is between'
@@ -183,11 +183,11 @@ test('is between without units', function (assert) {
 });
 
 test('is between without units inclusivity', function (assert) {
-    var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10));
+    var m = customMoment(new Date(2011, 3, 2, 3, 4, 5, 10));
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2012, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2012, 3, 2, 3, 4, 5, 10)),
             null,
             '()'
         ),
@@ -196,8 +196,8 @@ test('is between without units inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
             null,
             '()'
         ),
@@ -206,8 +206,8 @@ test('is between without units inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2012, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2012, 3, 2, 3, 4, 5, 10)),
             null,
             '()'
         ),
@@ -216,8 +216,8 @@ test('is between without units inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2009, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2009, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2010, 3, 2, 3, 4, 5, 10)),
             null,
             '()'
         ),
@@ -226,8 +226,8 @@ test('is between without units inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
             null,
             '()'
         ),
@@ -237,8 +237,8 @@ test('is between without units inclusivity', function (assert) {
 
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2012, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2012, 3, 2, 3, 4, 5, 10)),
             null,
             '(]'
         ),
@@ -247,8 +247,8 @@ test('is between without units inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
             null,
             '(]'
         ),
@@ -257,8 +257,8 @@ test('is between without units inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2012, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2012, 3, 2, 3, 4, 5, 10)),
             null,
             '(]'
         ),
@@ -267,8 +267,8 @@ test('is between without units inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2009, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2009, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2010, 3, 2, 3, 4, 5, 10)),
             null,
             '(]'
         ),
@@ -277,8 +277,8 @@ test('is between without units inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
             null,
             '(]'
         ),
@@ -288,8 +288,8 @@ test('is between without units inclusivity', function (assert) {
 
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2012, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2012, 3, 2, 3, 4, 5, 10)),
             null,
             '[)'
         ),
@@ -298,8 +298,8 @@ test('is between without units inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
             null,
             '[)'
         ),
@@ -308,8 +308,8 @@ test('is between without units inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2012, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2012, 3, 2, 3, 4, 5, 10)),
             null,
             '[)'
         ),
@@ -318,8 +318,8 @@ test('is between without units inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2009, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2009, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2010, 3, 2, 3, 4, 5, 10)),
             null,
             '[)'
         ),
@@ -328,8 +328,8 @@ test('is between without units inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
             null,
             '[)'
         ),
@@ -339,8 +339,8 @@ test('is between without units inclusivity', function (assert) {
 
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2012, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2012, 3, 2, 3, 4, 5, 10)),
             null,
             '[]'
         ),
@@ -349,8 +349,8 @@ test('is between without units inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
             null,
             '[]'
         ),
@@ -359,8 +359,8 @@ test('is between without units inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2012, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2012, 3, 2, 3, 4, 5, 10)),
             null,
             '[]'
         ),
@@ -369,8 +369,8 @@ test('is between without units inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2009, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2009, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2010, 3, 2, 3, 4, 5, 10)),
             null,
             '[]'
         ),
@@ -379,8 +379,8 @@ test('is between without units inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
             null,
             '[]'
         ),
@@ -390,11 +390,11 @@ test('is between without units inclusivity', function (assert) {
 });
 
 test('is between milliseconds inclusivity', function (assert) {
-    var m = moment(new Date(2011, 3, 2, 3, 4, 5, 10));
+    var m = customMoment(new Date(2011, 3, 2, 3, 4, 5, 10));
     assert.equal(
         m.isBetween(
-            moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2012, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2012, 3, 2, 3, 4, 5, 10)),
             'milliseconds'
         ),
         true,
@@ -402,8 +402,8 @@ test('is between milliseconds inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2012, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2012, 3, 2, 3, 4, 5, 10)),
             'milliseconds',
             '()'
         ),
@@ -412,8 +412,8 @@ test('is between milliseconds inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
             'milliseconds',
             '()'
         ),
@@ -422,8 +422,8 @@ test('is between milliseconds inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2012, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2012, 3, 2, 3, 4, 5, 10)),
             'milliseconds',
             '()'
         ),
@@ -432,8 +432,8 @@ test('is between milliseconds inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2009, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2009, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2010, 3, 2, 3, 4, 5, 10)),
             'milliseconds',
             '()'
         ),
@@ -442,8 +442,8 @@ test('is between milliseconds inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
             'milliseconds',
             '()'
         ),
@@ -453,8 +453,8 @@ test('is between milliseconds inclusivity', function (assert) {
 
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2012, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2012, 3, 2, 3, 4, 5, 10)),
             'milliseconds',
             '(]'
         ),
@@ -463,8 +463,8 @@ test('is between milliseconds inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
             'milliseconds',
             '(]'
         ),
@@ -473,8 +473,8 @@ test('is between milliseconds inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2012, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2012, 3, 2, 3, 4, 5, 10)),
             'milliseconds',
             '(]'
         ),
@@ -483,8 +483,8 @@ test('is between milliseconds inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2009, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2009, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2010, 3, 2, 3, 4, 5, 10)),
             'milliseconds',
             '(]'
         ),
@@ -493,8 +493,8 @@ test('is between milliseconds inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
             'milliseconds',
             '(]'
         ),
@@ -504,8 +504,8 @@ test('is between milliseconds inclusivity', function (assert) {
 
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2012, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2012, 3, 2, 3, 4, 5, 10)),
             'milliseconds',
             '[)'
         ),
@@ -514,8 +514,8 @@ test('is between milliseconds inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
             'milliseconds',
             '[)'
         ),
@@ -524,8 +524,8 @@ test('is between milliseconds inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2012, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2012, 3, 2, 3, 4, 5, 10)),
             'milliseconds',
             '[)'
         ),
@@ -534,8 +534,8 @@ test('is between milliseconds inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2009, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2009, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2010, 3, 2, 3, 4, 5, 10)),
             'milliseconds',
             '[)'
         ),
@@ -544,8 +544,8 @@ test('is between milliseconds inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
             'milliseconds',
             '[)'
         ),
@@ -555,8 +555,8 @@ test('is between milliseconds inclusivity', function (assert) {
 
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2012, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2012, 3, 2, 3, 4, 5, 10)),
             'milliseconds',
             '[]'
         ),
@@ -565,8 +565,8 @@ test('is between milliseconds inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
             'milliseconds',
             '[]'
         ),
@@ -575,8 +575,8 @@ test('is between milliseconds inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2012, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2012, 3, 2, 3, 4, 5, 10)),
             'milliseconds',
             '[]'
         ),
@@ -585,8 +585,8 @@ test('is between milliseconds inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2009, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2010, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2009, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2010, 3, 2, 3, 4, 5, 10)),
             'milliseconds',
             '[]'
         ),
@@ -595,8 +595,8 @@ test('is between milliseconds inclusivity', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
-            moment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 3, 2, 3, 4, 5, 10)),
             'milliseconds',
             '[]'
         ),
@@ -606,12 +606,12 @@ test('is between milliseconds inclusivity', function (assert) {
 });
 
 test('is between year', function (assert) {
-    var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)),
-        mCopy = moment(m);
+    var m = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)),
+        mCopy = customMoment(m);
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 5, 6, 7, 8, 9, 10)),
-            moment(new Date(2011, 5, 6, 7, 8, 9, 10)),
+            customMoment(new Date(2011, 5, 6, 7, 8, 9, 10)),
+            customMoment(new Date(2011, 5, 6, 7, 8, 9, 10)),
             'year'
         ),
         false,
@@ -619,8 +619,8 @@ test('is between year', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2010, 5, 6, 7, 8, 9, 10)),
-            moment(new Date(2012, 5, 6, 7, 8, 9, 10)),
+            customMoment(new Date(2010, 5, 6, 7, 8, 9, 10)),
+            customMoment(new Date(2012, 5, 6, 7, 8, 9, 10)),
             'years'
         ),
         true,
@@ -628,8 +628,8 @@ test('is between year', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2010, 5, 6, 7, 8, 9, 10)),
-            moment(new Date(2012, 5, 6, 7, 8, 9, 10)),
+            customMoment(new Date(2010, 5, 6, 7, 8, 9, 10)),
+            customMoment(new Date(2012, 5, 6, 7, 8, 9, 10)),
             'year'
         ),
         true,
@@ -637,8 +637,8 @@ test('is between year', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 5, 6, 7, 8, 9, 10)),
-            moment(new Date(2013, 5, 6, 7, 8, 9, 10)),
+            customMoment(new Date(2011, 5, 6, 7, 8, 9, 10)),
+            customMoment(new Date(2013, 5, 6, 7, 8, 9, 10)),
             'year'
         ),
         false,
@@ -646,8 +646,8 @@ test('is between year', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2010, 5, 6, 7, 8, 9, 10)),
-            moment(new Date(2011, 5, 6, 7, 8, 9, 10)),
+            customMoment(new Date(2010, 5, 6, 7, 8, 9, 10)),
+            customMoment(new Date(2011, 5, 6, 7, 8, 9, 10)),
             'year'
         ),
         false,
@@ -662,12 +662,12 @@ test('is between year', function (assert) {
 });
 
 test('is between month', function (assert) {
-    var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)),
-        mCopy = moment(m);
+    var m = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)),
+        mCopy = customMoment(m);
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 1, 6, 7, 8, 9, 10)),
-            moment(new Date(2011, 1, 6, 7, 8, 9, 10)),
+            customMoment(new Date(2011, 1, 6, 7, 8, 9, 10)),
+            customMoment(new Date(2011, 1, 6, 7, 8, 9, 10)),
             'month'
         ),
         false,
@@ -675,8 +675,8 @@ test('is between month', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 0, 6, 7, 8, 9, 10)),
-            moment(new Date(2011, 2, 6, 7, 8, 9, 10)),
+            customMoment(new Date(2011, 0, 6, 7, 8, 9, 10)),
+            customMoment(new Date(2011, 2, 6, 7, 8, 9, 10)),
             'months'
         ),
         true,
@@ -684,8 +684,8 @@ test('is between month', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 0, 31, 23, 59, 59, 999)),
-            moment(new Date(2011, 2, 1, 0, 0, 0, 0)),
+            customMoment(new Date(2011, 0, 31, 23, 59, 59, 999)),
+            customMoment(new Date(2011, 2, 1, 0, 0, 0, 0)),
             'month'
         ),
         true,
@@ -693,8 +693,8 @@ test('is between month', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 1, 6, 7, 8, 9, 10)),
-            moment(new Date(2011, 2, 6, 7, 8, 9, 10)),
+            customMoment(new Date(2011, 1, 6, 7, 8, 9, 10)),
+            customMoment(new Date(2011, 2, 6, 7, 8, 9, 10)),
             'month'
         ),
         false,
@@ -702,8 +702,8 @@ test('is between month', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 11, 6, 7, 8, 9, 10)),
-            moment(new Date(2011, 1, 6, 7, 8, 9, 10)),
+            customMoment(new Date(2011, 11, 6, 7, 8, 9, 10)),
+            customMoment(new Date(2011, 1, 6, 7, 8, 9, 10)),
             'month'
         ),
         false,
@@ -718,12 +718,12 @@ test('is between month', function (assert) {
 });
 
 test('is between day', function (assert) {
-    var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)),
-        mCopy = moment(m);
+    var m = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)),
+        mCopy = customMoment(m);
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 1, 2, 7, 8, 9, 10)),
-            moment(new Date(2011, 1, 2, 7, 8, 9, 10)),
+            customMoment(new Date(2011, 1, 2, 7, 8, 9, 10)),
+            customMoment(new Date(2011, 1, 2, 7, 8, 9, 10)),
             'day'
         ),
         false,
@@ -731,8 +731,8 @@ test('is between day', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 1, 1, 7, 8, 9, 10)),
-            moment(new Date(2011, 1, 3, 7, 8, 9, 10)),
+            customMoment(new Date(2011, 1, 1, 7, 8, 9, 10)),
+            customMoment(new Date(2011, 1, 3, 7, 8, 9, 10)),
             'days'
         ),
         true,
@@ -740,8 +740,8 @@ test('is between day', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 1, 1, 7, 8, 9, 10)),
-            moment(new Date(2011, 1, 3, 7, 8, 9, 10)),
+            customMoment(new Date(2011, 1, 1, 7, 8, 9, 10)),
+            customMoment(new Date(2011, 1, 3, 7, 8, 9, 10)),
             'day'
         ),
         true,
@@ -749,8 +749,8 @@ test('is between day', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 1, 2, 7, 8, 9, 10)),
-            moment(new Date(2011, 1, 4, 7, 8, 9, 10)),
+            customMoment(new Date(2011, 1, 2, 7, 8, 9, 10)),
+            customMoment(new Date(2011, 1, 4, 7, 8, 9, 10)),
             'day'
         ),
         false,
@@ -758,8 +758,8 @@ test('is between day', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 1, 1, 7, 8, 9, 10)),
-            moment(new Date(2011, 1, 2, 7, 8, 9, 10)),
+            customMoment(new Date(2011, 1, 1, 7, 8, 9, 10)),
+            customMoment(new Date(2011, 1, 2, 7, 8, 9, 10)),
             'day'
         ),
         false,
@@ -774,12 +774,12 @@ test('is between day', function (assert) {
 });
 
 test('is between hour', function (assert) {
-    var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)),
-        mCopy = moment(m);
+    var m = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)),
+        mCopy = customMoment(m);
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 1, 2, 3, 5, 9, 10)),
-            moment(new Date(2011, 1, 2, 3, 9, 9, 10)),
+            customMoment(new Date(2011, 1, 2, 3, 5, 9, 10)),
+            customMoment(new Date(2011, 1, 2, 3, 9, 9, 10)),
             'hour'
         ),
         false,
@@ -787,8 +787,8 @@ test('is between hour', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 1, 2, 1, 59, 59, 999)),
-            moment(new Date(2011, 1, 2, 4, 0, 0, 0)),
+            customMoment(new Date(2011, 1, 2, 1, 59, 59, 999)),
+            customMoment(new Date(2011, 1, 2, 4, 0, 0, 0)),
             'hours'
         ),
         true,
@@ -796,8 +796,8 @@ test('is between hour', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 1, 2, 2, 59, 59, 999)),
-            moment(new Date(2011, 1, 2, 4, 0, 0, 0)),
+            customMoment(new Date(2011, 1, 2, 2, 59, 59, 999)),
+            customMoment(new Date(2011, 1, 2, 4, 0, 0, 0)),
             'hour'
         ),
         true,
@@ -805,8 +805,8 @@ test('is between hour', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 1, 2, 7, 8, 9, 10)),
-            moment(new Date(2011, 1, 2, 7, 8, 9, 10)),
+            customMoment(new Date(2011, 1, 2, 7, 8, 9, 10)),
+            customMoment(new Date(2011, 1, 2, 7, 8, 9, 10)),
             'hour'
         ),
         false,
@@ -814,8 +814,8 @@ test('is between hour', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 1, 2, 7, 8, 9, 10)),
-            moment(new Date(2011, 1, 2, 7, 8, 9, 10)),
+            customMoment(new Date(2011, 1, 2, 7, 8, 9, 10)),
+            customMoment(new Date(2011, 1, 2, 7, 8, 9, 10)),
             'hour'
         ),
         false,
@@ -830,12 +830,12 @@ test('is between hour', function (assert) {
 });
 
 test('is between minute', function (assert) {
-    var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)),
-        mCopy = moment(m);
+    var m = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)),
+        mCopy = customMoment(m);
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 1, 2, 3, 4, 9, 10)),
-            moment(new Date(2011, 1, 2, 3, 4, 9, 10)),
+            customMoment(new Date(2011, 1, 2, 3, 4, 9, 10)),
+            customMoment(new Date(2011, 1, 2, 3, 4, 9, 10)),
             'minute'
         ),
         false,
@@ -843,8 +843,8 @@ test('is between minute', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 1, 2, 3, 3, 9, 10)),
-            moment(new Date(2011, 1, 2, 3, 5, 9, 10)),
+            customMoment(new Date(2011, 1, 2, 3, 3, 9, 10)),
+            customMoment(new Date(2011, 1, 2, 3, 5, 9, 10)),
             'minutes'
         ),
         true,
@@ -852,8 +852,8 @@ test('is between minute', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 1, 2, 3, 3, 59, 999)),
-            moment(new Date(2011, 1, 2, 3, 5, 0, 0)),
+            customMoment(new Date(2011, 1, 2, 3, 3, 59, 999)),
+            customMoment(new Date(2011, 1, 2, 3, 5, 0, 0)),
             'minute'
         ),
         true,
@@ -861,8 +861,8 @@ test('is between minute', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 1, 2, 3, 5, 0, 0)),
-            moment(new Date(2011, 1, 2, 3, 8, 9, 10)),
+            customMoment(new Date(2011, 1, 2, 3, 5, 0, 0)),
+            customMoment(new Date(2011, 1, 2, 3, 8, 9, 10)),
             'minute'
         ),
         false,
@@ -870,8 +870,8 @@ test('is between minute', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 1, 2, 3, 2, 9, 10)),
-            moment(new Date(2011, 1, 2, 3, 3, 59, 999)),
+            customMoment(new Date(2011, 1, 2, 3, 2, 9, 10)),
+            customMoment(new Date(2011, 1, 2, 3, 3, 59, 999)),
             'minute'
         ),
         false,
@@ -886,12 +886,12 @@ test('is between minute', function (assert) {
 });
 
 test('is between second', function (assert) {
-    var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)),
-        mCopy = moment(m);
+    var m = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)),
+        mCopy = customMoment(m);
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 1, 2, 3, 4, 5, 10)),
-            moment(new Date(2011, 1, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 1, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 1, 2, 3, 4, 5, 10)),
             'second'
         ),
         false,
@@ -899,8 +899,8 @@ test('is between second', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 1, 2, 3, 4, 4, 10)),
-            moment(new Date(2011, 1, 2, 3, 4, 6, 10)),
+            customMoment(new Date(2011, 1, 2, 3, 4, 4, 10)),
+            customMoment(new Date(2011, 1, 2, 3, 4, 6, 10)),
             'seconds'
         ),
         true,
@@ -908,8 +908,8 @@ test('is between second', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 1, 2, 3, 4, 4, 999)),
-            moment(new Date(2011, 1, 2, 3, 4, 6, 0)),
+            customMoment(new Date(2011, 1, 2, 3, 4, 4, 999)),
+            customMoment(new Date(2011, 1, 2, 3, 4, 6, 0)),
             'second'
         ),
         true,
@@ -917,8 +917,8 @@ test('is between second', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 1, 2, 3, 4, 6, 0)),
-            moment(new Date(2011, 1, 2, 3, 4, 7, 10)),
+            customMoment(new Date(2011, 1, 2, 3, 4, 6, 0)),
+            customMoment(new Date(2011, 1, 2, 3, 4, 7, 10)),
             'second'
         ),
         false,
@@ -926,8 +926,8 @@ test('is between second', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 1, 2, 3, 4, 3, 10)),
-            moment(new Date(2011, 1, 2, 3, 4, 4, 999)),
+            customMoment(new Date(2011, 1, 2, 3, 4, 3, 10)),
+            customMoment(new Date(2011, 1, 2, 3, 4, 4, 999)),
             'second'
         ),
         false,
@@ -942,12 +942,12 @@ test('is between second', function (assert) {
 });
 
 test('is between millisecond', function (assert) {
-    var m = moment(new Date(2011, 1, 2, 3, 4, 5, 6)),
-        mCopy = moment(m);
+    var m = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)),
+        mCopy = customMoment(m);
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 1, 2, 3, 4, 5, 6)),
-            moment(new Date(2011, 1, 2, 3, 4, 5, 6)),
+            customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)),
+            customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)),
             'millisecond'
         ),
         false,
@@ -955,8 +955,8 @@ test('is between millisecond', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 1, 2, 3, 4, 5, 5)),
-            moment(new Date(2011, 1, 2, 3, 4, 5, 7)),
+            customMoment(new Date(2011, 1, 2, 3, 4, 5, 5)),
+            customMoment(new Date(2011, 1, 2, 3, 4, 5, 7)),
             'milliseconds'
         ),
         true,
@@ -964,8 +964,8 @@ test('is between millisecond', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 1, 2, 3, 4, 5, 5)),
-            moment(new Date(2011, 1, 2, 3, 4, 5, 7)),
+            customMoment(new Date(2011, 1, 2, 3, 4, 5, 5)),
+            customMoment(new Date(2011, 1, 2, 3, 4, 5, 7)),
             'millisecond'
         ),
         true,
@@ -973,8 +973,8 @@ test('is between millisecond', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 1, 2, 3, 4, 5, 7)),
-            moment(new Date(2011, 1, 2, 3, 4, 5, 10)),
+            customMoment(new Date(2011, 1, 2, 3, 4, 5, 7)),
+            customMoment(new Date(2011, 1, 2, 3, 4, 5, 10)),
             'millisecond'
         ),
         false,
@@ -982,8 +982,8 @@ test('is between millisecond', function (assert) {
     );
     assert.equal(
         m.isBetween(
-            moment(new Date(2011, 1, 2, 3, 4, 5, 4)),
-            moment(new Date(2011, 1, 2, 3, 4, 5, 6)),
+            customMoment(new Date(2011, 1, 2, 3, 4, 5, 4)),
+            customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)),
             'millisecond'
         ),
         false,
@@ -998,10 +998,10 @@ test('is between millisecond', function (assert) {
 });
 
 test('is between invalid', function (assert) {
-    var invalid = moment(NaN),
-        valid = moment(new Date(2011, 1, 2, 3, 4, 5, 6)),
-        validFrom = moment(new Date(2010, 1, 2, 3, 4, 5, 6)),
-        validTo = moment(new Date(2012, 1, 2, 3, 4, 5, 6));
+    var invalid = customMoment(NaN),
+        valid = customMoment(new Date(2011, 1, 2, 3, 4, 5, 6)),
+        validFrom = customMoment(new Date(2010, 1, 2, 3, 4, 5, 6)),
+        validTo = customMoment(new Date(2012, 1, 2, 3, 4, 5, 6));
     assert.equal(
         invalid.isBetween(validFrom, validTo),
         false,

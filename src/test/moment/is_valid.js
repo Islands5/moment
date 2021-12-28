@@ -1,39 +1,39 @@
 import { module, test } from '../qunit';
 import each from '../helpers/each';
-import moment from '../../moment';
+import {customMoment} from '../../custom_moment';
 
 module('is valid');
 
 test('array bad month', function (assert) {
-    assert.equal(moment([2010, -1]).isValid(), false, 'month -1 invalid');
-    assert.equal(moment([2100, 12]).isValid(), false, 'month 12 invalid');
+    assert.equal(customMoment([2010, -1]).isValid(), false, 'month -1 invalid');
+    assert.equal(customMoment([2100, 12]).isValid(), false, 'month 12 invalid');
 });
 
 test('array good month', function (assert) {
     for (var i = 0; i < 12; i++) {
-        assert.equal(moment([2010, i]).isValid(), true, 'month ' + i);
-        assert.equal(moment.utc([2010, i]).isValid(), true, 'month ' + i);
+        assert.equal(customMoment([2010, i]).isValid(), true, 'month ' + i);
+        assert.equal(customMoment.utc([2010, i]).isValid(), true, 'month ' + i);
     }
 });
 
 test('Feb 29 0000 is valid', function (assert) {
-    // https://github.com/moment/moment/issues/3358
+    // https://github.com/custom_moment/custom_moment/issues/3358
     assert.ok(
-        moment({ year: 0, month: 1, date: 29 }).isValid(),
+        customMoment({ year: 0, month: 1, date: 29 }).isValid(),
         'Feb 29 0000 must be valid'
     );
     assert.ok(
-        moment({ year: 0, month: 1, date: 28 }).add(1, 'd').isValid(),
+        customMoment({ year: 0, month: 1, date: 28 }).add(1, 'd').isValid(),
         'Feb 28 0000 + 1 day must be valid'
     );
 });
 
 test('array bad date', function (assert) {
     var tests = [
-        moment([2010, 0, 0]),
-        moment([2100, 0, 32]),
-        moment.utc([2010, 0, 0]),
-        moment.utc([2100, 0, 32]),
+        customMoment([2010, 0, 0]),
+        customMoment([2100, 0, 32]),
+        customMoment.utc([2010, 0, 0]),
+        customMoment.utc([2100, 0, 32]),
     ];
 
     each(tests, function (m) {
@@ -43,94 +43,94 @@ test('array bad date', function (assert) {
 
 test('h/hh with hour > 12', function (assert) {
     assert.ok(
-        moment('06/20/2014 11:51 PM', 'MM/DD/YYYY hh:mm A', true).isValid(),
+        customMoment('06/20/2014 11:51 PM', 'MM/DD/YYYY hh:mm A', true).isValid(),
         '11 for hh'
     );
     assert.ok(
-        moment('06/20/2014 11:51 AM', 'MM/DD/YYYY hh:mm A', true).isValid(),
+        customMoment('06/20/2014 11:51 AM', 'MM/DD/YYYY hh:mm A', true).isValid(),
         '11 for hh'
     );
     assert.ok(
-        moment('06/20/2014 23:51 PM', 'MM/DD/YYYY hh:mm A').isValid(),
+        customMoment('06/20/2014 23:51 PM', 'MM/DD/YYYY hh:mm A').isValid(),
         'non-strict validity 23 for hh'
     );
     assert.ok(
-        moment('06/20/2014 23:51 PM', 'MM/DD/YYYY hh:mm A').parsingFlags()
+        customMoment('06/20/2014 23:51 PM', 'MM/DD/YYYY hh:mm A').parsingFlags()
             .bigHour,
         'non-strict bigHour 23 for hh'
     );
     assert.ok(
-        !moment('06/20/2014 23:51 PM', 'MM/DD/YYYY hh:mm A', true).isValid(),
+        !customMoment('06/20/2014 23:51 PM', 'MM/DD/YYYY hh:mm A', true).isValid(),
         'validity 23 for hh'
     );
     assert.ok(
-        moment('06/20/2014 23:51 PM', 'MM/DD/YYYY hh:mm A', true).parsingFlags()
+        customMoment('06/20/2014 23:51 PM', 'MM/DD/YYYY hh:mm A', true).parsingFlags()
             .bigHour,
         'bigHour 23 for hh'
     );
 });
 
 test('array bad date leap year', function (assert) {
-    assert.equal(moment([2010, 1, 29]).isValid(), false, '2010 feb 29');
-    assert.equal(moment([2100, 1, 29]).isValid(), false, '2100 feb 29');
-    assert.equal(moment([2008, 1, 30]).isValid(), false, '2008 feb 30');
-    assert.equal(moment([2000, 1, 30]).isValid(), false, '2000 feb 30');
+    assert.equal(customMoment([2010, 1, 29]).isValid(), false, '2010 feb 29');
+    assert.equal(customMoment([2100, 1, 29]).isValid(), false, '2100 feb 29');
+    assert.equal(customMoment([2008, 1, 30]).isValid(), false, '2008 feb 30');
+    assert.equal(customMoment([2000, 1, 30]).isValid(), false, '2000 feb 30');
 
-    assert.equal(moment.utc([2010, 1, 29]).isValid(), false, 'utc 2010 feb 29');
-    assert.equal(moment.utc([2100, 1, 29]).isValid(), false, 'utc 2100 feb 29');
-    assert.equal(moment.utc([2008, 1, 30]).isValid(), false, 'utc 2008 feb 30');
-    assert.equal(moment.utc([2000, 1, 30]).isValid(), false, 'utc 2000 feb 30');
+    assert.equal(customMoment.utc([2010, 1, 29]).isValid(), false, 'utc 2010 feb 29');
+    assert.equal(customMoment.utc([2100, 1, 29]).isValid(), false, 'utc 2100 feb 29');
+    assert.equal(customMoment.utc([2008, 1, 30]).isValid(), false, 'utc 2008 feb 30');
+    assert.equal(customMoment.utc([2000, 1, 30]).isValid(), false, 'utc 2000 feb 30');
 });
 
 test('string + formats bad date', function (assert) {
     assert.equal(
-        moment('2020-00-00', []).isValid(),
+        customMoment('2020-00-00', []).isValid(),
         false,
         'invalid on empty array'
     );
     assert.equal(
-        moment('2020-00-00', ['YYYY-MM-DD', 'DD-MM-YYYY']).isValid(),
+        customMoment('2020-00-00', ['YYYY-MM-DD', 'DD-MM-YYYY']).isValid(),
         false,
         'invalid on all in array'
     );
     assert.equal(
-        moment('2020-00-00', ['DD-MM-YYYY', 'YYYY-MM-DD']).isValid(),
+        customMoment('2020-00-00', ['DD-MM-YYYY', 'YYYY-MM-DD']).isValid(),
         false,
         'invalid on all in array'
     );
     assert.equal(
-        moment('2020-01-01', ['YYYY-MM-DD', 'DD-MM-YYYY']).isValid(),
+        customMoment('2020-01-01', ['YYYY-MM-DD', 'DD-MM-YYYY']).isValid(),
         true,
         'valid on first'
     );
     assert.equal(
-        moment('2020-01-01', ['DD-MM-YYYY', 'YYYY-MM-DD']).isValid(),
+        customMoment('2020-01-01', ['DD-MM-YYYY', 'YYYY-MM-DD']).isValid(),
         true,
         'valid on last'
     );
     assert.equal(
-        moment('2020-01-01', ['YYYY-MM-DD', 'YYYY-DD-MM']).isValid(),
+        customMoment('2020-01-01', ['YYYY-MM-DD', 'YYYY-DD-MM']).isValid(),
         true,
         'valid on both'
     );
     assert.equal(
-        moment('2020-13-01', ['YYYY-MM-DD', 'YYYY-DD-MM']).isValid(),
+        customMoment('2020-13-01', ['YYYY-MM-DD', 'YYYY-DD-MM']).isValid(),
         true,
         'valid on last'
     );
 
     assert.equal(
-        moment('12-13-2012', ['DD-MM-YYYY', 'YYYY-MM-DD']).isValid(),
+        customMoment('12-13-2012', ['DD-MM-YYYY', 'YYYY-MM-DD']).isValid(),
         false,
         'month rollover'
     );
     assert.equal(
-        moment('12-13-2012', ['DD-MM-YYYY', 'DD-MM-YYYY']).isValid(),
+        customMoment('12-13-2012', ['DD-MM-YYYY', 'DD-MM-YYYY']).isValid(),
         false,
         'month rollover'
     );
     assert.equal(
-        moment('38-12-2012', ['DD-MM-YYYY']).isValid(),
+        customMoment('38-12-2012', ['DD-MM-YYYY']).isValid(),
         false,
         'day rollover'
     );
@@ -138,12 +138,12 @@ test('string + formats bad date', function (assert) {
 
 test('string nonsensical with format', function (assert) {
     assert.equal(
-        moment('fail', 'MM-DD-YYYY').isValid(),
+        customMoment('fail', 'MM-DD-YYYY').isValid(),
         false,
         "string 'fail' with format 'MM-DD-YYYY'"
     );
     assert.equal(
-        moment('xx-xx-2001', 'DD-MM-YYY').isValid(),
+        customMoment('xx-xx-2001', 'DD-MM-YYY').isValid(),
         true,
         "string 'xx-xx-2001' with format 'MM-DD-YYYY'"
     );
@@ -151,12 +151,12 @@ test('string nonsensical with format', function (assert) {
 
 test('string with bad month name', function (assert) {
     assert.equal(
-        moment('01-Nam-2012', 'DD-MMM-YYYY').isValid(),
+        customMoment('01-Nam-2012', 'DD-MMM-YYYY').isValid(),
         false,
         "'Nam' is an invalid month"
     );
     assert.equal(
-        moment('01-Aug-2012', 'DD-MMM-YYYY').isValid(),
+        customMoment('01-Aug-2012', 'DD-MMM-YYYY').isValid(),
         true,
         "'Aug' is a valid month"
     );
@@ -164,7 +164,7 @@ test('string with bad month name', function (assert) {
 
 test('string with spaceless format', function (assert) {
     assert.equal(
-        moment('10Sep2001', 'DDMMMYYYY').isValid(),
+        customMoment('10Sep2001', 'DDMMMYYYY').isValid(),
         true,
         'Parsing 10Sep2001 should result in a valid date'
     );
@@ -183,12 +183,12 @@ test('invalid string iso 8601', function (assert) {
 
     for (i = 0; i < tests.length; i++) {
         assert.equal(
-            moment(tests[i], moment.ISO_8601).isValid(),
+            customMoment(tests[i], customMoment.ISO_8601).isValid(),
             false,
             tests[i] + ' should be invalid'
         );
         assert.equal(
-            moment.utc(tests[i], moment.ISO_8601).isValid(),
+            customMoment.utc(tests[i], customMoment.ISO_8601).isValid(),
             false,
             tests[i] + ' should be invalid'
         );
@@ -210,12 +210,12 @@ test('invalid string iso 8601 + timezone', function (assert) {
 
     for (i = 0; i < tests.length; i++) {
         assert.equal(
-            moment(tests[i], moment.ISO_8601).isValid(),
+            customMoment(tests[i], customMoment.ISO_8601).isValid(),
             false,
             tests[i] + ' should be invalid'
         );
         assert.equal(
-            moment.utc(tests[i], moment.ISO_8601).isValid(),
+            customMoment.utc(tests[i], customMoment.ISO_8601).isValid(),
             false,
             tests[i] + ' should be invalid'
         );
@@ -239,12 +239,12 @@ test('valid string iso 8601 - not strict', function (assert) {
 
     for (i = 0; i < tests.length; i++) {
         assert.equal(
-            moment(tests[i]).isValid(),
+            customMoment(tests[i]).isValid(),
             true,
             tests[i] + ' should be valid in normal'
         );
         assert.equal(
-            moment.utc(tests[i]).isValid(),
+            customMoment.utc(tests[i]).isValid(),
             true,
             tests[i] + ' should be valid in normal'
         );
@@ -269,22 +269,22 @@ test('valid string iso 8601 + timezone', function (assert) {
 
     for (i = 0; i < tests.length; i++) {
         assert.equal(
-            moment(tests[i]).isValid(),
+            customMoment(tests[i]).isValid(),
             true,
             tests[i] + ' should be valid in normal'
         );
         assert.equal(
-            moment.utc(tests[i]).isValid(),
+            customMoment.utc(tests[i]).isValid(),
             true,
             tests[i] + ' should be valid in normal'
         );
         assert.equal(
-            moment(tests[i], moment.ISO_8601, true).isValid(),
+            customMoment(tests[i], customMoment.ISO_8601, true).isValid(),
             true,
             tests[i] + ' should be valid in strict'
         );
         assert.equal(
-            moment.utc(tests[i], moment.ISO_8601, true).isValid(),
+            customMoment.utc(tests[i], customMoment.ISO_8601, true).isValid(),
             true,
             tests[i] + ' should be valid in strict'
         );
@@ -293,145 +293,145 @@ test('valid string iso 8601 + timezone', function (assert) {
 
 test('invalidAt', function (assert) {
     assert.equal(
-        moment([2000, 12]).invalidAt(),
+        customMoment([2000, 12]).invalidAt(),
         1,
         'month 12 is invalid: 0-11'
     );
     assert.equal(
-        moment([2000, 1, 30]).invalidAt(),
+        customMoment([2000, 1, 30]).invalidAt(),
         2,
         '30 is not a valid february day'
     );
     assert.equal(
-        moment([2000, 1, 29, 25]).invalidAt(),
+        customMoment([2000, 1, 29, 25]).invalidAt(),
         3,
         '25 is invalid hour'
     );
     assert.equal(
-        moment([2000, 1, 29, 24, 1]).invalidAt(),
+        customMoment([2000, 1, 29, 24, 1]).invalidAt(),
         3,
         '24:01 is invalid hour'
     );
     assert.equal(
-        moment([2000, 1, 29, 23, 60]).invalidAt(),
+        customMoment([2000, 1, 29, 23, 60]).invalidAt(),
         4,
         '60 is invalid minute'
     );
     assert.equal(
-        moment([2000, 1, 29, 23, 59, 60]).invalidAt(),
+        customMoment([2000, 1, 29, 23, 59, 60]).invalidAt(),
         5,
         '60 is invalid second'
     );
     assert.equal(
-        moment([2000, 1, 29, 23, 59, 59, 1000]).invalidAt(),
+        customMoment([2000, 1, 29, 23, 59, 59, 1000]).invalidAt(),
         6,
         '1000 is invalid millisecond'
     );
     assert.equal(
-        moment([2000, 1, 29, 23, 59, 59, 999]).invalidAt(),
+        customMoment([2000, 1, 29, 23, 59, 59, 999]).invalidAt(),
         -1,
         '-1 if everything is fine'
     );
 });
 
 test('valid Unix timestamp', function (assert) {
-    assert.equal(moment(1371065286, 'X').isValid(), true, 'number integer');
-    assert.equal(moment(1379066897.0, 'X').isValid(), true, 'number whole 1dp');
-    assert.equal(moment(1379066897.7, 'X').isValid(), true, 'number 1dp');
-    assert.equal(moment(1379066897.0, 'X').isValid(), true, 'number whole 2dp');
-    assert.equal(moment(1379066897.07, 'X').isValid(), true, 'number 2dp');
-    assert.equal(moment(1379066897.17, 'X').isValid(), true, 'number 2dp');
-    assert.equal(moment(1379066897.0, 'X').isValid(), true, 'number whole 3dp');
-    assert.equal(moment(1379066897.007, 'X').isValid(), true, 'number 3dp');
-    assert.equal(moment(1379066897.017, 'X').isValid(), true, 'number 3dp');
-    assert.equal(moment(1379066897.157, 'X').isValid(), true, 'number 3dp');
-    assert.equal(moment('1371065286', 'X').isValid(), true, 'string integer');
+    assert.equal(customMoment(1371065286, 'X').isValid(), true, 'number integer');
+    assert.equal(customMoment(1379066897.0, 'X').isValid(), true, 'number whole 1dp');
+    assert.equal(customMoment(1379066897.7, 'X').isValid(), true, 'number 1dp');
+    assert.equal(customMoment(1379066897.0, 'X').isValid(), true, 'number whole 2dp');
+    assert.equal(customMoment(1379066897.07, 'X').isValid(), true, 'number 2dp');
+    assert.equal(customMoment(1379066897.17, 'X').isValid(), true, 'number 2dp');
+    assert.equal(customMoment(1379066897.0, 'X').isValid(), true, 'number whole 3dp');
+    assert.equal(customMoment(1379066897.007, 'X').isValid(), true, 'number 3dp');
+    assert.equal(customMoment(1379066897.017, 'X').isValid(), true, 'number 3dp');
+    assert.equal(customMoment(1379066897.157, 'X').isValid(), true, 'number 3dp');
+    assert.equal(customMoment('1371065286', 'X').isValid(), true, 'string integer');
     assert.equal(
-        moment('1379066897.', 'X').isValid(),
+        customMoment('1379066897.', 'X').isValid(),
         true,
         'string trailing .'
     );
     assert.equal(
-        moment('1379066897.0', 'X').isValid(),
+        customMoment('1379066897.0', 'X').isValid(),
         true,
         'string whole 1dp'
     );
-    assert.equal(moment('1379066897.7', 'X').isValid(), true, 'string 1dp');
+    assert.equal(customMoment('1379066897.7', 'X').isValid(), true, 'string 1dp');
     assert.equal(
-        moment('1379066897.00', 'X').isValid(),
+        customMoment('1379066897.00', 'X').isValid(),
         true,
         'string whole 2dp'
     );
-    assert.equal(moment('1379066897.07', 'X').isValid(), true, 'string 2dp');
-    assert.equal(moment('1379066897.17', 'X').isValid(), true, 'string 2dp');
+    assert.equal(customMoment('1379066897.07', 'X').isValid(), true, 'string 2dp');
+    assert.equal(customMoment('1379066897.17', 'X').isValid(), true, 'string 2dp');
     assert.equal(
-        moment('1379066897.000', 'X').isValid(),
+        customMoment('1379066897.000', 'X').isValid(),
         true,
         'string whole 3dp'
     );
-    assert.equal(moment('1379066897.007', 'X').isValid(), true, 'string 3dp');
-    assert.equal(moment('1379066897.017', 'X').isValid(), true, 'string 3dp');
-    assert.equal(moment('1379066897.157', 'X').isValid(), true, 'string 3dp');
+    assert.equal(customMoment('1379066897.007', 'X').isValid(), true, 'string 3dp');
+    assert.equal(customMoment('1379066897.017', 'X').isValid(), true, 'string 3dp');
+    assert.equal(customMoment('1379066897.157', 'X').isValid(), true, 'string 3dp');
 });
 
 test('invalid Unix timestamp', function (assert) {
-    assert.equal(moment(undefined, 'X').isValid(), false, 'undefined');
-    assert.equal(moment('undefined', 'X').isValid(), false, 'string undefined');
+    assert.equal(customMoment(undefined, 'X').isValid(), false, 'undefined');
+    assert.equal(customMoment('undefined', 'X').isValid(), false, 'string undefined');
     try {
-        assert.equal(moment(null, 'X').isValid(), false, 'null');
+        assert.equal(customMoment(null, 'X').isValid(), false, 'null');
     } catch (e) {
         assert.ok(true, 'null');
     }
 
-    assert.equal(moment('null', 'X').isValid(), false, 'string null');
-    assert.equal(moment([], 'X').isValid(), false, 'array');
-    assert.equal(moment('{}', 'X').isValid(), false, 'object');
+    assert.equal(customMoment('null', 'X').isValid(), false, 'string null');
+    assert.equal(customMoment([], 'X').isValid(), false, 'array');
+    assert.equal(customMoment('{}', 'X').isValid(), false, 'object');
     try {
-        assert.equal(moment('', 'X').isValid(), false, 'string empty');
+        assert.equal(customMoment('', 'X').isValid(), false, 'string empty');
     } catch (e) {
         assert.ok(true, 'string empty');
     }
 
-    assert.equal(moment(' ', 'X').isValid(), false, 'string space');
+    assert.equal(customMoment(' ', 'X').isValid(), false, 'string space');
 });
 
 test('valid Unix offset milliseconds', function (assert) {
-    assert.equal(moment(1234567890123, 'x').isValid(), true, 'number integer');
+    assert.equal(customMoment(1234567890123, 'x').isValid(), true, 'number integer');
     assert.equal(
-        moment('1234567890123', 'x').isValid(),
+        customMoment('1234567890123', 'x').isValid(),
         true,
         'string integer'
     );
 });
 
 test('invalid Unix offset milliseconds', function (assert) {
-    assert.equal(moment(undefined, 'x').isValid(), false, 'undefined');
-    assert.equal(moment('undefined', 'x').isValid(), false, 'string undefined');
+    assert.equal(customMoment(undefined, 'x').isValid(), false, 'undefined');
+    assert.equal(customMoment('undefined', 'x').isValid(), false, 'string undefined');
     try {
-        assert.equal(moment(null, 'x').isValid(), false, 'null');
+        assert.equal(customMoment(null, 'x').isValid(), false, 'null');
     } catch (e) {
         assert.ok(true, 'null');
     }
 
-    assert.equal(moment('null', 'x').isValid(), false, 'string null');
-    assert.equal(moment([], 'x').isValid(), false, 'array');
-    assert.equal(moment('{}', 'x').isValid(), false, 'object');
+    assert.equal(customMoment('null', 'x').isValid(), false, 'string null');
+    assert.equal(customMoment([], 'x').isValid(), false, 'array');
+    assert.equal(customMoment('{}', 'x').isValid(), false, 'object');
     try {
-        assert.equal(moment('', 'x').isValid(), false, 'string empty');
+        assert.equal(customMoment('', 'x').isValid(), false, 'string empty');
     } catch (e) {
         assert.ok(true, 'string empty');
     }
 
-    assert.equal(moment(' ', 'x').isValid(), false, 'string space');
+    assert.equal(customMoment(' ', 'x').isValid(), false, 'string space');
 });
 
 test('empty', function (assert) {
-    assert.equal(moment(null).isValid(), false, 'null');
-    assert.equal(moment('').isValid(), false, 'empty string');
-    assert.equal(moment(null, 'YYYY').isValid(), false, 'format + null');
-    assert.equal(moment('', 'YYYY').isValid(), false, 'format + empty string');
+    assert.equal(customMoment(null).isValid(), false, 'null');
+    assert.equal(customMoment('').isValid(), false, 'empty string');
+    assert.equal(customMoment(null, 'YYYY').isValid(), false, 'format + null');
+    assert.equal(customMoment('', 'YYYY').isValid(), false, 'format + empty string');
     assert.equal(
-        moment(' ', 'YYYY').isValid(),
+        customMoment(' ', 'YYYY').isValid(),
         false,
         'format + empty when trimmed'
     );
@@ -439,32 +439,32 @@ test('empty', function (assert) {
 
 test('days of the year', function (assert) {
     assert.equal(
-        moment('2010 300', 'YYYY DDDD').isValid(),
+        customMoment('2010 300', 'YYYY DDDD').isValid(),
         true,
         'day 300 of year valid'
     );
     assert.equal(
-        moment('2010 365', 'YYYY DDDD').isValid(),
+        customMoment('2010 365', 'YYYY DDDD').isValid(),
         true,
         'day 365 of year valid'
     );
     assert.equal(
-        moment('2010 366', 'YYYY DDDD').isValid(),
+        customMoment('2010 366', 'YYYY DDDD').isValid(),
         false,
         'day 366 of year invalid'
     );
     assert.equal(
-        moment('2012 365', 'YYYY DDDD').isValid(),
+        customMoment('2012 365', 'YYYY DDDD').isValid(),
         true,
         'day 365 of leap year valid'
     );
     assert.equal(
-        moment('2012 366', 'YYYY DDDD').isValid(),
+        customMoment('2012 366', 'YYYY DDDD').isValid(),
         true,
         'day 366 of leap year valid'
     );
     assert.equal(
-        moment('2012 367', 'YYYY DDDD').isValid(),
+        customMoment('2012 367', 'YYYY DDDD').isValid(),
         false,
         'day 367 of leap year invalid'
     );
@@ -472,54 +472,54 @@ test('days of the year', function (assert) {
 
 test('24:00:00.000 is valid', function (assert) {
     assert.equal(
-        moment('2014-01-01 24', 'YYYY-MM-DD HH').isValid(),
+        customMoment('2014-01-01 24', 'YYYY-MM-DD HH').isValid(),
         true,
         '24 is valid'
     );
     assert.equal(
-        moment('2014-01-01 24:00', 'YYYY-MM-DD HH:mm').isValid(),
+        customMoment('2014-01-01 24:00', 'YYYY-MM-DD HH:mm').isValid(),
         true,
         '24:00 is valid'
     );
     assert.equal(
-        moment('2014-01-01 24:01', 'YYYY-MM-DD HH:mm').isValid(),
+        customMoment('2014-01-01 24:01', 'YYYY-MM-DD HH:mm').isValid(),
         false,
         '24:01 is not valid'
     );
 });
 
 test('oddball permissiveness', function (assert) {
-    // https://github.com/moment/moment/issues/1128
+    // https://github.com/custom_moment/custom_moment/issues/1128
     assert.ok(
-        moment('2010-10-3199', [
+        customMoment('2010-10-3199', [
             'MM/DD/YYYY',
             'MM-DD-YYYY',
             'YYYY-MM-DD',
         ]).isValid()
     );
 
-    // https://github.com/moment/moment/issues/1122
-    assert.ok(moment('3:25', ['h:mma', 'hh:mma', 'H:mm', 'HH:mm']).isValid());
+    // https://github.com/custom_moment/custom_moment/issues/1122
+    assert.ok(customMoment('3:25', ['h:mma', 'hh:mma', 'H:mm', 'HH:mm']).isValid());
 });
 
 test('0 hour is invalid in strict', function (assert) {
     assert.equal(
-        moment('00:01', 'hh:mm', true).isValid(),
+        customMoment('00:01', 'hh:mm', true).isValid(),
         false,
         '00 hour is invalid in strict'
     );
     assert.equal(
-        moment('00:01', 'hh:mm').isValid(),
+        customMoment('00:01', 'hh:mm').isValid(),
         true,
         '00 hour is valid in normal'
     );
     assert.equal(
-        moment('0:01', 'h:mm', true).isValid(),
+        customMoment('0:01', 'h:mm', true).isValid(),
         false,
         '0 hour is invalid in strict'
     );
     assert.equal(
-        moment('0:01', 'h:mm').isValid(),
+        customMoment('0:01', 'h:mm').isValid(),
         true,
         '0 hour is valid in normal'
     );
@@ -558,6 +558,6 @@ test('format locale', function (assert) {
         ],
         i;
     for (i = 0; i < a.length; i++) {
-        assert.ok(moment(a[i][0], a[i][1], a[i][2]).isValid());
+        assert.ok(customMoment(a[i][0], a[i][1], a[i][2]).isValid());
     }
 });

@@ -1,10 +1,10 @@
 import { module, test } from '../qunit';
-import moment from '../../moment';
+import {customMoment} from '../../custom_moment';
 
 module('utc');
 
 test('utc and local', function (assert) {
-    var m = moment(Date.UTC(2011, 1, 2, 3, 4, 5, 6)),
+    var m = customMoment(Date.UTC(2011, 1, 2, 3, 4, 5, 6)),
         offset,
         expected;
     m.utc();
@@ -30,7 +30,7 @@ test('utc and local', function (assert) {
         'the hours (' + m.hours() + ') should be correct for local'
     );
     assert.equal(
-        moment().utc().utcOffset(),
+        customMoment().utc().utcOffset(),
         0,
         'timezone in utc should always be zero'
     );
@@ -38,7 +38,7 @@ test('utc and local', function (assert) {
 
 test('creating with utc and no arguments', function (assert) {
     var startOfTest = new Date().valueOf(),
-        momentDefaultUtcTime = moment.utc().valueOf(),
+        momentDefaultUtcTime = customMoment.utc().valueOf(),
         afterMomentCreationTime = new Date().valueOf();
 
     assert.ok(
@@ -52,11 +52,11 @@ test('creating with utc and no arguments', function (assert) {
 });
 
 test('creating with utc and a date parameter array', function (assert) {
-    var m = moment.utc([2011, 1, 2, 3, 4, 5, 6]);
+    var m = customMoment.utc([2011, 1, 2, 3, 4, 5, 6]);
     assert.equal(m.date(), 2, 'the day should be correct for utc array');
     assert.equal(m.hours(), 3, 'the hours should be correct for utc array');
 
-    m = moment.utc('2011-02-02 3:04:05', 'YYYY-MM-DD HH:mm:ss');
+    m = customMoment.utc('2011-02-02 3:04:05', 'YYYY-MM-DD HH:mm:ss');
     assert.equal(
         m.date(),
         2,
@@ -68,7 +68,7 @@ test('creating with utc and a date parameter array', function (assert) {
         'the hours should be correct for utc parsing format'
     );
 
-    m = moment.utc('2011-02-02T03:04:05+00:00');
+    m = customMoment.utc('2011-02-02T03:04:05+00:00');
     assert.equal(m.date(), 2, 'the day should be correct for utc parsing iso');
     assert.equal(
         m.hours(),
@@ -78,7 +78,7 @@ test('creating with utc and a date parameter array', function (assert) {
 });
 
 test('creating with utc without timezone', function (assert) {
-    var m = moment.utc('2012-01-02T08:20:00');
+    var m = customMoment.utc('2012-01-02T08:20:00');
     assert.equal(
         m.date(),
         2,
@@ -90,7 +90,7 @@ test('creating with utc without timezone', function (assert) {
         'the hours should be correct for utc parse without timezone'
     );
 
-    m = moment.utc('2012-01-02T08:20:00+09:00');
+    m = customMoment.utc('2012-01-02T08:20:00+09:00');
     assert.equal(
         m.date(),
         1,
@@ -104,26 +104,26 @@ test('creating with utc without timezone', function (assert) {
 });
 
 test('cloning with utc offset', function (assert) {
-    var m = moment.utc('2012-01-02T08:20:00');
+    var m = customMoment.utc('2012-01-02T08:20:00');
     assert.equal(
-        moment.utc(m)._isUTC,
+        customMoment.utc(m)._isUTC,
         true,
         'the local offset should be converted to UTC'
     );
     assert.equal(
-        moment.utc(m.clone().utc())._isUTC,
+        customMoment.utc(m.clone().utc())._isUTC,
         true,
         'the local offset should stay in UTC'
     );
 
     m.utcOffset(120);
     assert.equal(
-        moment.utc(m)._isUTC,
+        customMoment.utc(m)._isUTC,
         true,
         'the explicit utc offset should stay in UTC'
     );
     assert.equal(
-        moment.utc(m).utcOffset(),
+        customMoment.utc(m).utcOffset(),
         0,
         'the explicit utc offset should have an offset of 0'
     );
@@ -131,8 +131,8 @@ test('cloning with utc offset', function (assert) {
 
 test('weekday with utc', function (assert) {
     assert.equal(
-        moment('2013-09-15T00:00:00Z').utc().weekday(), // first minute of the day
-        moment('2013-09-15T23:59:00Z').utc().weekday(), // last minute of the day
+        customMoment('2013-09-15T00:00:00Z').utc().weekday(), // first minute of the day
+        customMoment('2013-09-15T23:59:00Z').utc().weekday(), // last minute of the day
         "a UTC-moment's .weekday() should not be affected by the local timezone"
     );
 });

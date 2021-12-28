@@ -1,6 +1,6 @@
 /*global QUnit:false*/
 
-import moment from '../moment';
+import {customMoment} from '../custom_moment';
 import { defineCommonLocaleTests } from './helpers/common-locale';
 import {
     setupDeprecationHandler,
@@ -11,18 +11,18 @@ import { test } from './qunit';
 export function localeModule(name, lifecycle) {
     QUnit.module('locale:' + name, {
         beforeEach: function () {
-            moment.locale(name);
-            moment.createFromInputFallback = function (config) {
+            customMoment.locale(name);
+            customMoment.createFromInputFallback = function (config) {
                 throw new Error('input not handled by moment: ' + config._i);
             };
-            setupDeprecationHandler(test, moment, 'locale');
+            setupDeprecationHandler(test,customMoment, 'locale');
             if (lifecycle && lifecycle.setup) {
                 lifecycle.setup();
             }
         },
         afterEach: function () {
-            moment.locale('en');
-            teardownDeprecationHandler(test, moment, 'locale');
+            customMoment.locale('en');
+            teardownDeprecationHandler(test,customMoment, 'locale');
             if (lifecycle && lifecycle.teardown) {
                 lifecycle.teardown();
             }

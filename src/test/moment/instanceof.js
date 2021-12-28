@@ -1,4 +1,5 @@
 import { module, test } from '../qunit';
+import {customMoment} from '../../custom_moment';
 import moment from '../../moment';
 
 module('instanceof');
@@ -12,13 +13,13 @@ test('instanceof', function (assert) {
         return a;
     };
 
-    assert.equal(moment() instanceof moment, true, 'simple moment object');
+    assert.equal(customMoment() instanceof moment, true, 'simple moment object');
     assert.equal(
-        extend({}, moment()) instanceof moment,
+        extend({}, customMoment()) instanceof moment,
         false,
         'extended moment object'
     );
-    assert.equal(moment(null) instanceof moment, true, 'invalid moment object');
+    assert.equal(customMoment(null) instanceof moment, true, 'invalid moment object');
 
     assert.equal(
         new Date() instanceof moment,

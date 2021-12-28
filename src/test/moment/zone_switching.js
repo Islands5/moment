@@ -1,11 +1,11 @@
 import { module, test } from '../qunit';
-import moment from '../../moment';
+import {customMoment} from '../../custom_moment';
 import { isNearSpringDST } from '../helpers/dst';
 
 module('zone switching');
 
 test('local to utc, keepLocalTime = true', function (assert) {
-    var m = moment(),
+    var m = customMoment(),
         fmt = 'YYYY-DD-MM HH:mm:ss';
     assert.equal(
         m.clone().utc(true).format(fmt),
@@ -15,7 +15,7 @@ test('local to utc, keepLocalTime = true', function (assert) {
 });
 
 test('local to utc, keepLocalTime = false', function (assert) {
-    var m = moment();
+    var m = customMoment();
     assert.equal(
         m.clone().utc().valueOf(),
         m.valueOf(),
@@ -30,7 +30,7 @@ test('local to utc, keepLocalTime = false', function (assert) {
 
 test('local to zone, keepLocalTime = true', function (assert) {
     test.expectedDeprecations('moment().zone');
-    var m = moment(),
+    var m = customMoment(),
         fmt = 'YYYY-DD-MM HH:mm:ss',
         z;
 
@@ -51,7 +51,7 @@ test('local to zone, keepLocalTime = true', function (assert) {
 
 test('local to zone, keepLocalTime = false', function (assert) {
     test.expectedDeprecations('moment().zone');
-    var m = moment(),
+    var m = customMoment(),
         z;
 
     // Apparently there is -12:00 and +14:00
@@ -84,7 +84,7 @@ test('utc to local, keepLocalTime = true', function (assert) {
         return;
     }
 
-    var um = moment.utc(),
+    var um = customMoment.utc(),
         fmt = 'YYYY-DD-MM HH:mm:ss';
 
     assert.equal(
@@ -95,7 +95,7 @@ test('utc to local, keepLocalTime = true', function (assert) {
 });
 
 test('utc to local, keepLocalTime = false', function (assert) {
-    var um = moment.utc();
+    var um = customMoment.utc();
     assert.equal(
         um.clone().local().valueOf(),
         um.valueOf(),
@@ -117,7 +117,7 @@ test('zone to local, keepLocalTime = true', function (assert) {
 
     test.expectedDeprecations('moment().zone');
 
-    var m = moment(),
+    var m = customMoment(),
         fmt = 'YYYY-DD-MM HH:mm:ss',
         z;
 
@@ -137,7 +137,7 @@ test('zone to local, keepLocalTime = true', function (assert) {
 
 test('zone to local, keepLocalTime = false', function (assert) {
     test.expectedDeprecations('moment().zone');
-    var m = moment(),
+    var m = customMoment(),
         z;
 
     // Apparently there is -12:00 and +14:00

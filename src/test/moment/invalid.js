@@ -1,17 +1,17 @@
 import { module, test } from '../qunit';
-import moment from '../../moment';
+import {customMoment} from '../../custom_moment';
 
 module('invalid');
 
 test('invalid', function (assert) {
-    var m = moment.invalid();
+    var m = customMoment.invalid();
     assert.equal(m.isValid(), false);
     assert.equal(m.parsingFlags().userInvalidated, true);
     assert.ok(isNaN(m.valueOf()));
 });
 
 test('invalid with existing flag', function (assert) {
-    var m = moment.invalid({ invalidMonth: 'whatchamacallit' });
+    var m = customMoment.invalid({ invalidMonth: 'whatchamacallit' });
     assert.equal(m.isValid(), false);
     assert.equal(m.parsingFlags().userInvalidated, false);
     assert.equal(m.parsingFlags().invalidMonth, 'whatchamacallit');
@@ -19,7 +19,7 @@ test('invalid with existing flag', function (assert) {
 });
 
 test('invalid with custom flag', function (assert) {
-    var m = moment.invalid({ tooBusyWith: 'reiculating splines' });
+    var m = customMoment.invalid({ tooBusyWith: 'reiculating splines' });
     assert.equal(m.isValid(), false);
     assert.equal(m.parsingFlags().userInvalidated, false);
     assert.equal(m.parsingFlags().tooBusyWith, 'reiculating splines');
@@ -28,14 +28,14 @@ test('invalid with custom flag', function (assert) {
 
 test('invalid operations', function (assert) {
     var invalids = [
-            moment.invalid(),
-            moment('xyz', 'l'),
-            moment('2015-01-35', 'YYYY-MM-DD'),
-            moment('2015-01-25 a', 'YYYY-MM-DD', true),
+            customMoment.invalid(),
+            customMoment('xyz', 'l'),
+            customMoment('2015-01-35', 'YYYY-MM-DD'),
+            customMoment('2015-01-25 a', 'YYYY-MM-DD', true),
         ],
         i,
         invalid,
-        valid = moment();
+        valid = customMoment();
 
     test.expectedDeprecations('moment().min', 'moment().max', 'isDSTShifted');
 
@@ -95,10 +95,10 @@ test('invalid operations', function (assert) {
         assert.ok(!invalid.clone().min(valid).isValid());
         assert.ok(!valid.clone().min(invalid).isValid());
         assert.ok(!invalid.clone().min(invalid).isValid());
-        assert.ok(!moment.min(invalid, valid).isValid());
-        assert.ok(!moment.min(valid, invalid).isValid());
-        assert.ok(!moment.max(invalid, valid).isValid());
-        assert.ok(!moment.max(valid, invalid).isValid());
+        assert.ok(!customMoment.min(invalid, valid).isValid());
+        assert.ok(!customMoment.min(valid, invalid).isValid());
+        assert.ok(!customMoment.max(invalid, valid).isValid());
+        assert.ok(!customMoment.max(valid, invalid).isValid());
         assert.ok(!invalid.clone().set('year', 2005).isValid());
         assert.ok(!invalid.clone().startOf('month').isValid());
 
@@ -121,7 +121,7 @@ test('invalid operations', function (assert) {
             seconds: NaN,
             milliseconds: NaN,
         });
-        assert.ok(moment.isDate(invalid.toDate()));
+        assert.ok(customMoment.isDate(invalid.toDate()));
         assert.ok(isNaN(invalid.toDate().valueOf()));
         assert.equal(invalid.toJSON(), null);
         assert.equal(invalid.toString(), 'Invalid date');
@@ -197,15 +197,15 @@ test('invalid operations', function (assert) {
         assert.ok(!invalid.isLeapYear());
 
         assert.equal(
-            moment.duration({ from: invalid, to: valid }).asMilliseconds(),
+            customMoment.duration({ from: invalid, to: valid }).asMilliseconds(),
             0
         );
         assert.equal(
-            moment.duration({ from: valid, to: invalid }).asMilliseconds(),
+            customMoment.duration({ from: valid, to: invalid }).asMilliseconds(),
             0
         );
         assert.equal(
-            moment.duration({ from: invalid, to: invalid }).asMilliseconds(),
+            customMoment.duration({ from: invalid, to: invalid }).asMilliseconds(),
             0
         );
     }

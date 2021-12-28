@@ -1,6 +1,6 @@
 import { test } from '../qunit';
 import { localeModule } from '../qunit-locale';
-import moment from '../../moment';
+import {customMoment} from '../../custom_moment';
 localeModule('ja');
 
 test('parse', function (assert) {
@@ -10,14 +10,14 @@ test('parse', function (assert) {
         i;
     function equalTest(input, mmm, i) {
         assert.equal(
-            moment(input, mmm).month(),
+            customMoment(input, mmm).month(),
             i,
             input + ' should be month ' + (i + 1)
         );
     }
     function equalTestStrict(input, mmm, monthIndex) {
         assert.equal(
-            moment(input, mmm, true).month(),
+            customMoment(input, mmm, true).month(),
             monthIndex,
             input + ' ' + mmm + ' should be strict month ' + (monthIndex + 1)
         );
@@ -72,7 +72,7 @@ test('format', function (assert) {
             ['lll', '2010年2月14日 15:25'],
             ['llll', '2010年2月14日(日) 15:25'],
         ],
-        b = moment(new Date(2010, 1, 14, 15, 25, 50, 125)),
+        b = customMoment(new Date(2010, 1, 14, 15, 25, 50, 125)),
         i;
     for (i = 0; i < a.length; i++) {
         assert.equal(b.format(a[i][0]), a[i][1], a[i][0] + ' ---> ' + a[i][1]);
@@ -81,40 +81,40 @@ test('format', function (assert) {
 
 test('parse era', function (assert) {
     // strict
-    assert.equal(moment('令和2年', 'NNNNy年', true).isValid(), true, '令和2年');
-    assert.equal(moment('令和2年', 'NNNNy年', true).year(), 2020, '令和2年');
-    assert.equal(moment('令和2年', 'NNNNyo', true).isValid(), true, '令和2年');
-    assert.equal(moment('令和2年', 'NNNNyo', true).year(), 2020, '令和2年');
+    assert.equal(customMoment('令和2年', 'NNNNy年', true).isValid(), true, '令和2年');
+    assert.equal(customMoment('令和2年', 'NNNNy年', true).year(), 2020, '令和2年');
+    assert.equal(customMoment('令和2年', 'NNNNyo', true).isValid(), true, '令和2年');
+    assert.equal(customMoment('令和2年', 'NNNNyo', true).year(), 2020, '令和2年');
 
-    assert.equal(moment('令和2年', 'Ny年', true).isValid(), false, '令和2年');
-    assert.equal(moment('令和2年', 'Ny年', false).isValid(), true, '令和2年');
-    assert.equal(moment('㋿2年', 'Ny年', true).isValid(), false, '㋿2年');
-    assert.equal(moment('㋿2年', 'Ny年', false).isValid(), true, '㋿2年');
-    assert.equal(moment('R2', 'Ny', false).isValid(), true, 'R2');
+    assert.equal(customMoment('令和2年', 'Ny年', true).isValid(), false, '令和2年');
+    assert.equal(customMoment('令和2年', 'Ny年', false).isValid(), true, '令和2年');
+    assert.equal(customMoment('㋿2年', 'Ny年', true).isValid(), false, '㋿2年');
+    assert.equal(customMoment('㋿2年', 'Ny年', false).isValid(), true, '㋿2年');
+    assert.equal(customMoment('R2', 'Ny', false).isValid(), true, 'R2');
 
     // abbrv
-    assert.equal(moment('R2', 'Ny', true).isValid(), true, 'R2');
-    assert.equal(moment('R2', 'Ny', true).year(), 2020, 'R2');
-    assert.equal(moment('R2', 'NNNNy', true).isValid(), false, 'R2');
-    assert.equal(moment('R2', 'NNNNNy', true).isValid(), false, 'R2');
+    assert.equal(customMoment('R2', 'Ny', true).isValid(), true, 'R2');
+    assert.equal(customMoment('R2', 'Ny', true).year(), 2020, 'R2');
+    assert.equal(customMoment('R2', 'NNNNy', true).isValid(), false, 'R2');
+    assert.equal(customMoment('R2', 'NNNNNy', true).isValid(), false, 'R2');
 
     // narrow
-    assert.equal(moment('㋿2年', 'Ny年', true).isValid(), false, '㋿2年');
-    assert.equal(moment('㋿2年', 'NNNNy年', true).isValid(), false, '㋿2年');
-    assert.equal(moment('㋿2年', 'NNNNNy年', true).isValid(), true, '㋿2年');
-    assert.equal(moment('㋿2年', 'NNNNNy年', true).year(), 2020, '㋿2年');
+    assert.equal(customMoment('㋿2年', 'Ny年', true).isValid(), false, '㋿2年');
+    assert.equal(customMoment('㋿2年', 'NNNNy年', true).isValid(), false, '㋿2年');
+    assert.equal(customMoment('㋿2年', 'NNNNNy年', true).isValid(), true, '㋿2年');
+    assert.equal(customMoment('㋿2年', 'NNNNNy年', true).year(), 2020, '㋿2年');
 
     // ordinal year
-    assert.equal(moment('令和2年', 'NNNNyo', true).year(), 2020, '平成30年');
-    assert.equal(moment('令和元年', 'NNNNyo', true).year(), 2019, '平成元年');
+    assert.equal(customMoment('令和2年', 'NNNNyo', true).year(), 2020, '平成30年');
+    assert.equal(customMoment('令和元年', 'NNNNyo', true).year(), 2019, '平成元年');
 
     // old eras
-    assert.equal(moment('平成30年', 'NNNNyo', true).year(), 2018, '平成30年');
-    assert.equal(moment('平成元年', 'NNNNyo', true).year(), 1989, '平成元年');
-    assert.equal(moment('昭和64年', 'NNNNyo', true).year(), 1989, '昭和64年');
-    assert.equal(moment('昭和元年', 'NNNNyo', true).year(), 1926, '昭和元年');
-    assert.equal(moment('大正元年', 'NNNNyo', true).year(), 1912, '大正元年');
-    assert.equal(moment('明治6年', 'NNNNyo', true).year(), 1873, '明治6年');
+    assert.equal(customMoment('平成30年', 'NNNNyo', true).year(), 2018, '平成30年');
+    assert.equal(customMoment('平成元年', 'NNNNyo', true).year(), 1989, '平成元年');
+    assert.equal(customMoment('昭和64年', 'NNNNyo', true).year(), 1989, '昭和64年');
+    assert.equal(customMoment('昭和元年', 'NNNNyo', true).year(), 1926, '昭和元年');
+    assert.equal(customMoment('大正元年', 'NNNNyo', true).year(), 1912, '大正元年');
+    assert.equal(customMoment('明治6年', 'NNNNyo', true).year(), 1873, '明治6年');
 });
 
 test('format era', function (assert) {
@@ -209,7 +209,7 @@ test('format era', function (assert) {
 
     for (i = 0, l = a.length; i < l; ++i) {
         assert.equal(
-            moment(a[i][0]).format(a[i][1]),
+            customMoment(a[i][0]).format(a[i][1]),
             a[i][2],
             a[i][0] + '; ' + a[i][1] + ' ---> ' + a[i][2]
         );
@@ -223,7 +223,7 @@ test('format month', function (assert) {
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(
-            moment([2011, i, 1]).format('MMMM MMM'),
+            customMoment([2011, i, 1]).format('MMMM MMM'),
             expected[i],
             expected[i]
         );
@@ -237,7 +237,7 @@ test('format week', function (assert) {
         i;
     for (i = 0; i < expected.length; i++) {
         assert.equal(
-            moment([2011, 0, 2 + i]).format('dddd ddd dd'),
+            customMoment([2011, 0, 2 + i]).format('dddd ddd dd'),
             expected[i],
             expected[i]
         );
@@ -245,157 +245,157 @@ test('format week', function (assert) {
 });
 
 test('from', function (assert) {
-    var start = moment([2007, 1, 28]);
+    var start = customMoment([2007, 1, 28]);
     assert.equal(
-        start.from(moment([2007, 1, 28]).add({ s: 44 }), true),
+        start.from(customMoment([2007, 1, 28]).add({ s: 44 }), true),
         '数秒',
         '44 seconds = a few seconds'
     );
     assert.equal(
-        start.from(moment([2007, 1, 28]).add({ s: 45 }), true),
+        start.from(customMoment([2007, 1, 28]).add({ s: 45 }), true),
         '1分',
         '45 seconds = a minute'
     );
     assert.equal(
-        start.from(moment([2007, 1, 28]).add({ s: 89 }), true),
+        start.from(customMoment([2007, 1, 28]).add({ s: 89 }), true),
         '1分',
         '89 seconds = a minute'
     );
     assert.equal(
-        start.from(moment([2007, 1, 28]).add({ s: 90 }), true),
+        start.from(customMoment([2007, 1, 28]).add({ s: 90 }), true),
         '2分',
         '90 seconds = 2 minutes'
     );
     assert.equal(
-        start.from(moment([2007, 1, 28]).add({ m: 44 }), true),
+        start.from(customMoment([2007, 1, 28]).add({ m: 44 }), true),
         '44分',
         '44 minutes = 44 minutes'
     );
     assert.equal(
-        start.from(moment([2007, 1, 28]).add({ m: 45 }), true),
+        start.from(customMoment([2007, 1, 28]).add({ m: 45 }), true),
         '1時間',
         '45 minutes = an hour'
     );
     assert.equal(
-        start.from(moment([2007, 1, 28]).add({ m: 89 }), true),
+        start.from(customMoment([2007, 1, 28]).add({ m: 89 }), true),
         '1時間',
         '89 minutes = an hour'
     );
     assert.equal(
-        start.from(moment([2007, 1, 28]).add({ m: 90 }), true),
+        start.from(customMoment([2007, 1, 28]).add({ m: 90 }), true),
         '2時間',
         '90 minutes = 2 hours'
     );
     assert.equal(
-        start.from(moment([2007, 1, 28]).add({ h: 5 }), true),
+        start.from(customMoment([2007, 1, 28]).add({ h: 5 }), true),
         '5時間',
         '5 hours = 5 hours'
     );
     assert.equal(
-        start.from(moment([2007, 1, 28]).add({ h: 21 }), true),
+        start.from(customMoment([2007, 1, 28]).add({ h: 21 }), true),
         '21時間',
         '21 hours = 21 hours'
     );
     assert.equal(
-        start.from(moment([2007, 1, 28]).add({ h: 22 }), true),
+        start.from(customMoment([2007, 1, 28]).add({ h: 22 }), true),
         '1日',
         '22 hours = a day'
     );
     assert.equal(
-        start.from(moment([2007, 1, 28]).add({ h: 35 }), true),
+        start.from(customMoment([2007, 1, 28]).add({ h: 35 }), true),
         '1日',
         '35 hours = a day'
     );
     assert.equal(
-        start.from(moment([2007, 1, 28]).add({ h: 36 }), true),
+        start.from(customMoment([2007, 1, 28]).add({ h: 36 }), true),
         '2日',
         '36 hours = 2 days'
     );
     assert.equal(
-        start.from(moment([2007, 1, 28]).add({ d: 1 }), true),
+        start.from(customMoment([2007, 1, 28]).add({ d: 1 }), true),
         '1日',
         '1 day = a day'
     );
     assert.equal(
-        start.from(moment([2007, 1, 28]).add({ d: 5 }), true),
+        start.from(customMoment([2007, 1, 28]).add({ d: 5 }), true),
         '5日',
         '5 days = 5 days'
     );
     assert.equal(
-        start.from(moment([2007, 1, 28]).add({ d: 25 }), true),
+        start.from(customMoment([2007, 1, 28]).add({ d: 25 }), true),
         '25日',
         '25 days = 25 days'
     );
     assert.equal(
-        start.from(moment([2007, 1, 28]).add({ d: 26 }), true),
+        start.from(customMoment([2007, 1, 28]).add({ d: 26 }), true),
         '1ヶ月',
         '26 days = a month'
     );
     assert.equal(
-        start.from(moment([2007, 1, 28]).add({ d: 30 }), true),
+        start.from(customMoment([2007, 1, 28]).add({ d: 30 }), true),
         '1ヶ月',
         '30 days = a month'
     );
     assert.equal(
-        start.from(moment([2007, 1, 28]).add({ d: 43 }), true),
+        start.from(customMoment([2007, 1, 28]).add({ d: 43 }), true),
         '1ヶ月',
         '43 days = a month'
     );
     assert.equal(
-        start.from(moment([2007, 1, 28]).add({ d: 46 }), true),
+        start.from(customMoment([2007, 1, 28]).add({ d: 46 }), true),
         '2ヶ月',
         '46 days = 2 months'
     );
     assert.equal(
-        start.from(moment([2007, 1, 28]).add({ d: 74 }), true),
+        start.from(customMoment([2007, 1, 28]).add({ d: 74 }), true),
         '2ヶ月',
         '75 days = 2 months'
     );
     assert.equal(
-        start.from(moment([2007, 1, 28]).add({ d: 76 }), true),
+        start.from(customMoment([2007, 1, 28]).add({ d: 76 }), true),
         '3ヶ月',
         '76 days = 3 months'
     );
     assert.equal(
-        start.from(moment([2007, 1, 28]).add({ M: 1 }), true),
+        start.from(customMoment([2007, 1, 28]).add({ M: 1 }), true),
         '1ヶ月',
         '1 month = a month'
     );
     assert.equal(
-        start.from(moment([2007, 1, 28]).add({ M: 5 }), true),
+        start.from(customMoment([2007, 1, 28]).add({ M: 5 }), true),
         '5ヶ月',
         '5 months = 5 months'
     );
     assert.equal(
-        start.from(moment([2007, 1, 28]).add({ d: 345 }), true),
+        start.from(customMoment([2007, 1, 28]).add({ d: 345 }), true),
         '1年',
         '345 days = a year'
     );
     assert.equal(
-        start.from(moment([2007, 1, 28]).add({ d: 548 }), true),
+        start.from(customMoment([2007, 1, 28]).add({ d: 548 }), true),
         '2年',
         '548 days = 2 years'
     );
     assert.equal(
-        start.from(moment([2007, 1, 28]).add({ y: 1 }), true),
+        start.from(customMoment([2007, 1, 28]).add({ y: 1 }), true),
         '1年',
         '1 year = a year'
     );
     assert.equal(
-        start.from(moment([2007, 1, 28]).add({ y: 5 }), true),
+        start.from(customMoment([2007, 1, 28]).add({ y: 5 }), true),
         '5年',
         '5 years = 5 years'
     );
 });
 
 test('suffix', function (assert) {
-    assert.equal(moment(30000).from(0), '数秒後', 'prefix');
-    assert.equal(moment(0).from(30000), '数秒前', 'suffix');
+    assert.equal(customMoment(30000).from(0), '数秒後', 'prefix');
+    assert.equal(customMoment(0).from(30000), '数秒前', 'suffix');
 });
 
 test('now from now', function (assert) {
     assert.equal(
-        moment().fromNow(),
+        customMoment().fromNow(),
         '数秒前',
         'now from now should display as in the past'
     );
@@ -403,39 +403,39 @@ test('now from now', function (assert) {
 
 test('fromNow', function (assert) {
     assert.equal(
-        moment().add({ s: 30 }).fromNow(),
+        customMoment().add({ s: 30 }).fromNow(),
         '数秒後',
         'in a few seconds'
     );
-    assert.equal(moment().add({ d: 5 }).fromNow(), '5日後', 'in 5 days');
+    assert.equal(customMoment().add({ d: 5 }).fromNow(), '5日後', 'in 5 days');
 });
 
 test('calendar day', function (assert) {
-    var a = moment().hours(12).minutes(0).seconds(0);
+    var a = customMoment().hours(12).minutes(0).seconds(0);
 
-    assert.equal(moment(a).calendar(), '今日 12:00', 'today at the same time');
+    assert.equal(customMoment(a).calendar(), '今日 12:00', 'today at the same time');
     assert.equal(
-        moment(a).add({ m: 25 }).calendar(),
+        customMoment(a).add({ m: 25 }).calendar(),
         '今日 12:25',
         'Now plus 25 min'
     );
     assert.equal(
-        moment(a).add({ h: 1 }).calendar(),
+        customMoment(a).add({ h: 1 }).calendar(),
         '今日 13:00',
         'Now plus 1 hour'
     );
     assert.equal(
-        moment(a).add({ d: 1 }).calendar(),
+        customMoment(a).add({ d: 1 }).calendar(),
         '明日 12:00',
         'tomorrow at the same time'
     );
     assert.equal(
-        moment(a).subtract({ h: 1 }).calendar(),
+        customMoment(a).subtract({ h: 1 }).calendar(),
         '今日 11:00',
         'Now minus 1 hour'
     );
     assert.equal(
-        moment(a).subtract({ d: 1 }).calendar(),
+        customMoment(a).subtract({ d: 1 }).calendar(),
         '昨日 12:00',
         'yesterday at the same time'
     );
@@ -444,9 +444,9 @@ test('calendar day', function (assert) {
 test('calendar next week', function (assert) {
     var i,
         m,
-        dow = moment().day();
+        dow = customMoment().day();
     for (i = 2; i < 7; i++) {
-        m = moment().add({ d: i });
+        m = customMoment().add({ d: i });
         if (dow + i < 7) {
             assert.equal(
                 m.calendar(),
@@ -490,9 +490,9 @@ test('calendar next week', function (assert) {
 test('calendar last week', function (assert) {
     var i,
         m,
-        dow = moment().day();
+        dow = customMoment().day();
     for (i = 2; i < 7; i++) {
-        m = moment().subtract({ d: i });
+        m = customMoment().subtract({ d: i });
         if (dow < i) {
             assert.equal(
                 m.calendar(),
@@ -534,8 +534,8 @@ test('calendar last week', function (assert) {
 });
 
 test('calendar all else', function (assert) {
-    var weeksAgo = moment().subtract({ w: 1 }),
-        weeksFromNow = moment().add({ w: 1 });
+    var weeksAgo = customMoment().subtract({ w: 1 }),
+        weeksFromNow = customMoment().add({ w: 1 });
 
     assert.equal(weeksAgo.calendar(), weeksAgo.format('L'), '1 week ago');
     assert.equal(
@@ -544,8 +544,8 @@ test('calendar all else', function (assert) {
         'in 1 week'
     );
 
-    weeksAgo = moment().subtract({ w: 2 });
-    weeksFromNow = moment().add({ w: 2 });
+    weeksAgo = customMoment().subtract({ w: 2 });
+    weeksFromNow = customMoment().add({ w: 2 });
 
     assert.equal(weeksAgo.calendar(), weeksAgo.format('L'), '2 weeks ago');
     assert.equal(
@@ -557,27 +557,27 @@ test('calendar all else', function (assert) {
 
 test('weeks year starting sunday format', function (assert) {
     assert.equal(
-        moment([2012, 0, 1]).format('w ww wo'),
+        customMoment([2012, 0, 1]).format('w ww wo'),
         '1 01 1',
         'Jan  1 2012 should be week 1'
     );
     assert.equal(
-        moment([2012, 0, 7]).format('w ww wo'),
+        customMoment([2012, 0, 7]).format('w ww wo'),
         '1 01 1',
         'Jan  7 2012 should be week 1'
     );
     assert.equal(
-        moment([2012, 0, 8]).format('w ww wo'),
+        customMoment([2012, 0, 8]).format('w ww wo'),
         '2 02 2',
         'Jan  8 2012 should be week 2'
     );
     assert.equal(
-        moment([2012, 0, 14]).format('w ww wo'),
+        customMoment([2012, 0, 14]).format('w ww wo'),
         '2 02 2',
         'Jan 14 2012 should be week 2'
     );
     assert.equal(
-        moment([2012, 0, 15]).format('w ww wo'),
+        customMoment([2012, 0, 15]).format('w ww wo'),
         '3 03 3',
         'Jan 15 2012 should be week 3'
     );
@@ -585,7 +585,7 @@ test('weeks year starting sunday format', function (assert) {
 
 test('parse with japanese parentheses', function (assert) {
     assert.ok(
-        moment('2016年5月18日（水）', 'YYYY年M月D日（dd）', true).isValid(),
+        customMoment('2016年5月18日（水）', 'YYYY年M月D日（dd）', true).isValid(),
         'parse with japanese parentheses'
     );
 });

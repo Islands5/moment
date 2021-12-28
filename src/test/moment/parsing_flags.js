@@ -1,10 +1,10 @@
 import { module, test } from '../qunit';
-import moment from '../../moment';
+import {customMoment} from '../../custom_moment';
 
 module('parsing flags');
 
 function flags() {
-    return moment.apply(null, arguments).parsingFlags();
+    return customMoment.apply(null, arguments).parsingFlags();
 }
 
 test('overflow with array', function (assert) {

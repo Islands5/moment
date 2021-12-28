@@ -1,10 +1,10 @@
 import { module, test } from '../qunit';
-import moment from '../../moment';
+import {customMoment} from '../../custom_moment';
 
 module('mutable');
 
 test('manipulation methods', function (assert) {
-    var m = moment();
+    var m = customMoment();
 
     assert.equal(m, m.year(2011), 'year() should be mutable');
     assert.equal(m, m.month(1), 'month() should be mutable');
@@ -21,6 +21,6 @@ test('manipulation methods', function (assert) {
 });
 
 test('non mutable methods', function (assert) {
-    var m = moment();
+    var m = customMoment();
     assert.notEqual(m, m.clone(), 'clone() should not be mutable');
 });

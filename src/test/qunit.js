@@ -16,13 +16,13 @@ export function module(name, lifecycle) {
             moment.createFromInputFallback = function (config) {
                 throw new Error('input not handled by moment: ' + config._i);
             };
-            setupDeprecationHandler(test, moment, 'core');
+            setupDeprecationHandler(test,moment, 'core');
             if (lifecycle && lifecycle.setup) {
                 lifecycle.setup();
             }
         },
         afterEach: function () {
-            teardownDeprecationHandler(test, moment, 'core');
+            teardownDeprecationHandler(test,moment, 'core');
             if (lifecycle && lifecycle.teardown) {
                 lifecycle.teardown();
             }

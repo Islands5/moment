@@ -1,10 +1,10 @@
 import { module, test } from '../qunit';
-import moment from '../../moment';
+import {customMoment} from '../../custom_moment';
 
 module('creation data');
 
 test('valid date', function (assert) {
-    var dat = moment('1992-10-22'),
+    var dat = customMoment('1992-10-22'),
         orig = dat.creationData();
 
     assert.equal(dat.isValid(), true, '1992-10-22 is valid');
@@ -15,14 +15,14 @@ test('valid date', function (assert) {
 });
 
 test('valid date at fr locale', function (assert) {
-    var dat = moment('1992-10-22', 'YYYY-MM-DD', 'fr'),
+    var dat = customMoment('1992-10-22', 'YYYY-MM-DD', 'fr'),
         orig = dat.creationData();
 
     assert.equal(orig.locale._abbr, 'fr', 'locale is fr');
 });
 
 test('valid date with formats', function (assert) {
-    var dat = moment('29-06-1995', ['MM-DD-YYYY', 'DD-MM', 'DD-MM-YYYY']),
+    var dat = customMoment('29-06-1995', ['MM-DD-YYYY', 'DD-MM', 'DD-MM-YYYY']),
         orig = dat.creationData();
 
     assert.equal(orig.format, 'DD-MM-YYYY', 'DD-MM-YYYY format is defined.');
@@ -30,11 +30,11 @@ test('valid date with formats', function (assert) {
 
 test('strict', function (assert) {
     assert.ok(
-        moment('2015-01-02', 'YYYY-MM-DD', true).creationData().strict,
+        customMoment('2015-01-02', 'YYYY-MM-DD', true).creationData().strict,
         'strict is true'
     );
     assert.ok(
-        !moment('2015-01-02', 'YYYY-MM-DD').creationData().strict,
+        !customMoment('2015-01-02', 'YYYY-MM-DD').creationData().strict,
         'strict is true'
     );
 });

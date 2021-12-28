@@ -1,67 +1,67 @@
 import { module, test } from '../qunit';
-import moment from '../../moment';
+import {customMoment} from '../../custom_moment';
 
 module('invalid');
 
 test('invalid duration', function (assert) {
-    var m = moment.duration.invalid(); // should be invalid
+    var m = customMoment.duration.invalid(); // should be invalid
     assert.equal(m.isValid(), false);
     assert.ok(isNaN(m.valueOf()));
 });
 
 test('valid duration', function (assert) {
-    var m = moment.duration({ d: null }); // should be valid, for now
+    var m = customMoment.duration({ d: null }); // should be valid, for now
     assert.equal(m.isValid(), true);
     assert.equal(m.valueOf(), 0);
 });
 
 test('invalid duration - clone of invalid duration', function (assert) {
-    var m = moment.duration.invalid().clone(); // should be invalid
+    var m = customMoment.duration.invalid().clone(); // should be invalid
     assert.equal(m.isValid(), false);
     assert.ok(isNaN(m.valueOf()));
 });
 
 test('valid duration - clone of valid duration', function (assert) {
-    var m = moment.duration({ d: null }).clone(); // should be valid, for now
+    var m = customMoment.duration({ d: null }).clone(); // should be valid, for now
     assert.equal(m.isValid(), true);
     assert.equal(m.valueOf(), 0);
 });
 
 test('invalid duration - wrapper of invalid duration', function (assert) {
-    var m = moment.duration(moment.duration.invalid()); // should be invalid
+    var m = customMoment.duration(customMoment.duration.invalid()); // should be invalid
     assert.equal(m.isValid(), false);
     assert.ok(isNaN(m.valueOf()));
 });
 
 test('valid duration - wrapper of valid duration', function (assert) {
-    var m = moment.duration(moment.duration({ d: null })); // should be valid, for now
+    var m = customMoment.duration(customMoment.duration({ d: null })); // should be valid, for now
     assert.equal(m.isValid(), true);
     assert.equal(m.valueOf(), 0);
 });
 
 test('invalid duration - only smallest unit can have decimal', function (assert) {
-    var m = moment.duration({ days: 3.5, hours: 1.1 }); // should be invalid
+    var m = customMoment.duration({ days: 3.5, hours: 1.1 }); // should be invalid
     assert.equal(m.isValid(), false);
     assert.ok(isNaN(m.valueOf())); // .valueOf() returns NaN for invalid durations
 });
 
 test('valid duration - smallest unit can have decimal', function (assert) {
-    var m = moment.duration({ days: 3, hours: 1.1 }); // should be valid
+    var m = customMoment.duration({ days: 3, hours: 1.1 }); // should be valid
     assert.equal(m.isValid(), true);
     assert.equal(m.asHours(), 73.1);
 });
 
 test('invalid duration with two arguments', function (assert) {
-    var m = moment.duration(NaN, 'days');
+    var m = customMoment.duration(NaN, 'days');
     assert.equal(m.isValid(), false);
     assert.ok(isNaN(m.valueOf()));
 });
 
 test('invalid duration operations', function (assert) {
     var invalids = [
-            moment.duration(NaN),
-            moment.duration(NaN, 'days'),
-            moment.duration.invalid(),
+            customMoment.duration(NaN),
+            customMoment.duration(NaN, 'days'),
+            customMoment.duration.invalid(),
         ],
         i,
         invalid;
